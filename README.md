@@ -1,59 +1,191 @@
-# BeyondBorderFrontend
+# Beyond Border Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.1.
+A modern Angular application built with the latest Angular features and best practices for performance, memory leak prevention, and maintainable code.
 
-## Development server
+## Features
 
-To start a local development server, run:
+### 🚀 Performance Optimizations
+- **Lazy Loading**: All routes and components are lazy-loaded for optimal bundle splitting
+- **Virtual Scrolling**: Built-in virtual scrolling service for large lists
+- **Image Lazy Loading**: Automatic image lazy loading with intersection observer
+- **API Caching**: Intelligent caching system for API responses
+- **Memory Leak Prevention**: Base component class with automatic subscription cleanup
 
-```bash
-ng serve
+### 🔐 Authentication & Security
+- **JWT Token Management**: Automatic token refresh and storage
+- **Route Guards**: Admin and guest route protection
+- **HTTP Interceptors**: Automatic token injection and error handling
+- **Role-based Access**: Admin-only routes and components
+
+### 🎨 Modern UI/UX
+- **Responsive Design**: Mobile-first approach with modern CSS Grid and Flexbox
+- **Component Architecture**: Standalone components with proper separation of concerns
+- **Reactive Forms**: Form validation and error handling
+- **Loading States**: Comprehensive loading and error state management
+
+### 📱 Pages & Components
+
+#### Public Pages
+- **Home**: Hero section, featured services, latest blog posts
+- **About**: Company information and mission
+- **Services**: Comprehensive service listings with detailed pages
+- **Blog**: Latest insights and industry news
+- **Team**: Team member profiles and information
+- **Contact**: Contact form and information
+- **Find Consultant**: Consultant search and profiles
+- **Join Community**: Community registration
+
+#### Service Pages
+- Microcredit & Financial Inclusion
+- NGO Technical Service Provider
+- Recruitment Support
+- Health Systems Strengthening
+- Banking & Finance Advisory
+- Administrative & Regulatory Due Diligence
+- Infrastructure & Civil Engineering
+- Legal & Compliance Services
+- Agricultural Innovation
+- Technology & Digital Transformation
+- Green Design and Development
+- HR Services
+
+#### Admin Dashboard
+- **Dashboard**: Statistics and quick actions
+- **Blog Management**: Create, edit, and manage blog posts
+- **Team Management**: Manage team members
+- **About Management**: Edit company information
+
+## Technology Stack
+
+- **Angular 20+**: Latest Angular with standalone components
+- **TypeScript**: Type-safe development
+- **RxJS**: Reactive programming with observables
+- **SCSS**: Modern CSS with variables and mixins
+- **Angular Signals**: Reactive state management
+- **Angular Router**: Lazy-loaded routing
+- **Angular Forms**: Reactive forms with validation
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── admin/                 # Admin components
+│   ├── auth/                  # Authentication components
+│   ├── pages/                 # Public page components
+│   ├── shared/                # Shared components and services
+│   ├── core/                  # Core services and utilities
+│   ├── app.config.ts          # Application configuration
+│   ├── app.routes.ts          # Routing configuration
+│   └── app.component.ts       # Root component
+├── core/                      # Core services
+│   ├── auth.service.ts        # Authentication service
+│   ├── auth.guard.ts          # Route guards
+│   ├── auth.interceptor.ts    # HTTP interceptors
+│   ├── api.ts                 # API service
+│   ├── cache.service.ts       # Caching service
+│   ├── performance.service.ts # Performance utilities
+│   ├── lazy-loading.service.ts # Lazy loading utilities
+│   └── virtual-scroll.service.ts # Virtual scrolling
+└── environments/              # Environment configurations
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Installation
 
-```bash
-ng generate component component-name
-```
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-```bash
-ng generate --help
-```
+4. Open your browser and navigate to `http://localhost:4200`
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+### Build for Production
 
 ```bash
-ng test
+npm run build
 ```
 
-## Running end-to-end tests
+## API Integration
 
-For end-to-end (e2e) testing, run:
+The application is configured to work with the Beyond Border backend API. Update the environment files with your API endpoints:
 
-```bash
-ng e2e
+```typescript
+// src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000'
+};
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Authentication
 
-## Additional Resources
+The application uses JWT-based authentication. Admin users can access the admin dashboard at `/admin/dashboard` after logging in.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Login Credentials
+Use the API endpoint `/auth/login` with the following format:
+```json
+{
+  "email": "admin@example.com",
+  "password": "password"
+}
+```
+
+## Performance Features
+
+### Memory Leak Prevention
+- All components extend `BaseComponent` for automatic cleanup
+- Subscriptions are automatically unsubscribed using `takeUntilDestroy()`
+- Performance monitoring and memory usage tracking
+
+### Caching Strategy
+- API responses are cached with configurable TTL
+- Automatic cache invalidation
+- Background refresh for frequently accessed data
+
+### Lazy Loading
+- Route-based code splitting
+- Image lazy loading with intersection observer
+- Component lazy loading for better performance
+
+## Development Guidelines
+
+### Code Style
+- Use Angular Signals for reactive state management
+- Implement proper error handling and loading states
+- Follow Angular style guide and best practices
+- Use TypeScript strict mode
+
+### Performance
+- Always use `OnDestroy` for cleanup
+- Implement proper loading states
+- Use virtual scrolling for large lists
+- Optimize images and assets
+
+### Security
+- Validate all user inputs
+- Use route guards for protected routes
+- Implement proper error handling
+- Sanitize user-generated content
+
+## Contributing
+
+1. Follow the established code style
+2. Write meaningful commit messages
+3. Test your changes thoroughly
+4. Update documentation as needed
+
+## License
+
+This project is licensed under the MIT License.

@@ -1,0 +1,91 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p>Welcome back, {{ user()?.fullName }}!</p>
+  </div>
+
+  <div class="dashboard-stats">
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="icon-blog"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ stats().totalBlogPosts }}</h3>
+        <p>Blog Posts</p>
+      </div>
+      <a routerLink="/admin/blog" class="stat-link">Manage</a>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="icon-team"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ stats().totalTeamMembers }}</h3>
+        <p>Team Members</p>
+      </div>
+      <a routerLink="/admin/team" class="stat-link">Manage</a>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="icon-services"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ stats().totalServices }}</h3>
+        <p>Services</p>
+      </div>
+      <a routerLink="/services" class="stat-link">View</a>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">
+        <i class="icon-consultants"></i>
+      </div>
+      <div class="stat-content">
+        <h3>{{ stats().totalConsultants }}</h3>
+        <p>Consultants</p>
+      </div>
+      <a routerLink="/find-consultant" class="stat-link">View</a>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <div class="action-card">
+      <h3>Quick Actions</h3>
+      <div class="action-buttons">
+        <a routerLink="/admin/blog" class="btn btn-primary">Manage Blog</a>
+        <a routerLink="/admin/team" class="btn btn-secondary">Manage Team</a>
+        <a routerLink="/admin/about" class="btn btn-secondary">Edit About</a>
+        <a routerLink="/contact" class="btn btn-outline">View Contact</a>
+      </div>
+    </div>
+
+    <div class="action-card">
+      <h3>Recent Activity</h3>
+      <div class="activity-list">
+        <div class="activity-item">
+          <span class="activity-icon">📝</span>
+          <div class="activity-content">
+            <p>New blog post published</p>
+            <small>2 hours ago</small>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span class="activity-icon">👥</span>
+          <div class="activity-content">
+            <p>Team member added</p>
+            <small>1 day ago</small>
+          </div>
+        </div>
+        <div class="activity-item">
+          <span class="activity-icon">📧</span>
+          <div class="activity-content">
+            <p>New contact form submission</p>
+            <small>2 days ago</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

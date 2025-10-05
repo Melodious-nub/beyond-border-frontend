@@ -1,0 +1,29 @@
+<header class="bb-header" [class.bb-header--scrolled]="isScrolled()">
+  <!-- Top bar with CTAs -->
+  <div class="bb-header__topbar d-none d-md-block">
+    <div class="container d-flex justify-content-end align-items-center gap-2 py-2">
+      <a routerLink="/find-consultant" class="btn btn-outline-primary btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Find your consultant</a>
+      <a routerLink="/join-community" class="btn btn-outline-primary btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Join our community</a>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg" [class.navbar-light]="!isScrolled()" [class.navbar-dark]="isScrolled()">
+    <div class="container">
+      <a class="navbar-brand fw-bold" routerLink="/"><img src="assets/images/beyond-border-logo.png" alt="Beyond Border" width="48"></a>
+
+      <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [class.show]="isMenuOpen()">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          @for (link of navLinks; track link.path) {
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="link.path" routerLinkActive="active" (click)="closeMenu()">{{ link.label }}</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

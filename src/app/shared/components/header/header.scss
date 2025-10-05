@@ -1,0 +1,50 @@
+.bb-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999; /* ensure it's above all content including hero sections */
+  isolation: isolate; /* create stacking context */
+  transition: box-shadow .2s ease, background-color .2s ease;
+  background-color: transparent;
+
+  &--scrolled {
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .navbar {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+  }
+
+  &__topbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar-brand {
+    color: var(--bs-primary);
+  }
+
+  .nav-link {
+    font-weight: 600;
+    color: #0b2a55;
+
+    &.active {
+      color: var(--bs-primary);
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+
+  .btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+  }
+}
+

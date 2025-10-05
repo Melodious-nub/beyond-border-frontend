@@ -1,0 +1,98 @@
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <h1>Building Bridges Beyond Borders</h1>
+      <p>Connecting communities worldwide through innovative solutions, expert consulting, and sustainable development initiatives.</p>
+      <div class="hero-actions">
+        <a routerLink="/services" class="btn btn-primary">Explore Services</a>
+        <a routerLink="/find-consultant" class="btn btn-secondary">Find Consultant</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="/assets/images/hero.png" alt="Beyond Border Hero" />
+    </div>
+  </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Our Services</h2>
+      <p>Comprehensive solutions for global development challenges</p>
+    </div>
+    
+    @if (isLoading()) {
+      <div class="loading">Loading services...</div>
+    } @else {
+      <div class="services-grid">
+        @for (service of featuredServices(); track service.id) {
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="icon-{{ service.icon || 'default' }}"></i>
+            </div>
+            <h3>{{ service.title }}</h3>
+            <p>{{ service.description }}</p>
+            <a routerLink="/services" class="service-link">Learn More</a>
+          </div>
+        }
+      </div>
+    }
+    
+    <div class="section-footer">
+      <a routerLink="/services" class="btn btn-outline">View All Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest Insights</h2>
+      <p>Stay updated with our latest thoughts and industry insights</p>
+    </div>
+    
+    @if (isLoading()) {
+      <div class="loading">Loading blog posts...</div>
+    } @else {
+      <div class="blog-grid">
+        @for (post of latestBlogPosts(); track post.id) {
+          <article class="blog-card">
+            <div class="blog-image">
+              <img [src]="post.featuredImage || '/assets/images/default-blog.jpg'" [alt]="post.title" />
+            </div>
+            <div class="blog-content">
+              <h3>{{ post.title }}</h3>
+              <p>{{ post.excerpt }}</p>
+              <div class="blog-meta">
+                <span class="author">By {{ post.author }}</span>
+                <span class="date">{{ post.publishedAt | date:'MMM d, y' }}</span>
+              </div>
+              <a routerLink="/blog" class="read-more">Read More</a>
+            </div>
+          </article>
+        }
+      </div>
+    }
+    
+    <div class="section-footer">
+      <a routerLink="/blog" class="btn btn-outline">View All Posts</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Make a Difference?</h2>
+      <p>Join our community of changemakers and start your journey towards sustainable development.</p>
+      <div class="cta-actions">
+        <a routerLink="/join-community" class="btn btn-primary">Join Community</a>
+        <a routerLink="/contact" class="btn btn-secondary">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
