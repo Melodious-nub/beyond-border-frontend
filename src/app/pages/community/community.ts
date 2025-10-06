@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb";
 
 @Component({
   selector: 'app-community',
-  imports: [],
+  imports: [BreadcrumbComponent],
   templateUrl: './community.html',
   styleUrl: './community.scss'
 })

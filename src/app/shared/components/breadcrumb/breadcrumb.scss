@@ -1,0 +1,38 @@
+// Breadcrumb component styles
+// These styles extend the existing page-hero styles from the main CSS
+
+.page-hero {
+    background: linear-gradient(135deg, #F9F9F9 0%, #ECF0F1 100%);
+    padding: clamp(3rem, 8vw, 4rem) 0;
+    text-align: center;
+}
+
+.page-title {
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    font-weight: 700;
+    color: #003B5C;
+    margin-bottom: 1.75rem;
+    letter-spacing: -0.03em;
+}
+
+.page-description {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: #34495E;
+    max-width: 50rem;
+    margin: 0 auto;
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+}
+
+// Responsive adjustments for mobile
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem;
+    }
+}

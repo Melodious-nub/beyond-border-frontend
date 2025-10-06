@@ -1,1 +1,172 @@
-<p>team works!</p>
+<!-- Dynamic Breadcrumb Component -->
+<app-breadcrumb pageTitle="team"></app-breadcrumb>
+
+<!-- Search & Filter Section -->
+<section class="search-filter-section">
+    <div class="container">
+        <div class="search-filters">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by name, location, or expertise..." id="searchInput">
+            </div>
+            <div class="filter-dropdowns">
+                <select id="firmFilter">
+                    <option value="">All Firms</option>
+                    <option value="mckinsey">McKinsey Alum</option>
+                    <option value="bain">Bain Alum</option>
+                    <option value="bcg">BCG Alum</option>
+                    <option value="deloitte">Deloitte Alum</option>
+                </select>
+                <select id="expertiseFilter">
+                    <option value="">All Expertise</option>
+                    <option value="strategy">Strategy</option>
+                    <option value="operations">Operations</option>
+                    <option value="organization">Organization</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="sales">Sales</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Consultants Grid -->
+<section class="consultants-directory">
+    <div class="container">
+        <div class="consultants-grid" id="consultantsGrid">
+            <!-- All consultant cards from homepage plus more -->
+            <div class="consultant-card" data-firm="bain" data-expertise="strategy">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop" alt="Camila Fernandez" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Camila Fernandez</h4>
+                    <p class="location">Santo Domingo, Dominican Republic</p>
+                    <p class="firm">Bain Alum</p>
+                    <p class="expertise">Strategy</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="operations">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop" alt="Alistair Hodgett" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Alistair Hodgett</h4>
+                    <p class="location">Dublin, Ireland</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Operations</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="marketing">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" alt="Frank Dichoza" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Frank Dichoza</h4>
+                    <p class="location">Phoenix, AZ</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Marketing</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="organization">
+                <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" alt="Zahra Abdullah" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Zahra Abdullah</h4>
+                    <p class="location">Toronto, Canada</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Organization</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="bcg" data-expertise="strategy">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Lars Linnekogel" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Lars Linnekogel</h4>
+                    <p class="location">Hamburg, Germany</p>
+                    <p class="firm">BCG Alum</p>
+                    <p class="expertise">Strategy</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="sales">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop" alt="Anna EngstrÃ¶mer" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Anna EngstrÃ¶mer</h4>
+                    <p class="location">Zurich, Switzerland</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Sales</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="deloitte" data-expertise="operations">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop" alt="Nadia Gountcheva" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Nadia Gountcheva</h4>
+                    <p class="location">Sofia City, Bulgaria</p>
+                    <p class="firm">Deloitte Alum</p>
+                    <p class="expertise">Operations</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="bcg" data-expertise="strategy">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop" alt="Ozan Ozaskinli" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Ozan Ozaskinli</h4>
+                    <p class="location">Istanbul, Turkey</p>
+                    <p class="firm">BCG Alum</p>
+                    <p class="expertise">Strategy</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="bain" data-expertise="marketing">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop" alt="Evgeny Glinik" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Evgeny Glinik</h4>
+                    <p class="location">Moscow, Russian Federation</p>
+                    <p class="firm">Bain Alum</p>
+                    <p class="expertise">Marketing</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="organization">
+                <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=300&fit=crop" alt="Afua Branoah Banful" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Afua Branoah Banful</h4>
+                    <p class="location">Washington, D.C.</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Organization</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="strategy">
+                <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop" alt="Jose Aseguinolaza" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>Jose Aseguinolaza</h4>
+                    <p class="location">Madrid, Spain</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Strategy</p>
+                </div>
+            </div>
+            
+            <div class="consultant-card" data-firm="mckinsey" data-expertise="operations">
+                <img src="https://images.unsplash.com/photo-1463453091185-61582044d556?w=300&h=300&fit=crop" alt="DC Jayasundera" class="consultant-image">
+                <div class="consultant-info">
+                    <h4>DC Jayasundera</h4>
+                    <p class="location">San Francisco, CA</p>
+                    <p class="firm">McKinsey Alum</p>
+                    <p class="expertise">Operations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="load-more-section">
+            <button class="btn btn-outline btn-large" id="loadMoreBtn">Load More Consultants</button>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="section-title">Can't find what you're looking for?</h2>
+        <p class="section-description">Contact us and we'll help you find the perfect consultant for your needs.</p>
+        <a href="contact.html" class="btn btn-primary btn-large">CONTACT US</a>
+    </div>
+</section>

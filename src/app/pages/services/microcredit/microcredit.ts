@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { BreadcrumbComponent } from '../../../shared/components/breadcrumb/breadcrumb';
 
 @Component({
   selector: 'app-microcredit',
-  imports: [],
+  imports: [BreadcrumbComponent],
   templateUrl: './microcredit.html',
   styleUrl: './microcredit.scss'
 })
