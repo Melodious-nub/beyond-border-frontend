@@ -1,59 +1,61 @@
-<footer class="bb-footer">
-  <div class="container py-5">
-    <div class="row g-4">
-      <div class="col-12 col-md-6 col-lg-3">
-        <h5 class="bb-footer__title">Company</h5>
-        <ul class="bb-footer__list">
-          <li><a routerLink="/about">About Us</a></li>
-          <li><a routerLink="/team">Our Team</a></li>
-          <li><a routerLink="/blog">Careers</a></li>
-          <li><a routerLink="/contact">Contact</a></li>
-        </ul>
+<footer class="footer">
+  <div class="container">
+      <div class="footer-content">
+          <div class="footer-column">
+              <h3>Company</h3>
+              <ul>
+                  <li><a routerLink="/about">About Us</a></li>
+                  <li><a routerLink="/team">Our Team</a></li>
+                  <li><a routerLink="/blog">Careers</a></li>
+                  <li><a routerLink="/contact">Contact</a></li>
+              </ul>
+          </div>
+
+          <div class="footer-column">
+              <h3>Services</h3>
+              <ul>
+                  <li><a routerLink="/services/microcredit">Microfinance Strategy</a></li>
+                  <li><a routerLink="/services/banking-finance">Banking Advisory</a></li>
+                  <li><a routerLink="/services/green-design">Development Projects</a></li>
+                  <li><a routerLink="/services/legal-compliance">Legal & Compliance</a></li>
+              </ul>
+          </div>
+
+          <div class="footer-column">
+              <h3>Resources</h3>
+              <ul>
+                  <li><a routerLink="/resources">All Resources</a></li>
+                  <li><a routerLink="/blog">Insights</a></li>
+                  <li><a routerLink="/blog">Case Studies</a></li>
+                  <li><a routerLink="/blog">Blog</a></li>
+              </ul>
+          </div>
+
+          <div class="footer-column">
+              <h3>For Consultants</h3>
+              <ul>
+                  <li><a routerLink="/join-community">Partnership Opportunities</a></li>
+                  <li><a routerLink="/team">Our Team</a></li>
+                  <li><a routerLink="/resources">Resources</a></li>
+                  <li><a routerLink="/contact">Contact Us</a></li>
+              </ul>
+          </div>
       </div>
 
-      <div class="col-12 col-md-6 col-lg-3">
-        <h5 class="bb-footer__title">Services</h5>
-        <ul class="bb-footer__list">
-          <li><a routerLink="/services/microcredit">Microfinance Strategy</a></li>
-          <li><a routerLink="/services/banking-finance">Banking Advisory</a></li>
-          <li><a routerLink="/services/green-design">Development Projects</a></li>
-          <li><a routerLink="/services/legal-compliance">Legal & Compliance</a></li>
-        </ul>
+      <div class="footer-bottom">
+          <div class="footer-logo">
+              <div class="logo-icon">
+                  <img src="assets/images/beyond-border-logo.png" alt="Beyond Border Consultants" width="54px">
+              </div>
+              <span class="logo-text">BEYOND BORDER</span>
+          </div>
+          
+          <div class="footer-links">
+              <a routerLink="/privacy">Privacy Policy</a>
+              <a routerLink="/terms">Terms of Service</a>
+          </div>
       </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <h5 class="bb-footer__title">Resources</h5>
-        <ul class="bb-footer__list">
-          <li><a routerLink="/resources">All Resources</a></li>
-          <li><a routerLink="/blog">Insights</a></li>
-          <li><a routerLink="/blog">Case Studies</a></li>
-          <li><a routerLink="/blog">Blog</a></li>
-        </ul>
-      </div>
-
-      <div class="col-12 col-md-6 col-lg-3">
-        <h5 class="bb-footer__title">For Consultants</h5>
-        <ul class="bb-footer__list">
-          <li><a routerLink="/join-community">Partnership Opportunities</a></li>
-          <li><a routerLink="/team">Our Team</a></li>
-          <li><a routerLink="/resources">Resources</a></li>
-          <li><a routerLink="/contact">Contact Us</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <hr class="bb-footer__divider my-4" />
-
-    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
-      <div class="bb-footer__brand d-flex align-items-center gap-2">
-        <img src="/assets/images/beyond-border-logo.png" alt="Beyond Border" width="24" class="bb-footer__logo">
-        <span class="fw-semibold">Beyond Border</span>
-      </div>
-      <div class="text-center small">© {{ currentYear }} Beyond Border. All rights reserved.</div>
-      <div class="d-flex align-items-center gap-3 small">
-        <a routerLink="/privacy">Privacy Policy</a>
-        <a routerLink="/terms">Terms of Service</a>
-      </div>
-    </div>
+      
+      <p class="copyright">© {{ currentYear }} Beyond Border. All rights reserved.</p>
   </div>
 </footer>

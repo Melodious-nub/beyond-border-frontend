@@ -1,75 +1,63 @@
-<header class="bb-header">
-  <!-- Dark top bar with CTA buttons -->
-  <div class="bb-header__topbar bg-dark">
-    <div class="container d-flex justify-content-end align-items-center gap-2 py-2">
-      <a routerLink="/find-consultant" class="btn btn-outline-light btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Find your consultant</a>
-      <a routerLink="/join-community" class="btn btn-outline-light btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Join our community</a>
-    </div>
-  </div>
-
-  <!-- Main navigation bar -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-    <div class="container">
-      <!-- Brand/Logo -->
-      <a class="navbar-brand d-flex align-items-center" routerLink="/">
-        <img src="/assets/images/beyond-border-logo.png" alt="Beyond Border" width="48" class="me-2">
-        <span class="fw-bold" style="color: #293994; font-size: 18px;">Beyond Border</span>
+<!-- Dark top bar with CTA buttons -->
+<div class="bb-header__topbar">
+   <div class="button-group">
+     <a routerLink="/find-consultant" class="btn-outline-custom">Find your consultant</a>
+     <a routerLink="/join-community" class="btn-outline-custom">Join our community</a>
+   </div>
+ </div>
+ 
+ <!-- Navigation to implement -->
+<nav class="navbar">
+   <div class="nav-container">
+      <a routerLink="/" class="nav-logo">
+         <img src="assets/images/beyond-border-logo.png" alt="Beyond Border Consultants" width="54px">
       </a>
-
-      <!-- Mobile toggle button -->
-      <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Navigation menu -->
-      <div class="collapse navbar-collapse" [class.show]="isMenuOpen()">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          @for (link of navLinks; track link.path) {
-            <li class="nav-item" [class.dropdown]="link.hasSubmenu">
-              @if (link.hasSubmenu) {
-                <!-- Services dropdown -->
-                <div class="dropdown">
-                  <a class="nav-link fw-semibold dropdown-toggle" 
-                     href="#" 
-                     role="button" 
-                     data-bs-toggle="dropdown" 
-                     aria-expanded="false"
-                     [class.active]="isServicesActive()"
-                     (click)="toggleServicesDropdown(); $event.preventDefault()">
-                    {{ link.label }}
-                  </a>
-                  <!-- Mobile backdrop -->
-                  @if (isMobile() && isServicesDropdownOpen()) {
-                    <div class="dropdown-backdrop" (click)="closeServicesDropdown()"></div>
-                  }
-                  
-                  <ul class="dropdown-menu" 
-                      [class.show]="isServicesDropdownOpen()"
-                      [class.mobile-dropdown]="isMobile()">
-                    @for (subItem of link.submenu; track subItem.path) {
-                      <li>
-                        <a class="dropdown-item" 
-                           [routerLink]="subItem.path"
-                           [class.active]="isSubmenuItemActive(subItem.path)"
-                           (click)="closeMenu()">
-                          {{ subItem.label }}
-                        </a>
-                      </li>
-                    }
-                  </ul>
-                </div>
-              } @else {
-                <!-- Regular nav link -->
-                <a class="nav-link fw-semibold" 
-                   [routerLink]="link.path" 
-                   [routerLinkActive]="link.path === '/' ? '' : 'active'"
-                   [class.active]="link.path === '/' && (router.url === '/' || router.url === '/home')"
-                   (click)="closeMenu()">{{ link.label }}</a>
+      
+          <!-- Mobile Menu Backdrop -->
+          <div class="mobile-menu-backdrop" 
+               [class.active]="isMenuOpen()" 
+               (click)="closeMenu()"></div>
+          
+          <div class="nav-menu" [class.active]="isMenuOpen()">
+              <!-- Mobile Menu Close Button -->
+              <button class="mobile-menu-close" (click)="closeMenu()">
+                  <i class="fas fa-times"></i>
+              </button>
+              
+              @for (link of navLinks; track link.path) {
+                @if (link.hasSubmenu) {
+                  <div class="nav-dropdown">
+                      <a href="#" 
+                         class="nav-link dropdown-toggle" 
+                         [class.active]="isServicesActive()"
+                         (click)="toggleServicesDropdown(); $event.preventDefault()">
+                         <span>{{ link.label }}</span>
+                         <i class="fas fa-chevron-down"></i>
+                      </a>
+                      <div class="dropdown-content" [class.show]="isServicesDropdownOpen()">
+                          @for (subItem of link.submenu; track subItem.path) {
+                            <a [routerLink]="subItem.path" 
+                               [class.active]="isSubmenuItemActive(subItem.path)"
+                               (click)="closeMenu()">{{ subItem.label }}</a>
+                          }
+                      </div>
+                  </div>
+                } @else {
+                  <a [routerLink]="link.path" 
+                     class="nav-link" 
+                     routerLinkActive="active"
+                     [routerLinkActiveOptions]="{exact: link.path === '/'}"
+                     (click)="closeMenu()">{{ link.label }}</a>
+                }
               }
-            </li>
-          }
-        </ul>
+          </div>
+      
+      <div class="hamburger" 
+            [class.active]="isMenuOpen()"
+            (click)="toggleMenu()">
+         <span class="bar"></span>
+         <span class="bar"></span>
+         <span class="bar"></span>
       </div>
-    </div>
-  </nav>
-</header>
+   </div>
+</nav>

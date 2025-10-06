@@ -17,6 +17,8 @@ export class HeaderComponent implements OnInit {
   user = this.authService.user;
   isMenuOpen = signal(false);
   isServicesDropdownOpen = signal(false);
+  isInsightsDropdownOpen = signal(false);
+  isAboutDropdownOpen = signal(false);
   isMobile = signal(false);
 
   navLinks = [
@@ -54,10 +56,26 @@ export class HeaderComponent implements OnInit {
   closeMenu(): void {
     this.isMenuOpen.set(false);
     this.isServicesDropdownOpen.set(false);
+    this.isInsightsDropdownOpen.set(false);
+    this.isAboutDropdownOpen.set(false);
   }
 
   toggleServicesDropdown(): void {
     this.isServicesDropdownOpen.update(open => !open);
+    this.isInsightsDropdownOpen.set(false);
+    this.isAboutDropdownOpen.set(false);
+  }
+
+  toggleInsightsDropdown(): void {
+    this.isInsightsDropdownOpen.update(open => !open);
+    this.isServicesDropdownOpen.set(false);
+    this.isAboutDropdownOpen.set(false);
+  }
+
+  toggleAboutDropdown(): void {
+    this.isAboutDropdownOpen.update(open => !open);
+    this.isServicesDropdownOpen.set(false);
+    this.isInsightsDropdownOpen.set(false);
   }
 
   closeServicesDropdown(): void {
@@ -67,6 +85,16 @@ export class HeaderComponent implements OnInit {
   isServicesActive(): boolean {
     const currentUrl = this.router.url;
     return currentUrl === '/services' || currentUrl.startsWith('/services/');
+  }
+
+  isInsightsActive(): boolean {
+    const currentUrl = this.router.url;
+    return currentUrl === '/insights' || currentUrl.startsWith('/insights/') || currentUrl === '/blog';
+  }
+
+  isAboutActive(): boolean {
+    const currentUrl = this.router.url;
+    return currentUrl === '/about' || currentUrl === '/team';
   }
 
   isSubmenuItemActive(path: string): boolean {
@@ -89,10 +117,12 @@ export class HeaderComponent implements OnInit {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
-    const dropdown = target.closest('.dropdown');
+    const dropdown = target.closest('.nav-dropdown');
     
     if (!dropdown) {
       this.isServicesDropdownOpen.set(false);
+      this.isInsightsDropdownOpen.set(false);
+      this.isAboutDropdownOpen.set(false);
     }
   }
 

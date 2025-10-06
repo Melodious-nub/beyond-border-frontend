@@ -1,98 +1,520 @@
-<!-- Hero Section -->
-<section class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <h1>Building Bridges Beyond Borders</h1>
-      <p>Connecting communities worldwide through innovative solutions, expert consulting, and sustainable development initiatives.</p>
-      <div class="hero-actions">
-        <a routerLink="/services" class="btn btn-primary">Explore Services</a>
-        <a routerLink="/find-consultant" class="btn btn-secondary">Find Consultant</a>
-      </div>
-    </div>
-    <div class="hero-image">
-      <img src="/assets/images/hero.png" alt="Beyond Border Hero" />
-    </div>
-  </div>
-</section>
-
-<!-- Services Section -->
-<section class="services-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Our Services</h2>
-      <p>Comprehensive solutions for global development challenges</p>
-    </div>
-    
-    @if (isLoading()) {
-      <div class="loading">Loading services...</div>
-    } @else {
-      <div class="services-grid">
-        @for (service of featuredServices(); track service.id) {
-          <div class="service-card">
-            <div class="service-icon">
-              <i class="icon-{{ service.icon || 'default' }}"></i>
-            </div>
-            <h3>{{ service.title }}</h3>
-            <p>{{ service.description }}</p>
-            <a routerLink="/services" class="service-link">Learn More</a>
-          </div>
-        }
-      </div>
-    }
-    
-    <div class="section-footer">
-      <a routerLink="/services" class="btn btn-outline">View All Services</a>
-    </div>
-  </div>
-</section>
-
-<!-- Blog Section -->
-<section class="blog-section">
-  <div class="container">
-    <div class="section-header">
-      <h2>Latest Insights</h2>
-      <p>Stay updated with our latest thoughts and industry insights</p>
-    </div>
-    
-    @if (isLoading()) {
-      <div class="loading">Loading blog posts...</div>
-    } @else {
-      <div class="blog-grid">
-        @for (post of latestBlogPosts(); track post.id) {
-          <article class="blog-card">
-            <div class="blog-image">
-              <img [src]="post.featuredImage || '/assets/images/default-blog.jpg'" [alt]="post.title" />
-            </div>
-            <div class="blog-content">
-              <h3>{{ post.title }}</h3>
-              <p>{{ post.excerpt }}</p>
-              <div class="blog-meta">
-                <span class="author">By {{ post.author }}</span>
-                <span class="date">{{ post.publishedAt | date:'MMM d, y' }}</span>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+          <div class="hero-layout">
+              <div class="hero-content">
+                  <h1 class="hero-title">
+                      Beyond Border Consultants â€” Strategic Advisory for NGOs, Development Agencies, and Publicâ€‘Private Partnerships
+                  </h1>
+                  <a href="contact.html" class="btn btn-primary btn-large">SCHEDULE A CONSULTATION</a>
               </div>
-              <a routerLink="/blog" class="read-more">Read More</a>
-            </div>
-          </article>
-        }
+              <div class="hero-graphic">
+                  <div class="network-diagram">
+                      <svg viewBox="0 0 400 300" class="network-svg">
+                          <!-- Network nodes -->
+                          <circle cx="200" cy="150" r="4" class="node center-node"/>
+                          <circle cx="120" cy="80" r="3" class="node"/>
+                          <circle cx="280" cy="80" r="3" class="node"/>
+                          <circle cx="80" cy="150" r="3" class="node"/>
+                          <circle cx="320" cy="150" r="3" class="node"/>
+                          <circle cx="120" cy="220" r="3" class="node"/>
+                          <circle cx="280" cy="220" r="3" class="node"/>
+                          <circle cx="160" cy="50" r="2" class="node"/>
+                          <circle cx="240" cy="50" r="2" class="node"/>
+                          <circle cx="50" cy="100" r="2" class="node"/>
+                          <circle cx="350" cy="100" r="2" class="node"/>
+                          <circle cx="50" cy="200" r="2" class="node"/>
+                          <circle cx="350" cy="200" r="2" class="node"/>
+                          <circle cx="160" cy="250" r="2" class="node"/>
+                          <circle cx="240" cy="250" r="2" class="node"/>
+                          
+                          <!-- Network connections -->
+                          <line x1="200" y1="150" x2="120" y2="80" class="connection"/>
+                          <line x1="200" y1="150" x2="280" y2="80" class="connection"/>
+                          <line x1="200" y1="150" x2="80" y2="150" class="connection"/>
+                          <line x1="200" y1="150" x2="320" y2="150" class="connection"/>
+                          <line x1="200" y1="150" x2="120" y2="220" class="connection"/>
+                          <line x1="200" y1="150" x2="280" y2="220" class="connection"/>
+                          
+                          <line x1="120" y1="80" x2="160" y2="50" class="connection"/>
+                          <line x1="120" y1="80" x2="80" y2="150" class="connection"/>
+                          <line x1="280" y1="80" x2="240" y2="50" class="connection"/>
+                          <line x1="280" y1="80" x2="320" y2="150" class="connection"/>
+                          
+                          <line x1="80" y1="150" x2="50" y2="100" class="connection"/>
+                          <line x1="80" y1="150" x2="50" y2="200" class="connection"/>
+                          <line x1="320" y1="150" x2="350" y2="100" class="connection"/>
+                          <line x1="320" y1="150" x2="350" y2="200" class="connection"/>
+                          
+                          <line x1="120" y1="220" x2="160" y2="250" class="connection"/>
+                          <line x1="280" y1="220" x2="240" y2="250" class="connection"/>
+                          
+                          <line x1="160" y1="50" x2="240" y2="50" class="connection"/>
+                          <line x1="50" y1="100" x2="50" y2="200" class="connection"/>
+                          <line x1="350" y1="100" x2="350" y2="200" class="connection"/>
+                          <line x1="160" y1="250" x2="240" y2="250" class="connection"/>
+                      </svg>
+                  </div>
+              </div>
+          </div>
       </div>
-    }
-    
-    <div class="section-footer">
-      <a routerLink="/blog" class="btn btn-outline">View All Posts</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA Section -->
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-content">
-      <h2>Ready to Make a Difference?</h2>
-      <p>Join our community of changemakers and start your journey towards sustainable development.</p>
-      <div class="cta-actions">
-        <a routerLink="/join-community" class="btn btn-primary">Join Community</a>
-        <a routerLink="/contact" class="btn btn-secondary">Get in Touch</a>
+  <!-- Why Beyond Border Consultants Section -->
+  <section class="why-Beyond Border Consultants">
+      <div class="container">
+          <h2 class="section-title">Why Beyond Border Consultants?</h2>
+          <p class="section-description">
+              Beyond Border Consultants is a multidisciplinary advisory firm dedicated to empowering NGOs, development agencies, and public-private partnerships through strategic consultancy services. With over 20 years of collective experience across microfinance, banking, infrastructure, legal compliance, agriculture, and technology, our team brings deep domain expertise and global insights to every engagement.
+          </p>
+          
+          <div class="benefits-grid">
+              <div class="benefit-card">
+                  <div class="benefit-icon">
+                      <i class="fas fa-check"></i>
+                  </div>
+                  <p>Integrity and accountability in all our engagements with transparent, ethical advisory services.</p>
+              </div>
+              <div class="benefit-card">
+                  <div class="benefit-icon">
+                      <i class="fas fa-check"></i>
+                  </div>
+                  <p>Impact-driven innovation through digital transformation, agricultural research, and financial inclusion strategies.</p>
+              </div>
+              <div class="benefit-card">
+                  <div class="benefit-icon">
+                      <i class="fas fa-check"></i>
+                  </div>
+                  <p>Collaborative partnerships with clients, stakeholders, and communities for sustainable solutions.</p>
+              </div>
+              <div class="benefit-card">
+                  <div class="benefit-icon">
+                      <i class="fas fa-check"></i>
+                  </div>
+                  <p>Excellence and expertise with decades of experience and deep domain knowledge.</p>
+              </div>
+              <div class="benefit-card">
+                  <div class="benefit-icon">
+                      <i class="fas fa-check"></i>
+                  </div>
+                  <p>Sustainability and resilience focus on long-term value creation and inclusive development.</p>
+              </div>
+          </div>
       </div>
-    </div>
-  </div>
-</section>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience">
+      <div class="container">
+          <h2 class="section-title">Expertise across critical development sectors</h2>
+          <p class="section-description">
+              Our multidisciplinary team delivers strategic advisory services across eight core consultancy areas. From microfinance and banking to infrastructure and technology, we provide comprehensive solutions tailored to development organizations' unique challenges.
+          </p>
+
+          <div class="experience-cards">
+              <div class="experience-card">
+                  <h3>Strategic Consultancy Services</h3>
+                  <p>Eight specialized service areas including microfinance strategy, banking advisory, development project management, legal compliance, agricultural innovation, civil engineering, and technology solutions.</p>
+                  <a href="services.html" class="btn btn-outline">View all Services</a>
+              </div>
+              
+              <div class="experience-card">
+                  <h3>Development Focus Areas</h3>
+                  <p>Specialized expertise in financial inclusion, health systems strengthening, infrastructure development, regulatory compliance, and sustainable development across emerging markets.</p>
+                  <a href="industries.html" class="btn btn-outline">View Focus Areas</a>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Flexible Options Section -->
+  <section class="flexible-options">
+      <div class="container">
+          <h2 class="section-title">Tailored solutions for development organizations</h2>
+          
+          <div class="options-grid">
+              <div class="option-card">
+                  <div class="option-icon">
+                      <i class="fas fa-clock"></i>
+                  </div>
+                  <h3>Engagement Models</h3>
+                  <p>Project-based or ongoing advisory</p>
+              </div>
+              
+              <div class="option-card">
+                  <div class="option-icon">
+                      <i class="fas fa-users"></i>
+                  </div>
+                  <h3>Team Configuration</h3>
+                  <p>Individual experts or multidisciplinary teams</p>
+              </div>
+              
+              <div class="option-card">
+                  <div class="option-icon">
+                      <div class="seniority-icon">S</div>
+                  </div>
+                  <h3>Expertise Level</h3>
+                  <p>Senior consultants to PhD-qualified specialists</p>
+              </div>
+              
+              <div class="option-card">
+                  <div class="option-icon">
+                      <i class="fas fa-globe"></i>
+                  </div>
+                  <h3>Service Delivery</h3>
+                  <p>On-site, remote, or hybrid engagement</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Community Section -->
+  <section class="community">
+      <div class="container">
+          <h2 class="section-title">Our commitment to development impact</h2>
+          <p class="community-description">
+              Beyond Border Consultants is dedicated to facilitating sustainable development through tailored solutions that address the unique challenges facing NGOs, development agencies, and public-private partnerships. Our multidisciplinary approach integrates expertise across finance, health, agriculture, infrastructure, and technology.
+          </p>
+          <p class="community-description">
+              We believe in fostering strong, trust-based relationships with clients, stakeholders, and communities. Our collaborative approach ensures that every solution is technically sound, strategically aligned, and operationally feasible while promoting long-term sustainability and inclusive development.
+          </p>
+      </div>
+  </section>
+
+  <!-- Consultants Section -->
+  <section class="consultants">
+      <div class="container">
+          <h2 class="section-title">Our expert consultants: proven experience across development sectors</h2>
+          <p class="section-description">Meet our multidisciplinary team of specialists with decades of combined experience</p>
+          
+          <div class="consultants-grid">
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop" alt="Camila Fernandez" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Dr. Sarah Ahmed</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Microfinance Strategy Lead</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop" alt="Alistair Hodgett" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Mohammad Rahman</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Banking & Finance Advisory</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" alt="Frank Dichoza" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Dr. Fatima Hassan</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Agricultural Sciences PhD</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" alt="Zahra Abdullah" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Eng. Karim Ali</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Civil Engineering & Infrastructure</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Lars Linnekogel" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Rashida Khan</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Legal & Compliance Advisory</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop" alt="Anna EngstrÃ¶mer" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Ahmed Hossain</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">IT & Digital Transformation</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop" alt="Nadia Gountcheva" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Dr. Nasreen Sultana</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Development Project Advisory</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop" alt="Ozan Ozaskinli" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Md. Tariq Islam</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Strategic Planning & Execution</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop" alt="Evgeny Glinik" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Sultana Begum</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Health Systems Strengthening</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=300&fit=crop" alt="Afua Branoah Banful" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Dr. Mizanur Rahman</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Animal Nutrition & Feed Technology</p>
+                  </div>
+              </div>
+              
+              <div class="consultant-card">
+                  <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop" alt="Jose Aseguinolaza" class="consultant-image">
+                  <div class="consultant-info">
+                      <h4>Farah Chowdhury</h4>
+                      <p class="location">Dhaka, Bangladesh</p>
+                      <p class="firm">Corporate Legal & Compliance</p>
+                  </div>
+              </div>
+          </div>
+
+          <div class="consultants-cta">
+              <a href="consultants.html" class="btn btn-outline btn-large">MEET OUR TEAM</a>
+          </div>
+      </div>
+  </section>
+
+  <!-- Global Reach Section -->
+  <section class="global-reach">
+      <div class="container">
+          <h2 class="section-title">Global experience with local insight</h2>
+          <p class="section-description">
+              Our consultants have worked across continents, bringing global best practices tailored to local contexts in emerging markets and development sectors.
+          </p>
+          <div class="world-map-container">
+              <div class="world-map">
+                  <svg viewBox="0 0 1000 500" class="world-map-svg">
+                      <!-- World map outline (simplified) -->
+                      <g class="continents" fill="none" stroke="#e0e0e0" stroke-width="1">
+                          <!-- North America -->
+                          <path d="M150,120 Q180,100 220,110 L280,130 Q320,140 350,160 L380,180 Q400,200 390,240 L370,280 Q340,300 300,290 L250,280 Q200,270 170,250 L140,220 Q130,180 150,120 Z" class="continent"/>
+                          
+                          <!-- South America -->
+                          <path d="M280,300 Q300,320 310,360 L320,400 Q330,440 320,470 L300,480 Q280,475 270,450 L260,420 Q250,380 260,340 L270,320 Q275,300 280,300 Z" class="continent"/>
+                          
+                          <!-- Europe -->
+                          <path d="M450,120 Q480,110 520,120 L560,140 Q580,160 570,180 L550,200 Q520,210 490,200 L460,190 Q440,170 450,120 Z" class="continent"/>
+                          
+                          <!-- Africa -->
+                          <path d="M480,220 Q520,240 540,280 L550,320 Q560,360 550,400 L540,430 Q520,450 500,440 L480,420 Q460,380 470,340 L475,300 Q480,260 480,220 Z" class="continent"/>
+                          
+                          <!-- Asia -->
+                          <path d="M580,100 Q650,90 720,110 L780,130 Q820,150 830,190 L840,230 Q850,270 840,300 L820,320 Q780,330 740,320 L700,310 Q660,300 620,280 L590,260 Q570,220 580,180 L585,140 Q580,100 580,100 Z" class="continent"/>
+                          
+                          <!-- Australia -->
+                          <path d="M750,380 Q780,370 810,380 L830,400 Q840,420 830,440 L810,450 Q780,455 750,445 L730,430 Q720,410 730,390 Q740,375 750,380 Z" class="continent"/>
+                      </g>
+                      
+                      <!-- Consultant location dots -->
+                      <g class="location-dots">
+                          <!-- North America -->
+                          <circle cx="180" cy="160" r="3" class="location-dot"/>
+                          <circle cx="200" cy="180" r="3" class="location-dot"/>
+                          <circle cx="220" cy="170" r="3" class="location-dot"/>
+                          <circle cx="240" cy="190" r="3" class="location-dot"/>
+                          <circle cx="260" cy="180" r="3" class="location-dot"/>
+                          <circle cx="280" cy="200" r="3" class="location-dot"/>
+                          <circle cx="300" cy="190" r="3" class="location-dot"/>
+                          <circle cx="320" cy="210" r="3" class="location-dot"/>
+                          <circle cx="340" cy="200" r="3" class="location-dot"/>
+                          <circle cx="190" cy="200" r="3" class="location-dot"/>
+                          <circle cx="210" cy="220" r="3" class="location-dot"/>
+                          <circle cx="230" cy="210" r="3" class="location-dot"/>
+                          <circle cx="250" cy="230" r="3" class="location-dot"/>
+                          <circle cx="270" cy="220" r="3" class="location-dot"/>
+                          <circle cx="290" cy="240" r="3" class="location-dot"/>
+                          
+                          <!-- South America -->
+                          <circle cx="290" cy="330" r="3" class="location-dot"/>
+                          <circle cx="300" cy="350" r="3" class="location-dot"/>
+                          <circle cx="310" cy="370" r="3" class="location-dot"/>
+                          <circle cx="300" cy="390" r="3" class="location-dot"/>
+                          <circle cx="290" cy="410" r="3" class="location-dot"/>
+                          <circle cx="280" cy="430" r="3" class="location-dot"/>
+                          <circle cx="270" cy="450" r="3" class="location-dot"/>
+                          
+                          <!-- Europe -->
+                          <circle cx="470" cy="140" r="3" class="location-dot"/>
+                          <circle cx="490" cy="150" r="3" class="location-dot"/>
+                          <circle cx="510" cy="140" r="3" class="location-dot"/>
+                          <circle cx="530" cy="160" r="3" class="location-dot"/>
+                          <circle cx="550" cy="150" r="3" class="location-dot"/>
+                          <circle cx="480" cy="170" r="3" class="location-dot"/>
+                          <circle cx="500" cy="180" r="3" class="location-dot"/>
+                          <circle cx="520" cy="170" r="3" class="location-dot"/>
+                          <circle cx="540" cy="180" r="3" class="location-dot"/>
+                          <circle cx="460" cy="160" r="3" class="location-dot"/>
+                          <circle cx="475" cy="155" r="3" class="location-dot"/>
+                          <circle cx="495" cy="165" r="3" class="location-dot"/>
+                          <circle cx="515" cy="155" r="3" class="location-dot"/>
+                          <circle cx="535" cy="165" r="3" class="location-dot"/>
+                          <circle cx="555" cy="175" r="3" class="location-dot"/>
+                          
+                          <!-- Africa -->
+                          <circle cx="490" cy="250" r="3" class="location-dot"/>
+                          <circle cx="510" cy="270" r="3" class="location-dot"/>
+                          <circle cx="520" cy="290" r="3" class="location-dot"/>
+                          <circle cx="530" cy="310" r="3" class="location-dot"/>
+                          <circle cx="525" cy="330" r="3" class="location-dot"/>
+                          <circle cx="520" cy="350" r="3" class="location-dot"/>
+                          <circle cx="515" cy="370" r="3" class="location-dot"/>
+                          <circle cx="510" cy="390" r="3" class="location-dot"/>
+                          <circle cx="505" cy="410" r="3" class="location-dot"/>
+                          <circle cx="500" cy="430" r="3" class="location-dot"/>
+                          
+                          <!-- Asia -->
+                          <circle cx="600" cy="130" r="3" class="location-dot"/>
+                          <circle cx="620" cy="140" r="3" class="location-dot"/>
+                          <circle cx="640" cy="130" r="3" class="location-dot"/>
+                          <circle cx="660" cy="150" r="3" class="location-dot"/>
+                          <circle cx="680" cy="140" r="3" class="location-dot"/>
+                          <circle cx="700" cy="160" r="3" class="location-dot"/>
+                          <circle cx="720" cy="150" r="3" class="location-dot"/>
+                          <circle cx="740" cy="170" r="3" class="location-dot"/>
+                          <circle cx="760" cy="160" r="3" class="location-dot"/>
+                          <circle cx="780" cy="180" r="3" class="location-dot"/>
+                          <circle cx="800" cy="170" r="3" class="location-dot"/>
+                          <circle cx="610" cy="170" r="3" class="location-dot"/>
+                          <circle cx="630" cy="180" r="3" class="location-dot"/>
+                          <circle cx="650" cy="190" r="3" class="location-dot"/>
+                          <circle cx="670" cy="200" r="3" class="location-dot"/>
+                          <circle cx="690" cy="210" r="3" class="location-dot"/>
+                          <circle cx="710" cy="220" r="3" class="location-dot"/>
+                          <circle cx="730" cy="230" r="3" class="location-dot"/>
+                          <circle cx="750" cy="240" r="3" class="location-dot"/>
+                          <circle cx="770" cy="250" r="3" class="location-dot"/>
+                          <circle cx="790" cy="260" r="3" class="location-dot"/>
+                          <circle cx="810" cy="270" r="3" class="location-dot"/>
+                          <circle cx="620" cy="220" r="3" class="location-dot"/>
+                          <circle cx="640" cy="230" r="3" class="location-dot"/>
+                          <circle cx="660" cy="240" r="3" class="location-dot"/>
+                          <circle cx="680" cy="250" r="3" class="location-dot"/>
+                          <circle cx="700" cy="260" r="3" class="location-dot"/>
+                          <circle cx="720" cy="270" r="3" class="location-dot"/>
+                          <circle cx="740" cy="280" r="3" class="location-dot"/>
+                          <circle cx="760" cy="290" r="3" class="location-dot"/>
+                          <circle cx="780" cy="300" r="3" class="location-dot"/>
+                          
+                          <!-- Australia -->
+                          <circle cx="760" cy="390" r="3" class="location-dot"/>
+                          <circle cx="780" cy="400" r="3" class="location-dot"/>
+                          <circle cx="800" cy="410" r="3" class="location-dot"/>
+                          <circle cx="820" cy="420" r="3" class="location-dot"/>
+                          <circle cx="770" cy="420" r="3" class="location-dot"/>
+                          <circle cx="790" cy="430" r="3" class="location-dot"/>
+                      </g>
+                  </svg>
+              </div>
+              <div class="map-stats">
+                  <div class="stat-item">
+                      <div class="stat-number">20+</div>
+                      <div class="stat-label">Years Experience</div>
+                  </div>
+                  <div class="stat-item">
+                      <div class="stat-number">8</div>
+                      <div class="stat-label">Service Areas</div>
+                  </div>
+                  <div class="stat-item">
+                      <div class="stat-number">100+</div>
+                      <div class="stat-label">Projects Completed</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials">
+      <div class="container">
+          <h2 class="section-title">What our clients say about Beyond Border Consultants:</h2>
+          
+          <div class="testimonials-grid">
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"Beyond Border Consultants provided exceptional strategic guidance for our microfinance expansion. Their deep understanding of regulatory compliance and market dynamics was invaluable."</p>
+                  <p class="testimonial-author">â€” Executive Director, Development Finance Institution</p>
+              </div>
+              
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"Their multidisciplinary approach to infrastructure project management exceeded our expectations. The team's technical expertise and strategic execution were outstanding."</p>
+                  <p class="testimonial-author">â€” Program Manager, International NGO</p>
+              </div>
+              
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"Beyond Border Consultants has become our trusted partner for all development project advisory needs. Their due diligence work is thorough and professional."</p>
+                  <p class="testimonial-author">â€” Country Director, Donor Agency</p>
+              </div>
+              
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"The agricultural innovation expertise provided by their PhD-qualified consultant transformed our livestock nutrition program. Evidence-based solutions with measurable impact."</p>
+                  <p class="testimonial-author">â€” Technical Director, Agricultural Development Project</p>
+              </div>
+              
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"Their banking sector expertise helped us navigate complex regulatory requirements for our financial inclusion initiative. Professional, responsive, and results-oriented."</p>
+                  <p class="testimonial-author">â€” Chief Operating Officer, Microfinance Institution</p>
+              </div>
+              
+              <div class="testimonial-card">
+                  <p class="testimonial-quote">"Beyond Border Consultants' legal and compliance advisory services ensured our public-private partnership met all regulatory benchmarks. Their attention to detail is exceptional."</p>
+                  <p class="testimonial-author">â€” Partnership Director, Government Development Agency</p>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <!-- How to get started Section -->
+  <section class="how-to-start">
+      <div class="container">
+          <h2 class="section-title">How to engage our services</h2>
+          
+          <div class="steps-grid">
+              <div class="step-card">
+                  <div class="step-number">1</div>
+                  <h3>Share your development challenge</h3>
+              </div>
+              
+              <div class="step-card">
+                  <div class="step-number">2</div>
+                  <h3>Receive strategic recommendations</h3>
+                  <p>(We'll provide detailed proposals within 48 hours)</p>
+              </div>
+              
+              <div class="step-card">
+                  <div class="step-number">3</div>
+                  <h3>Begin implementation and advisory</h3>
+              </div>
+          </div>
+          
+          <div class="contact-form">
+              <form class="project-form">
+                  <div class="form-row">
+                      <input type="text" placeholder="Name" required>
+                      <input type="email" placeholder="Email" required>
+                  </div>
+                  <textarea placeholder="Brief project description" rows="4" required></textarea>
+                  <button type="submit" class="btn btn-primary btn-large">REQUEST CONSULTATION</button>
+              </form>
+              <p class="contact-alternative">or email us at: <a href="mailto:info@beyond-border.org">info@beyond-border.org</a></p>
+          </div>
+      </div>
+  </section>
