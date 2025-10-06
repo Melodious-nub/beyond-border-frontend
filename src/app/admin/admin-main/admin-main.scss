@@ -1,0 +1,38 @@
+.admin-layout {
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.list-group {
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px solid #dee2e6;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+  
+  &.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-layout {
+    padding: 1rem 0;
+  }
+}

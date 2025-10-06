@@ -1,7 +1,7 @@
 .bb-footer {
   position: relative;
   z-index: 0; /* ensure header (sticky) stays above */
-  background-color: #073b52; /* deep blue similar to reference */
+  background-color: #293994; /* custom brand color */
   color: #d6e4ef;
 
   a {
@@ -31,16 +31,12 @@
   }
 
   &__divider {
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.8);
   }
 
   &__logo {
-    width: 22px;
-    height: 22px;
+    width: 28px;
     display: inline-block;
-    border: 2px solid #2cd48a; /* green accent */
-    border-radius: 50%;
-    box-shadow: inset 0 0 0 2px transparent;
   }
 }
 

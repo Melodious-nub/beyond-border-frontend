@@ -2,25 +2,8 @@
   <app-header></app-header>
 }
 
-<main class="container py-4">
-  @if (router.url.startsWith('/admin')) {
-    <div class="row">
-      <aside class="col-12 col-md-3 col-lg-2 mb-3 mb-md-0">
-        <!-- Simple admin sidebar -->
-        <nav class="list-group">
-          <a class="list-group-item list-group-item-action" routerLink="/admin/dashboard">Dashboard</a>
-          <a class="list-group-item list-group-item-action" routerLink="/admin/blog">Blog</a>
-          <a class="list-group-item list-group-item-action" routerLink="/admin/team">Team</a>
-          <a class="list-group-item list-group-item-action" routerLink="/admin/about">About</a>
-        </nav>
-      </aside>
-      <section class="col-12 col-md-9 col-lg-10">
-        <router-outlet />
-      </section>
-    </div>
-  } @else {
-    <router-outlet />
-  }
+<main class="main-content">
+  <router-outlet />
 </main>
 
 @if (!router.url.startsWith('/admin') && !router.url.startsWith('/auth/login')) {

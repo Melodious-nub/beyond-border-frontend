@@ -1,4 +1,4 @@
-import { Component, inject, signal, HostListener } from '@angular/core';
+import { Component, inject, signal, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../../core/auth.service';
@@ -9,18 +9,38 @@ import { AuthService } from '../../../../core/auth.service';
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   private readonly authService = inject(AuthService);
-  private readonly router = inject(Router);
+  readonly router = inject(Router);
 
   isAuthenticated = this.authService.isAuthenticated;
   user = this.authService.user;
   isMenuOpen = signal(false);
-  isScrolled = signal(false);
+  isServicesDropdownOpen = signal(false);
+  isMobile = signal(false);
 
   navLinks = [
-    { label: 'Home', path: '/home' },
-    { label: 'Services', path: '/services' },
+    { label: 'Home', path: '/' },
+    { 
+      label: 'Services', 
+      path: '/services',
+      hasSubmenu: true,
+      submenu: [
+        { label: 'All Services', path: '/services' },
+        { label: 'Microcredit & Financial Inclusion', path: '/services/microcredit-financial-inclusion' },
+        { label: 'NGO Technical Service Provider', path: '/services/ngo-technical-service-provider' },
+        { label: 'Recruitment Support', path: '/services/recruitment-support' },
+        { label: 'Health Systems Strengthening', path: '/services/health-systems-strengthening' },
+        { label: 'Banking & Finance Advisory', path: '/services/banking-finance-advisory' },
+        { label: 'Administrative & Regulatory Due Diligence', path: '/services/administrative-regulatory-due-diligence' },
+        { label: 'Infrastructure & Civil Engineering', path: '/services/infrastructure-civil-engineering' },
+        { label: 'Legal & Compliance Services', path: '/services/legal-compliance-services' },
+        { label: 'Agricultural Innovation', path: '/services/agricultural-innovation' },
+        { label: 'Technology & Digital Transformation', path: '/services/technology-digital-transformation' },
+        { label: 'Green Design and Development', path: '/services/green-design-development' },
+        { label: 'HR Services', path: '/services/hr-services' }
+      ]
+    },
     { label: 'About', path: '/about' },
     { label: 'Blog', path: '/blog' },
     { label: 'Team', path: '/team' },
@@ -33,6 +53,24 @@ export class HeaderComponent {
 
   closeMenu(): void {
     this.isMenuOpen.set(false);
+    this.isServicesDropdownOpen.set(false);
+  }
+
+  toggleServicesDropdown(): void {
+    this.isServicesDropdownOpen.update(open => !open);
+  }
+
+  closeServicesDropdown(): void {
+    this.isServicesDropdownOpen.set(false);
+  }
+
+  isServicesActive(): boolean {
+    const currentUrl = this.router.url;
+    return currentUrl === '/services' || currentUrl.startsWith('/services/');
+  }
+
+  isSubmenuItemActive(path: string): boolean {
+    return this.router.url === path;
   }
 
   logout(): void {
@@ -43,16 +81,26 @@ export class HeaderComponent {
     return this.router.url.startsWith('/admin');
   }
 
-  constructor() {
-    this.updateScrollState();
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkMobile();
   }
 
-  @HostListener('window:scroll')
-  onWindowScroll(): void {
-    this.updateScrollState();
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    const dropdown = target.closest('.dropdown');
+    
+    if (!dropdown) {
+      this.isServicesDropdownOpen.set(false);
+    }
   }
 
-  private updateScrollState(): void {
-    this.isScrolled.set(typeof window !== 'undefined' && window.scrollY > 10);
+  private checkMobile(): void {
+    this.isMobile.set(window.innerWidth <= 768);
+  }
+
+  ngOnInit(): void {
+    this.checkMobile();
   }
 }

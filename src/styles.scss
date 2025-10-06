@@ -1,16 +1,22 @@
 /* Bootstrap theme customization with CSS custom properties */
-/* Importing Bootstrap SCSS file. */
 @use 'bootstrap/scss/bootstrap';
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* App global styles */
-html, body {
-  height: 100%;
+/* ===== FONT SETUP ===== */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
 }
 
-body {
-  background-color: #f8f9fa;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif;
-  color: #0b2a55;
+/* ===== CUSTOM BUTTON COLORS ===== */
+.btn-primary {
+  background-color: #293994 !important;
+  border-color: #293994 !important;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #1e2a7a !important;
+  border-color: #1e2a7a !important;
 }
 

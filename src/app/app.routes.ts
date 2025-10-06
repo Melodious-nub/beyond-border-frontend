@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard, AdminGuard, GuestGuard } from '../core/auth.guard';
+import { adminRoutes } from './admin/admin.routes';
 
 export const routes: Routes = [
   // Public routes
@@ -99,29 +100,8 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [AdminGuard],
-    children: [
-      {
-        path: '',
-        redirectTo: 'dashboard',
-        pathMatch: 'full'
-      },
-      {
-        path: 'dashboard',
-        loadComponent: () => import('./admin/dashboard/dashboard').then(m => m.DashboardComponent)
-      },
-      {
-        path: 'about',
-        loadComponent: () => import('./admin/about/about').then(m => m.About)
-      },
-      {
-        path: 'blog',
-        loadComponent: () => import('./admin/blog/blog').then(m => m.Blog)
-      },
-      {
-        path: 'team',
-        loadComponent: () => import('./admin/team/team').then(m => m.Team)
-      }
-    ]
+    loadComponent: () => import('./admin/admin-main/admin-main').then(m => m.AdminMainComponent),
+    children: adminRoutes
   },
   // Wildcard route
   {

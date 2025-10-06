@@ -1,25 +1,71 @@
-<header class="bb-header" [class.bb-header--scrolled]="isScrolled()">
-  <!-- Top bar with CTAs -->
-  <div class="bb-header__topbar d-none d-md-block">
+<header class="bb-header">
+  <!-- Dark top bar with CTA buttons -->
+  <div class="bb-header__topbar bg-dark">
     <div class="container d-flex justify-content-end align-items-center gap-2 py-2">
-      <a routerLink="/find-consultant" class="btn btn-outline-primary btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Find your consultant</a>
-      <a routerLink="/join-community" class="btn btn-outline-primary btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Join our community</a>
+      <a routerLink="/find-consultant" class="btn btn-outline-light btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Find your consultant</a>
+      <a routerLink="/join-community" class="btn btn-outline-light btn-sm text-uppercase fw-bold px-3" (click)="closeMenu()">Join our community</a>
     </div>
   </div>
 
-  <nav class="navbar navbar-expand-lg" [class.navbar-light]="!isScrolled()" [class.navbar-dark]="isScrolled()">
+  <!-- Main navigation bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
     <div class="container">
-      <a class="navbar-brand fw-bold" routerLink="/"><img src="assets/images/beyond-border-logo.png" alt="Beyond Border" width="48"></a>
+      <!-- Brand/Logo -->
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <img src="assets/images/beyond-border-logo.svg" alt="Beyond Border" width="48" class="me-2">
+        <span class="fw-bold" style="color: #293994; font-size: 18px;">Beyond Border</span>
+      </a>
 
+      <!-- Mobile toggle button -->
       <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- Navigation menu -->
       <div class="collapse navbar-collapse" [class.show]="isMenuOpen()">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           @for (link of navLinks; track link.path) {
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="link.path" routerLinkActive="active" (click)="closeMenu()">{{ link.label }}</a>
+            <li class="nav-item" [class.dropdown]="link.hasSubmenu">
+              @if (link.hasSubmenu) {
+                <!-- Services dropdown -->
+                <div class="dropdown">
+                  <a class="nav-link fw-semibold dropdown-toggle" 
+                     href="#" 
+                     role="button" 
+                     data-bs-toggle="dropdown" 
+                     aria-expanded="false"
+                     [class.active]="isServicesActive()"
+                     (click)="toggleServicesDropdown(); $event.preventDefault()">
+                    {{ link.label }}
+                  </a>
+                  <!-- Mobile backdrop -->
+                  @if (isMobile() && isServicesDropdownOpen()) {
+                    <div class="dropdown-backdrop" (click)="closeServicesDropdown()"></div>
+                  }
+                  
+                  <ul class="dropdown-menu" 
+                      [class.show]="isServicesDropdownOpen()"
+                      [class.mobile-dropdown]="isMobile()">
+                    @for (subItem of link.submenu; track subItem.path) {
+                      <li>
+                        <a class="dropdown-item" 
+                           [routerLink]="subItem.path"
+                           [class.active]="isSubmenuItemActive(subItem.path)"
+                           (click)="closeMenu()">
+                          {{ subItem.label }}
+                        </a>
+                      </li>
+                    }
+                  </ul>
+                </div>
+              } @else {
+                <!-- Regular nav link -->
+                <a class="nav-link fw-semibold" 
+                   [routerLink]="link.path" 
+                   [routerLinkActive]="link.path === '/' ? '' : 'active'"
+                   [class.active]="link.path === '/' && (router.url === '/' || router.url === '/home')"
+                   (click)="closeMenu()">{{ link.label }}</a>
+              }
             </li>
           }
         </ul>

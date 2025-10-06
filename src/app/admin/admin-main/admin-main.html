@@ -1,0 +1,16 @@
+<div class="admin-layout">
+  <div class="row">
+    <aside class="col-12 col-md-3 col-lg-2 mb-3 mb-md-0">
+      <!-- Admin sidebar -->
+      <nav class="list-group">
+        <a class="list-group-item list-group-item-action" routerLink="/admin/dashboard">Dashboard</a>
+        <a class="list-group-item list-group-item-action" routerLink="/admin/blog">Blog</a>
+        <a class="list-group-item list-group-item-action" routerLink="/admin/team">Team</a>
+        <a class="list-group-item list-group-item-action" routerLink="/admin/about">About</a>
+      </nav>
+    </aside>
+    <section class="col-12 col-md-9 col-lg-10">
+      <router-outlet />
+    </section>
+  </div>
+</div>
