@@ -1,7 +1,7 @@
 <div class="login-container">
   <div class="login-card">
     <div class="login-header">
-      <h1>Admin Login</h1>
+      <h3>Admin Login</h3>
       <p>Sign in to access the admin dashboard</p>
     </div>
 
@@ -42,10 +42,10 @@
 
       <button
         type="submit"
-        class="login-button"
+        class="btn btn-primary"
         [disabled]="isLoading()"
       >
-        <app-loading-spinner *ngIf="isLoading()"></app-loading-spinner>
+        <i class="fas fa-spinner fa-spin" *ngIf="isLoading()"></i>
         <span *ngIf="!isLoading()">Sign In</span>
       </button>
     </form>
