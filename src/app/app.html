@@ -9,3 +9,8 @@
 @if (!router.url.startsWith('/admin') && !router.url.startsWith('/auth/login')) {
   <app-footer></app-footer>
 }
+
+<!-- Scroll to top button - show on all pages except admin -->
+@if (!router.url.startsWith('/admin')) {
+  <app-scroll-to-top></app-scroll-to-top>
+}

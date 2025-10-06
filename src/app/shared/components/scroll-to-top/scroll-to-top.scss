@@ -1,0 +1,106 @@
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #293994 0%, #1e2a7a 100%);
+  color: white;
+  border: 2px solid #000;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 8px 25px rgba(41, 57, 148, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+  z-index: 1000;
+  &:hover {
+    background: linear-gradient(135deg, #1e2a7a 0%, #293994 100%);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 
+      0 15px 35px rgba(41, 57, 148, 0.6),
+      0 8px 20px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  
+  &:active {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 
+      0 8px 20px rgba(41, 57, 148, 0.5),
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: subtlePulse 3s ease-in-out infinite;
+  }
+  
+  svg {
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  }
+  
+  &:hover svg {
+    transform: translateY(-2px) scale(1.1);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  }
+  
+  &:active svg {
+    transform: translateY(-1px) scale(1.05);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+/* Keyframe animations */
+@keyframes subtlePulse {
+  0%, 100% {
+    box-shadow: 
+      0 8px 25px rgba(41, 57, 148, 0.4),
+      0 4px 12px rgba(0, 0, 0, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 12px 30px rgba(41, 57, 148, 0.5),
+      0 6px 15px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  }
+}
