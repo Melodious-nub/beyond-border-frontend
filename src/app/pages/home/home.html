@@ -393,16 +393,6 @@
               </div>
           </div>
           
-          <div class="contact-form">
-              <form class="project-form">
-                  <div class="form-row">
-                      <input type="text" placeholder="Name" required>
-                      <input type="email" placeholder="Email" required>
-                  </div>
-                  <textarea placeholder="Brief project description" rows="4" required></textarea>
-                  <button type="submit" class="btn btn-primary btn-large">REQUEST CONSULTATION</button>
-              </form>
-              <p class="contact-alternative">or email us at: <a href="mailto:info@beyond-border.org">info@beyond-border.org</a></p>
-          </div>
+          <app-consultation-request (consultationSubmitted)="onConsultationSubmitted($event)"></app-consultation-request>
       </div>
   </section>
