@@ -1,53 +1,67 @@
-<div class="login-container">
-  <div class="login-card">
-    <div class="login-header">
-      <h3>Admin Login</h3>
-      <p>Sign in to access the admin dashboard</p>
+<div class="admin-tailwind min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div class="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold text-gray-900">Admin Login</h2>
+        <p class="mt-2 text-sm text-gray-600">Sign in to access the admin dashboard</p>
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+            Email Address
+          </label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+            [class.border-red-500]="getFieldError('email')"
+            [class.focus:ring-red-500]="getFieldError('email')"
+            [class.focus:border-red-500]="getFieldError('email')"
+            placeholder="Enter your email"
+          />
+          <div class="mt-1 text-sm text-red-600" *ngIf="getFieldError('email')">
+            {{ getFieldError('email') }}
+          </div>
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="w-full px-3 py-3 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+            [class.border-red-500]="getFieldError('password')"
+            [class.focus:ring-red-500]="getFieldError('password')"
+            [class.focus:border-red-500]="getFieldError('password')"
+            placeholder="Enter your password"
+          />
+          <div class="mt-1 text-sm text-red-600" *ngIf="getFieldError('password')">
+            {{ getFieldError('password') }}
+          </div>
+        </div>
+
+        <div class="text-sm text-red-600" *ngIf="errorMessage()">
+          {{ errorMessage() }}
+        </div>
+
+        <button
+          type="submit"
+          class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+          [disabled]="isLoading()"
+        >
+          <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" *ngIf="isLoading()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span *ngIf="!isLoading()">Sign In</span>
+          <span *ngIf="isLoading()">Signing In...</span>
+        </button>
+      </form>
     </div>
-
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-      <div class="form-group">
-        <label for="email">Email Address</label>
-        <input
-          type="email"
-          id="email"
-          formControlName="email"
-          class="form-control"
-          [class.error]="getFieldError('email')"
-          placeholder="Enter your email"
-        />
-        <div class="error-message" *ngIf="getFieldError('email')">
-          {{ getFieldError('email') }}
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          class="form-control"
-          [class.error]="getFieldError('password')"
-          placeholder="Enter your password"
-        />
-        <div class="error-message" *ngIf="getFieldError('password')">
-          {{ getFieldError('password') }}
-        </div>
-      </div>
-
-      <div class="error-message" *ngIf="errorMessage()">
-        {{ errorMessage() }}
-      </div>
-
-      <button
-        type="submit"
-        class="btn btn-primary"
-        [disabled]="isLoading()"
-      >
-        <i class="fas fa-spinner fa-spin" *ngIf="isLoading()"></i>
-        <span *ngIf="!isLoading()">Sign In</span>
-      </button>
-    </form>
   </div>
 </div>
