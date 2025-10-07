@@ -14,10 +14,4 @@ export class HomeComponent {
   featuredServices = signal<any[]>([]);
   latestBlogPosts = signal<any[]>([]);
   isLoading = signal(false);
-
-  onConsultationSubmitted(data: ConsultationRequestData) {
-    console.log('Consultation request submitted:', data);
-    // Here you can handle the form submission
-    // For example, send to API, show success message, etc.
-  }
 }

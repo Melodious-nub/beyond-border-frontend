@@ -32,6 +32,17 @@ export class ConsultationRequestComponent {
   onSubmit() {
     if (this.isSubmitting) return;
 
+    // Check if form is valid before proceeding
+    if (!this.formData.name.trim() || !this.formData.email.trim() || !this.formData.description.trim()) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Missing Information',
+        text: 'Please fill in all required fields before submitting.',
+        confirmButtonColor: '#A50034'
+      });
+      return;
+    }
+
     this.isSubmitting = true;
 
     // Add delay before API call to simulate processing
