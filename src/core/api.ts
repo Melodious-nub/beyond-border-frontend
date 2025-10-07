@@ -22,4 +22,8 @@ export class ApiService {
   updateProfile(data: any): Observable<any> {
     return this.http.put(`${this.baseUrl}/auth/profile`, data);
   }
+
+  contactUs(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/contact`, data);
+  }
 }

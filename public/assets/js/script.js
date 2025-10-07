@@ -114,36 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Form handling (if forms are added later)
-function handleFormSubmit(event) {
-    event.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData);
-    
-    // Show loading state
-    const submitButton = event.target.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
-    submitButton.textContent = 'Sending...';
-    submitButton.disabled = true;
-    
-    // Simulate form submission (replace with actual API call)
-    setTimeout(() => {
-        alert('Thank you for your message! We\'ll get back to you soon.');
-        event.target.reset();
-        submitButton.textContent = originalText;
-        submitButton.disabled = false;
-    }, 2000);
-}
-
-// Add event listeners to forms when they exist
-document.addEventListener('DOMContentLoaded', function() {
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', handleFormSubmit);
-    });
-});
+// Form handling removed - using Angular forms only
 
 // Dropdown menu functionality for desktop
 document.addEventListener('DOMContentLoaded', function() {
