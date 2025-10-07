@@ -6,7 +6,7 @@
                   <h1 class="hero-title">
                       Beyond Border Consultants â€” Strategic Advisory for NGOs, Development Agencies, and Publicâ€‘Private Partnerships
                   </h1>
-                  <a href="contact.html" class="btn btn-primary btn-large">SCHEDULE A CONSULTATION</a>
+                  <a routerLink="/contact" class="btn btn-primary btn-large">SCHEDULE A CONSULTATION</a>
               </div>
               <div class="hero-graphic">
                   <div class="network-diagram">
@@ -61,7 +61,7 @@
   </section>
 
   <!-- Why Beyond Border Consultants Section -->
-  <section class="why-Beyond Border Consultants">
+  <section class="why-Beyond Border Consultants" style="padding-top: 50px; padding-bottom: 50px;">
       <div class="container">
           <h2 class="section-title">Why Beyond Border Consultants?</h2>
           <p class="section-description">
@@ -115,13 +115,13 @@
               <div class="experience-card">
                   <h3>Strategic Consultancy Services</h3>
                   <p>Eight specialized service areas including microfinance strategy, banking advisory, development project management, legal compliance, agricultural innovation, civil engineering, and technology solutions.</p>
-                  <a href="services.html" class="btn btn-outline">View all Services</a>
+                  <a routerLink="/services" class="btn btn-outline">View all Services</a>
               </div>
               
               <div class="experience-card">
                   <h3>Development Focus Areas</h3>
                   <p>Specialized expertise in financial inclusion, health systems strengthening, infrastructure development, regulatory compliance, and sustainable development across emerging markets.</p>
-                  <a href="industries.html" class="btn btn-outline">View Focus Areas</a>
+                  <a routerLink="/services" class="btn btn-outline">View Focus Areas</a>
               </div>
           </div>
       </div>
@@ -135,7 +135,9 @@
           <div class="options-grid">
               <div class="option-card">
                   <div class="option-icon">
-                      <i class="fas fa-clock"></i>
+                      <div class="seniority-icon">
+                          <i class="fas fa-handshake"></i>
+                      </div>
                   </div>
                   <h3>Engagement Models</h3>
                   <p>Project-based or ongoing advisory</p>
@@ -143,7 +145,9 @@
               
               <div class="option-card">
                   <div class="option-icon">
-                      <i class="fas fa-users"></i>
+                      <div class="seniority-icon">
+                          <i class="fas fa-users"></i>
+                      </div>
                   </div>
                   <h3>Team Configuration</h3>
                   <p>Individual experts or multidisciplinary teams</p>
@@ -151,7 +155,9 @@
               
               <div class="option-card">
                   <div class="option-icon">
-                      <div class="seniority-icon">S</div>
+                      <div class="seniority-icon">
+                          <i class="fas fa-graduation-cap"></i>
+                      </div>
                   </div>
                   <h3>Expertise Level</h3>
                   <p>Senior consultants to PhD-qualified specialists</p>
@@ -159,7 +165,9 @@
               
               <div class="option-card">
                   <div class="option-icon">
-                      <i class="fas fa-globe"></i>
+                      <div class="seniority-icon">
+                          <i class="fas fa-globe"></i>
+                      </div>
                   </div>
                   <h3>Service Delivery</h3>
                   <p>On-site, remote, or hybrid engagement</p>
@@ -289,7 +297,7 @@
           </div>
 
           <div class="consultants-cta">
-              <a href="consultants.html" class="btn btn-outline btn-large">MEET OUR TEAM</a>
+              <a routerLink="/team" class="btn btn-outline btn-large">MEET OUR TEAM</a>
           </div>
       </div>
   </section>
@@ -303,127 +311,7 @@
           </p>
           <div class="world-map-container">
               <div class="world-map">
-                  <svg viewBox="0 0 1000 500" class="world-map-svg">
-                      <!-- World map outline (simplified) -->
-                      <g class="continents" fill="none" stroke="#e0e0e0" stroke-width="1">
-                          <!-- North America -->
-                          <path d="M150,120 Q180,100 220,110 L280,130 Q320,140 350,160 L380,180 Q400,200 390,240 L370,280 Q340,300 300,290 L250,280 Q200,270 170,250 L140,220 Q130,180 150,120 Z" class="continent"/>
-                          
-                          <!-- South America -->
-                          <path d="M280,300 Q300,320 310,360 L320,400 Q330,440 320,470 L300,480 Q280,475 270,450 L260,420 Q250,380 260,340 L270,320 Q275,300 280,300 Z" class="continent"/>
-                          
-                          <!-- Europe -->
-                          <path d="M450,120 Q480,110 520,120 L560,140 Q580,160 570,180 L550,200 Q520,210 490,200 L460,190 Q440,170 450,120 Z" class="continent"/>
-                          
-                          <!-- Africa -->
-                          <path d="M480,220 Q520,240 540,280 L550,320 Q560,360 550,400 L540,430 Q520,450 500,440 L480,420 Q460,380 470,340 L475,300 Q480,260 480,220 Z" class="continent"/>
-                          
-                          <!-- Asia -->
-                          <path d="M580,100 Q650,90 720,110 L780,130 Q820,150 830,190 L840,230 Q850,270 840,300 L820,320 Q780,330 740,320 L700,310 Q660,300 620,280 L590,260 Q570,220 580,180 L585,140 Q580,100 580,100 Z" class="continent"/>
-                          
-                          <!-- Australia -->
-                          <path d="M750,380 Q780,370 810,380 L830,400 Q840,420 830,440 L810,450 Q780,455 750,445 L730,430 Q720,410 730,390 Q740,375 750,380 Z" class="continent"/>
-                      </g>
-                      
-                      <!-- Consultant location dots -->
-                      <g class="location-dots">
-                          <!-- North America -->
-                          <circle cx="180" cy="160" r="3" class="location-dot"/>
-                          <circle cx="200" cy="180" r="3" class="location-dot"/>
-                          <circle cx="220" cy="170" r="3" class="location-dot"/>
-                          <circle cx="240" cy="190" r="3" class="location-dot"/>
-                          <circle cx="260" cy="180" r="3" class="location-dot"/>
-                          <circle cx="280" cy="200" r="3" class="location-dot"/>
-                          <circle cx="300" cy="190" r="3" class="location-dot"/>
-                          <circle cx="320" cy="210" r="3" class="location-dot"/>
-                          <circle cx="340" cy="200" r="3" class="location-dot"/>
-                          <circle cx="190" cy="200" r="3" class="location-dot"/>
-                          <circle cx="210" cy="220" r="3" class="location-dot"/>
-                          <circle cx="230" cy="210" r="3" class="location-dot"/>
-                          <circle cx="250" cy="230" r="3" class="location-dot"/>
-                          <circle cx="270" cy="220" r="3" class="location-dot"/>
-                          <circle cx="290" cy="240" r="3" class="location-dot"/>
-                          
-                          <!-- South America -->
-                          <circle cx="290" cy="330" r="3" class="location-dot"/>
-                          <circle cx="300" cy="350" r="3" class="location-dot"/>
-                          <circle cx="310" cy="370" r="3" class="location-dot"/>
-                          <circle cx="300" cy="390" r="3" class="location-dot"/>
-                          <circle cx="290" cy="410" r="3" class="location-dot"/>
-                          <circle cx="280" cy="430" r="3" class="location-dot"/>
-                          <circle cx="270" cy="450" r="3" class="location-dot"/>
-                          
-                          <!-- Europe -->
-                          <circle cx="470" cy="140" r="3" class="location-dot"/>
-                          <circle cx="490" cy="150" r="3" class="location-dot"/>
-                          <circle cx="510" cy="140" r="3" class="location-dot"/>
-                          <circle cx="530" cy="160" r="3" class="location-dot"/>
-                          <circle cx="550" cy="150" r="3" class="location-dot"/>
-                          <circle cx="480" cy="170" r="3" class="location-dot"/>
-                          <circle cx="500" cy="180" r="3" class="location-dot"/>
-                          <circle cx="520" cy="170" r="3" class="location-dot"/>
-                          <circle cx="540" cy="180" r="3" class="location-dot"/>
-                          <circle cx="460" cy="160" r="3" class="location-dot"/>
-                          <circle cx="475" cy="155" r="3" class="location-dot"/>
-                          <circle cx="495" cy="165" r="3" class="location-dot"/>
-                          <circle cx="515" cy="155" r="3" class="location-dot"/>
-                          <circle cx="535" cy="165" r="3" class="location-dot"/>
-                          <circle cx="555" cy="175" r="3" class="location-dot"/>
-                          
-                          <!-- Africa -->
-                          <circle cx="490" cy="250" r="3" class="location-dot"/>
-                          <circle cx="510" cy="270" r="3" class="location-dot"/>
-                          <circle cx="520" cy="290" r="3" class="location-dot"/>
-                          <circle cx="530" cy="310" r="3" class="location-dot"/>
-                          <circle cx="525" cy="330" r="3" class="location-dot"/>
-                          <circle cx="520" cy="350" r="3" class="location-dot"/>
-                          <circle cx="515" cy="370" r="3" class="location-dot"/>
-                          <circle cx="510" cy="390" r="3" class="location-dot"/>
-                          <circle cx="505" cy="410" r="3" class="location-dot"/>
-                          <circle cx="500" cy="430" r="3" class="location-dot"/>
-                          
-                          <!-- Asia -->
-                          <circle cx="600" cy="130" r="3" class="location-dot"/>
-                          <circle cx="620" cy="140" r="3" class="location-dot"/>
-                          <circle cx="640" cy="130" r="3" class="location-dot"/>
-                          <circle cx="660" cy="150" r="3" class="location-dot"/>
-                          <circle cx="680" cy="140" r="3" class="location-dot"/>
-                          <circle cx="700" cy="160" r="3" class="location-dot"/>
-                          <circle cx="720" cy="150" r="3" class="location-dot"/>
-                          <circle cx="740" cy="170" r="3" class="location-dot"/>
-                          <circle cx="760" cy="160" r="3" class="location-dot"/>
-                          <circle cx="780" cy="180" r="3" class="location-dot"/>
-                          <circle cx="800" cy="170" r="3" class="location-dot"/>
-                          <circle cx="610" cy="170" r="3" class="location-dot"/>
-                          <circle cx="630" cy="180" r="3" class="location-dot"/>
-                          <circle cx="650" cy="190" r="3" class="location-dot"/>
-                          <circle cx="670" cy="200" r="3" class="location-dot"/>
-                          <circle cx="690" cy="210" r="3" class="location-dot"/>
-                          <circle cx="710" cy="220" r="3" class="location-dot"/>
-                          <circle cx="730" cy="230" r="3" class="location-dot"/>
-                          <circle cx="750" cy="240" r="3" class="location-dot"/>
-                          <circle cx="770" cy="250" r="3" class="location-dot"/>
-                          <circle cx="790" cy="260" r="3" class="location-dot"/>
-                          <circle cx="810" cy="270" r="3" class="location-dot"/>
-                          <circle cx="620" cy="220" r="3" class="location-dot"/>
-                          <circle cx="640" cy="230" r="3" class="location-dot"/>
-                          <circle cx="660" cy="240" r="3" class="location-dot"/>
-                          <circle cx="680" cy="250" r="3" class="location-dot"/>
-                          <circle cx="700" cy="260" r="3" class="location-dot"/>
-                          <circle cx="720" cy="270" r="3" class="location-dot"/>
-                          <circle cx="740" cy="280" r="3" class="location-dot"/>
-                          <circle cx="760" cy="290" r="3" class="location-dot"/>
-                          <circle cx="780" cy="300" r="3" class="location-dot"/>
-                          
-                          <!-- Australia -->
-                          <circle cx="760" cy="390" r="3" class="location-dot"/>
-                          <circle cx="780" cy="400" r="3" class="location-dot"/>
-                          <circle cx="800" cy="410" r="3" class="location-dot"/>
-                          <circle cx="820" cy="420" r="3" class="location-dot"/>
-                          <circle cx="770" cy="420" r="3" class="location-dot"/>
-                          <circle cx="790" cy="430" r="3" class="location-dot"/>
-                      </g>
-                  </svg>
+                  <img src="assets/images/map-image.webp" alt="World Map" class="world-map-image">
               </div>
               <div class="map-stats">
                   <div class="stat-item">
