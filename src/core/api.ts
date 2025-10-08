@@ -28,6 +28,11 @@ export class ApiService {
   }
 
   // admin endpoints
+  // contact responses management
+  getAllContactResponses(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/contact?page=${page}&pageSize=${pageSize}`);
+  }
+
   // email notification management
   addEmailForNotification(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/notifications/emails`, data);
