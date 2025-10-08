@@ -26,4 +26,22 @@ export class ApiService {
   contactUs(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/contact`, data);
   }
+
+  // admin endpoints
+  // email notification management
+  addEmailForNotification(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/notifications/emails`, data);
+  }
+
+  getAllEmailsForNotification(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/notifications/emails`);
+  }
+
+  deleteEmailForNotification(email: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/notifications/emails/${email}`);
+  }
+
+  testEmailNotification(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/notifications/send`, data);
+  }
 }

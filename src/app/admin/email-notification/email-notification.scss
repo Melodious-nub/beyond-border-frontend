@@ -1,0 +1,209 @@
+// Custom styles for email notification component
+.email-notification {
+  // Smooth transitions for all interactive elements
+  * {
+    transition: all 0.2s ease-in-out;
+  }
+
+  // Custom scrollbar for better UX
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  // Enhanced button hover effects
+  .btn-primary {
+    position: relative;
+    overflow: hidden;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    &:hover::before {
+      left: 100%;
+    }
+  }
+
+  // Loading spinner animation
+  .loading-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  // Modal backdrop blur effect
+  .modal-backdrop {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  // Card hover effects
+  .stats-card {
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+  }
+
+  // Email list item hover effects
+  .email-item {
+    transition: background-color 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: #f8fafc;
+    }
+  }
+
+  // Form input focus effects
+  .form-input {
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    
+    &:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+  }
+
+  // Status badge animations
+  .status-badge {
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  // Error message styling
+  .error-message {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+  }
+
+  // Success message styling
+  .success-message {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  // Responsive design enhancements
+  @media (max-width: 640px) {
+    .modal-panel {
+      margin: 1rem;
+      max-width: calc(100% - 2rem);
+    }
+    
+    .stats-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+
+  // Dark mode support (if needed in future)
+  @media (prefers-color-scheme: dark) {
+    .dark-mode {
+      background-color: #1f2937;
+      color: #f9fafb;
+      
+      .card {
+        background-color: #374151;
+        border-color: #4b5563;
+      }
+      
+      .form-input {
+        background-color: #374151;
+        border-color: #4b5563;
+        color: #f9fafb;
+      }
+    }
+  }
+
+  // Print styles
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-friendly {
+      background: white !important;
+      color: black !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // High contrast mode support
+  @media (prefers-contrast: high) {
+    .high-contrast {
+      border: 2px solid currentColor;
+      
+      .btn {
+        border: 2px solid currentColor;
+      }
+    }
+  }
+
+  // Reduced motion support
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+

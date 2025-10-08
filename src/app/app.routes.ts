@@ -121,7 +121,7 @@ export const routes: Routes = [
   {
     path: 'admin',
     canActivate: [AdminGuard],
-    loadComponent: () => import('./admin/admin-main/admin-main').then(m => m.AdminMainComponent),
+    loadComponent: () => import('./admin/admin-layout/admin-layout').then(m => m.AdminLayoutComponent),
     children: adminRoutes,
     data: { title: 'Admin Panel' }
   },
