@@ -82,7 +82,7 @@ export class AuthService {
         }));
         this.authSubject.next(this._authState());
       } catch (error) {
-        console.error('Error parsing stored user data:', error);
+        // Error parsing stored user data - clearing auth
         this.clearAuth();
       }
     }
@@ -102,7 +102,7 @@ export class AuthService {
           }
         }),
         catchError((error) => {
-          console.error('Login error:', error);
+          // Login error - handled by component
           return throwError(() => error);
         }),
         finalize(() => this.setLoading(false))
@@ -132,7 +132,7 @@ export class AuthService {
           localStorage.setItem('auth_user', JSON.stringify(user));
         }),
         catchError((error) => {
-          console.error('Get current user error:', error);
+          // Get current user error - handled by component
           if (error.status === 401) {
             this.clearAuth();
           }
@@ -156,7 +156,7 @@ export class AuthService {
           localStorage.setItem('auth_user', JSON.stringify(updatedUser));
         }),
         catchError((error) => {
-          console.error('Update profile error:', error);
+          // Update profile error - handled by component
           return throwError(() => error);
         })
       );

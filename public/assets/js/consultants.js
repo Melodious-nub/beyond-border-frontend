@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const firm = this.querySelector('.firm').textContent;
             
             // You can add modal or redirect functionality here
-            console.log(`Clicked on ${name} from ${location} (${firm})`);
+            // Consultant card clicked - functionality can be added here
             
             // For now, just add a visual feedback
             this.style.transform = 'scale(0.98)';

@@ -38,7 +38,7 @@ export class PerformanceService implements OnDestroy {
     if (startTime) {
       const duration = performance.now() - startTime;
       this.performanceMetrics.delete(label);
-      console.log(`Performance [${label}]: ${duration.toFixed(2)}ms`);
+      // Performance logging removed for production
       return duration;
     }
     return 0;
@@ -91,11 +91,7 @@ export class PerformanceService implements OnDestroy {
   logMemoryUsage(): void {
     const memory = this.getMemoryUsage();
     if (memory) {
-      console.log('Memory Usage:', {
-        used: `${(memory.usedJSHeapSize / 1048576).toFixed(2)} MB`,
-        total: `${(memory.totalJSHeapSize / 1048576).toFixed(2)} MB`,
-        limit: `${(memory.jsHeapSizeLimit / 1048576).toFixed(2)} MB`
-      });
+      // Memory usage logging removed for production
     }
   }
 

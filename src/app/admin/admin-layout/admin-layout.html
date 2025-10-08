@@ -5,7 +5,7 @@
       <div class="flex flex-col h-full bg-white border-r border-gray-200 shadow-sm">
         <!-- Logo/Brand -->
         <div class="flex items-center flex-shrink-0 px-6 py-5">
-          <div class="flex items-center">
+          <div class="flex items-center logo-container">
             <div class="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
               <span class="text-white font-bold text-sm">BB</span>
             </div>
@@ -18,53 +18,59 @@
 
         <!-- Navigation -->
         <div class="flex-1 flex flex-col overflow-hidden">
-          <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
+          <nav class="flex-1 px-3 space-y-1 overflow-y-auto sidebar-nav">
             <!-- Dashboard -->
             <a routerLink="/admin/dashboard" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-tachometer-alt mr-3 w-5 text-center"></i>
-              Dashboard
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-tachometer-alt mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Dashboard</span>
             </a>
 
             <!-- Contact Responses -->
             <a routerLink="/admin/contact-responses" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-comments mr-3 w-5 text-center"></i>
-              Contact Responses
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-comments mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Contact Responses</span>
             </a>            
 
             <!-- Team -->
             <a routerLink="/admin/team" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-users mr-3 w-5 text-center"></i>
-              Team
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-users mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Team</span>
             </a>
 
             <!-- Breadcrumb -->
             <a routerLink="/admin/breadcrumb" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-sitemap mr-3 w-5 text-center"></i>
-              Breadcrumb
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-sitemap mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Breadcrumb</span>
             </a>
 
             <!-- Email Notification -->
             <a routerLink="/admin/email-notification" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-envelope mr-3 w-5 text-center"></i>
-              Email Notification
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-envelope mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Email Notification</span>
             </a>
 
             <!-- Blog -->
             <a routerLink="/admin/blog" 
                routerLinkActive="bg-blue-50 border-r-2 border-blue-600 text-blue-700"
-               class="group flex items-center px-3 py-2.5 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200">
-              <i class="fas fa-blog mr-3 w-5 text-center"></i>
-              Blog
+               class="group flex items-center px-3 py-3 text-sm font-medium rounded-lg text-gray-700 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-blog mr-3 w-5 text-center text-base leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Blog</span>
             </a>            
           </nav>
         </div>
@@ -99,39 +105,45 @@
           <nav class="px-2 space-y-1">
             <a routerLink="/admin/dashboard" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-tachometer-alt mr-4 w-6 text-center"></i>
-              Dashboard
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-tachometer-alt mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Dashboard</span>
             </a>
             <a routerLink="/admin/team" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-users mr-4 w-6 text-center"></i>
-              Team
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-users mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Team</span>
             </a>
             <a routerLink="/admin/contact-responses" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-comments mr-4 w-6 text-center"></i>
-              Contact Responses
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-comments mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Contact Responses</span>
             </a>
             <a routerLink="/admin/breadcrumb" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-sitemap mr-4 w-6 text-center"></i>
-              Breadcrumb
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-sitemap mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Breadcrumb</span>
             </a>
             <a routerLink="/admin/email-notification" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-envelope mr-4 w-6 text-center"></i>
-              Email Notification
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-envelope mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Email Notification</span>
             </a>
             <a routerLink="/admin/blog" 
                routerLinkActive="bg-blue-50 text-blue-700"
-               class="group flex items-center px-2 py-2 text-base font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900">
-              <i class="fas fa-blog mr-4 w-6 text-center"></i>
-              Blog
+               class="group flex items-center px-3 py-3 text-base font-medium rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 ease-in-out relative overflow-hidden">
+              <div class="absolute inset-0 bg-blue-600 opacity-0 group-hover:opacity-5 transition-opacity duration-300"></div>
+              <i class="fas fa-blog mr-4 w-6 text-center text-lg leading-none flex items-center justify-center transition-colors duration-300 nav-icon"></i>
+              <span class="relative z-10 transition-colors duration-300">Blog</span>
             </a>
           </nav>
         </div>
@@ -141,7 +153,7 @@
     <!-- Main content -->
     <div class="flex flex-col lg:ml-72 flex-1">
       <!-- Top navigation -->
-      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow-sm border-b border-gray-200">
+      <div class="sticky top-0 z-10 flex-shrink-0 flex h-16 bg-white shadow-sm border-b border-gray-200 top-nav">
         <!-- Mobile menu button -->
         <div class="lg:hidden flex items-center px-4">
           <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" (click)="toggleMobileSidebar()">
@@ -178,7 +190,7 @@
 
               <!-- Dropdown menu -->
               <div *ngIf="isUserMenuOpen()" 
-                   class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                   class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-50 user-menu open">
                 <div class="py-1">
                   <!-- User info -->
                   <div class="px-4 py-3 border-b border-gray-100">

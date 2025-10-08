@@ -47,7 +47,7 @@ export abstract class BaseComponent implements OnDestroy {
    */
   protected handleError(error: any, context?: string): void {
     const errorMessage = error?.message || 'An unexpected error occurred';
-    console.error(`Error${context ? ` in ${context}` : ''}:`, error);
+    // Error logging removed for production
     this.setError(errorMessage);
   }
 

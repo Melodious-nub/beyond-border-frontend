@@ -216,5 +216,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-console.log('Beyond Border Consultants website loaded successfully!');
+// Website loaded successfully
 

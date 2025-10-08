@@ -1,2 +1,178 @@
-// Admin layout styles are handled by Tailwind CSS
-// This file is kept for any custom overrides if needed
+// Admin layout custom styles and animations
+
+// Sidebar navigation enhancements
+.sidebar-nav {
+  // Smooth scrollbar for navigation
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(156, 163, 175, 0.3);
+    border-radius: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(156, 163, 175, 0.5);
+  }
+}
+
+// Enhanced navigation link animations
+.nav-link {
+  position: relative;
+  overflow: hidden;
+  
+  // Subtle scale effect on hover
+  &:hover {
+    transform: translateX(2px);
+  }
+  
+  // Active state with subtle glow
+  &.router-link-active {
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #3b82f6, #1d4ed8);
+      border-radius: 0 2px 2px 0;
+      animation: slideIn 0.3s ease-out;
+    }
+  }
+  
+  // Icon animation on hover
+  i {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  &:hover i {
+    transform: scale(1.1);
+  }
+}
+
+// Fix icon alignment in navigation
+.nav-icon {
+  line-height: 1;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Mobile sidebar slide animation
+.mobile-sidebar {
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.open {
+    transform: translateX(0);
+  }
+}
+
+// Backdrop blur effect
+.sidebar-backdrop {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+// Logo animation
+.logo-container {
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// User menu dropdown animation
+.user-menu {
+  transform: translateY(-10px) scale(0.95);
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &.open {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+// Top navigation enhancements
+.top-nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+
+// Keyframe animations
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+// Responsive improvements
+@media (max-width: 1024px) {
+  .nav-link {
+    &:hover {
+      transform: none; // Disable transform on mobile
+    }
+  }
+}
+
+// Dark mode support (if needed in future)
+@media (prefers-color-scheme: dark) {
+  .top-nav {
+    background: rgba(31, 41, 55, 0.95);
+    border-bottom-color: rgba(75, 85, 99, 0.8);
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .mobile-sidebar,
+  .user-menu,
+  .logo-container {
+    transition: none;
+  }
+  
+  .nav-link:hover {
+    transform: none;
+  }
+  
+  .nav-link:hover i {
+    transform: none;
+  }
+}

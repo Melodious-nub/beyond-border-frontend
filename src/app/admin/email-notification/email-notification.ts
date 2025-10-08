@@ -14,7 +14,9 @@ interface NotificationEmail {
 interface ApiResponse {
   success: boolean;
   message: string;
-  data?: any;
+  data?: {
+    notificationEmails?: NotificationEmail[];
+  };
   errors?: Array<{
     field: string;
     message: string;
@@ -72,16 +74,16 @@ export class EmailNotification implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (response: ApiResponse) => {
-          if (response.success && response.data) {
-            this.emails.set(response.data);
+          if (response.success && response.data && response.data.notificationEmails) {
+            this.emails.set(response.data.notificationEmails);
           } else {
             // Silently handle error for loading emails - no toast notification
-            console.warn('Failed to load emails:', response.message);
+            // Failed to load emails - handled silently
             this.emails.set([]);
           }
         },
         error: (error) => {
-          console.error('Error loading emails:', error);
+          // Error loading emails - handled silently
           // Silently handle error for loading emails - no toast notification
           this.emails.set([]);
         }
@@ -119,7 +121,7 @@ export class EmailNotification implements OnInit, OnDestroy {
             }
           },
           error: (error) => {
-            console.error('Error adding email:', error);
+            // Error adding email - handled by user notification
             this.showError('Error', 'Failed to add email notification');
           }
         });
@@ -156,7 +158,7 @@ export class EmailNotification implements OnInit, OnDestroy {
               }
             },
             error: (error) => {
-              console.error('Error deleting email:', error);
+              // Error deleting email - handled by user notification
               this.showError('Error', 'Failed to delete email notification');
             }
           });
@@ -208,7 +210,7 @@ export class EmailNotification implements OnInit, OnDestroy {
                 }
               },
               error: (error) => {
-                console.error('Error sending test email:', error);
+                // Error sending test email - handled by user notification
                 this.showError('Error', 'Failed to send test email');
               }
             });
