@@ -1,2 +1,354 @@
 <!-- Dynamic Breadcrumb Component -->
 <app-breadcrumb pageTitle="community"></app-breadcrumb>
+
+<!-- Community Form Section -->
+<section class="community-form-section">
+    <div class="form-container">
+        <!-- Form Card -->
+        <div class="form-card">
+            <!-- Form Header -->
+            <div class="form-header">
+                <div class="header-content">
+                    <h1 class="form-title">Consultant Community Membership Form</h1>
+                    <p class="form-subtitle">
+                        Join our exclusive network of expert consultants and contribute to meaningful projects worldwide.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="form-content">
+
+            <!-- Form -->
+            <form (ngSubmit)="onSubmit()" #communityForm="ngForm" class="form-wrapper">
+                
+                <!-- Section 1: Personal Information -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-title-wrapper">
+                            <div class="section-number">
+                                <span class="number-text">1</span>
+                            </div>
+                            <div class="section-title-content">
+                                <h2 class="section-title">Personal Information</h2>
+                                <p class="section-description">Tell us about yourself</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Full Name *</label>
+                            <input 
+                                type="text" 
+                                name="name"
+                                [(ngModel)]="formData.name"
+                                required
+                                #nameField="ngModel"
+                                [class.error-border]="nameField.touched && nameField.invalid"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Email Address *</label>
+                            <input 
+                                type="email" 
+                                name="emailAddress"
+                                [(ngModel)]="formData.emailAddress"
+                                required
+                                #emailField="ngModel"
+                                [class.error-border]="emailField.touched && emailField.invalid"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Phone Number *</label>
+                            <input 
+                                type="tel" 
+                                name="phoneNumber"
+                                [(ngModel)]="formData.phoneNumber"
+                                required
+                                #phoneField="ngModel"
+                                [class.error-border]="phoneField.touched && phoneField.invalid"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">LinkedIn Profile</label>
+                            <input 
+                                type="url" 
+                                name="linkedInProfile"
+                                [(ngModel)]="formData.linkedInProfile"
+                                placeholder="https://linkedin.com/in/yourprofile"
+                                class="form-input">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Professional Details -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <div class="section-title-wrapper">
+                            <div class="section-number">
+                                <span class="number-text">2</span>
+                            </div>
+                            <div class="section-title-content">
+                                <h2 class="section-title">Professional Details</h2>
+                                <p class="section-description">Share your professional background</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Company/Organization *</label>
+                            <input 
+                                type="text" 
+                                name="company"
+                                [(ngModel)]="formData.company"
+                                required
+                                #companyField="ngModel"
+                                [class.error-border]="companyField.touched && companyField.invalid"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Designation/Title *</label>
+                            <input 
+                                type="text" 
+                                name="designation"
+                                [(ngModel)]="formData.designation"
+                                required
+                                #designationField="ngModel"
+                                [class.error-border]="designationField.touched && designationField.invalid"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Years of Experience *</label>
+                            <input 
+                                type="number" 
+                                name="yearsOfExperience"
+                                [(ngModel)]="formData.yearsOfExperience"
+                                required
+                                min="1"
+                                max="50"
+                                #experienceField="ngModel"
+                                [class.error-border]="experienceField.touched && experienceField.invalid"
+                                placeholder="Enter years of experience"
+                                class="form-input">
+                        </div>
+                    </div>
+                    
+                    <!-- Areas of Expertise -->
+                    <div class="form-group" style="margin-top: 1rem;">
+                        <label class="form-label">Areas of Expertise *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label *ngFor="let expertise of expertiseOptions" class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                <input 
+                                    type="checkbox" 
+                                    [value]="expertise.value"
+                                    [checked]="formData.areasOfExpertise.includes(expertise.value)"
+                                    (change)="toggleExpertise(expertise.value, $event)"
+                                    class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                <span class="text-gray-800 font-medium text-sm">{{expertise.label}}</span>
+                            </label>
+                        </div>
+                        
+                        <!-- Other expertise input -->
+                        <div *ngIf="formData.areasOfExpertise.includes('Others')" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                            <label class="block text-sm font-semibold text-gray-800 mb-3">Please specify other areas of expertise:</label>
+                            <div class="flex gap-3">
+                                <input 
+                                    type="text" 
+                                    [(ngModel)]="otherExpertise"
+                                    name="otherExpertise"
+                                    placeholder="Enter expertise area"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 text-sm">
+                                <button 
+                                    type="button" 
+                                    (click)="addOtherExpertise()"
+                                    class="px-6 py-3 bg-red-600 text-black rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold text-sm">
+                                    Add
+                                </button>
+                            </div>
+                            <div *ngIf="customExpertise.length > 0" class="mt-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span *ngFor="let item of customExpertise" class="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 text-xs rounded-full font-medium border border-red-200">
+                                        {{item}}
+                                        <button 
+                                            type="button" 
+                                            (click)="removeCustomExpertise(item)"
+                                            class="ml-2 text-red-600 hover:text-red-800 font-bold">
+                                            ×
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Community Engagement -->
+                <div class="form-section">
+                    <div class="section-header mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4 shadow-md">
+                                <span class="text-red-600 font-bold text-lg">3</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">Community Engagement</h2>
+                                <p class="text-gray-600 text-sm">Tell us about your community involvement</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div class="form-group">
+                            <label class="block text-sm font-semibold text-gray-800 mb-2">Why do you want to join our community? *</label>
+                            <textarea 
+                                name="whyJoinCommunity"
+                                [(ngModel)]="formData.whyJoinCommunity"
+                                required
+                                #whyJoinField="ngModel"
+                                [class.border-red-500]="whyJoinField.touched && whyJoinField.invalid"
+                                rows="4"
+                                placeholder="Share your motivation for joining our consultant community..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none text-sm"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="block text-sm font-semibold text-gray-800 mb-2">How can you contribute to the community? *</label>
+                            <textarea 
+                                name="howCanContribute"
+                                [(ngModel)]="formData.howCanContribute"
+                                required
+                                #contributeField="ngModel"
+                                [class.border-red-500]="contributeField.touched && contributeField.invalid"
+                                rows="4"
+                                placeholder="Describe how you can add value to our community..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none text-sm"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 4: Preferences -->
+                <div class="form-section">
+                    <div class="section-header mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4 shadow-md">
+                                <span class="text-red-600 font-bold text-lg">4</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">Communication Preferences</h2>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="form-group">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                <input 
+                                    type="checkbox" 
+                                    name="email"
+                                    [(ngModel)]="formData.email"
+                                    class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-800">Email</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                <input 
+                                    type="checkbox" 
+                                    name="whatsapp"
+                                    [(ngModel)]="formData.whatsapp"
+                                    class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-800">WhatsApp</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                <input 
+                                    type="checkbox" 
+                                    name="slack"
+                                    [(ngModel)]="formData.slack"
+                                    class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                <div>
+                                    <span class="text-sm font-semibold text-gray-800">Slack</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                            <input 
+                                type="checkbox" 
+                                name="openToMentoring"
+                                [(ngModel)]="formData.openToMentoring"
+                                class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                            <div>
+                                <span class="text-sm font-semibold text-gray-800">Open to Mentoring</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 5: Agreement -->
+                <div class="form-section">
+                    <div class="section-header mb-8">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-4 shadow-md">
+                                <span class="text-red-600 font-bold text-lg">5</span>
+                            </div>
+                            <div>
+                                <h2 class="text-xl font-bold text-gray-900">Terms & Agreement</h2>
+                                <p class="text-gray-600 text-sm">Please review and accept our terms</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <label class="terms-checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                name="agreement"
+                                [(ngModel)]="formData.agreement"
+                                required
+                                #agreementField="ngModel"
+                                class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                            <span class="terms-text">
+                                I have read and agree to the terms and conditions, and I understand that my membership is subject to approval by the community administrators.
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-8">
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary btn-large px-8 py-4 text-sm font-semibold"
+                        [disabled]="isSubmitting">
+                        {{ isSubmitting ? 'SUBMITTING...' : 'SUBMIT APPLICATION' }}
+                    </button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="section-title">Can't find what you're looking for?</h2>
+        <p class="section-description">Contact us and we'll help you find the perfect consultant for your needs.</p>
+        <a type="button" routerLink="/contact" class="btn btn-primary btn-large">CONTACT US</a>
+    </div>
+</section>

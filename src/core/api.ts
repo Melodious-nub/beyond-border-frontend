@@ -84,5 +84,10 @@ export class ApiService {
   getPublicTeamMembers(): Observable<any> {
     return this.http.get(`${this.baseUrl}/teams/public/active`);
   }
+
+  // community management
+  createCommunity(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/consultant-community/submit`, data);
+  }
   
 }
