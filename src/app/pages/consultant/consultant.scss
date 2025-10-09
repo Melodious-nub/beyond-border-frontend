@@ -1,0 +1,521 @@
+// NGO Form Styles - Based on Community Form Design
+.ngo-form-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+  
+  .form-container {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem;
+    
+    @media (min-width: 640px) {
+      padding: 0 1.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      padding: 0 2rem;
+    }
+  }
+  
+  .form-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 1.5rem 0;
+    overflow: hidden;
+  }
+  
+  .form-header {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    padding: 3rem 2rem;
+    text-align: center;
+    
+    .header-content {
+      max-width: 48rem;
+      margin: 0 auto;
+    }
+    
+    .form-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      
+      @media (min-width: 640px) {
+        font-size: 2.25rem;
+      }
+    }
+    
+    .form-subtitle {
+      font-size: 1.125rem;
+      color: #fecaca;
+      line-height: 1.6;
+    }
+  }
+  
+  .form-content {
+    padding: 3rem 2rem;
+  }
+  
+  .form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .form-section {
+    position: relative;
+  }
+  
+  .section-header {
+    margin-bottom: 2rem;
+  }
+  
+  .section-title-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  .section-number {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #fef2f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2);
+  }
+  
+  .number-text {
+    color: #dc2626;
+    font-weight: 700;
+    font-size: 1.125rem;
+  }
+  
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .section-description {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0.5rem 0 0 0;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    
+    @media (min-width: 1024px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 0.75rem;
+    
+    &.full-width {
+      grid-column: 1 / -1;
+    }
+  }
+  
+  .form-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    color: #111827;
+    background: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.4;
+    
+    &:focus {
+      outline: none;
+      border-color: #dc2626;
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      transform: translateY(-1px);
+    }
+    
+    &:hover:not(:focus) {
+      border-color: #fca5a5;
+    }
+    
+    &.error-border {
+      border-color: #dc2626;
+    }
+    
+    &::placeholder {
+      color: #9ca3af;
+    }
+  }
+  
+  // Radio button styling
+  .radio-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #fef2f2;
+      border-color: #fca5a5;
+    }
+  }
+  
+  .radio-input {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    
+    &:checked {
+      background-color: #dc2626;
+      border-color: #dc2626;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 0.25rem;
+        height: 0.25rem;
+        background-color: white;
+        border-radius: 50%;
+      }
+    }
+    
+    &:hover {
+      border-color: #dc2626;
+    }
+  }
+  
+  .radio-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #374151;
+  }
+  
+  // Professional checkbox styling
+  input[type="checkbox"] {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 0.25rem;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    
+    &:checked {
+      background-color: #dc2626;
+      border-color: #dc2626;
+      
+      &::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+    }
+    
+    &:hover {
+      border-color: #dc2626;
+    }
+  }
+  
+  // Enhanced expertise tags styling
+  .inline-flex {
+    transition: all 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+    }
+  }
+  
+  // Professional submit button styling
+  .btn {
+    transition: all 0.3s ease;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(220, 38, 38, 0.3);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+  }
+  
+  // Enhanced spacing for form groups
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  .space-y-3 > * + * {
+    margin-top: 0.75rem;
+  }
+  
+  .space-y-4 > * + * {
+    margin-top: 1rem;
+  }
+  
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  .space-y-8 > * + * {
+    margin-top: 2rem;
+  }
+}
+
+// Enhanced responsive design with production-level breakpoints
+@media (max-width: 1280px) {
+  .ngo-form-section {
+    .container {
+      max-width: 100%;
+      padding: 0 1rem;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .ngo-form-section {
+    .px-6, .px-8, .px-12 {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+    
+    .py-12, .py-16 {
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+    }
+    
+    .text-5xl {
+      font-size: 2.75rem;
+    }
+    
+    .text-4xl {
+      font-size: 2.25rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .ngo-form-section {
+    .px-6, .px-8, .px-12 {
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    
+    .py-12, .py-16 {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+    
+    .text-5xl {
+      font-size: 2.25rem;
+    }
+    
+    .text-4xl {
+      font-size: 1.875rem;
+    }
+    
+    .text-3xl {
+      font-size: 1.5rem;
+    }
+    
+    .grid {
+      gap: 1rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+    
+    .space-y-20 {
+      gap: 3rem;
+    }
+    
+    .space-y-16 {
+      gap: 2.5rem;
+    }
+    
+    .space-y-12 {
+      gap: 2rem;
+    }
+    
+    .space-y-8 {
+      gap: 1.5rem;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .ngo-form-section {
+    .px-6, .px-8, .px-12 {
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+    }
+    
+    .py-12, .py-16 {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+    
+    .text-5xl {
+      font-size: 1.875rem;
+    }
+    
+    .text-4xl {
+      font-size: 1.5rem;
+    }
+    
+    .text-3xl {
+      font-size: 1.25rem;
+    }
+    
+    .text-2xl {
+      font-size: 1.125rem;
+    }
+    
+    .grid {
+      gap: 0.75rem;
+    }
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .space-y-20 {
+      gap: 2.5rem;
+    }
+    
+    .space-y-16 {
+      gap: 2rem;
+    }
+    
+    .space-y-12 {
+      gap: 1.5rem;
+    }
+    
+    .space-y-8 {
+      gap: 1rem;
+    }
+    
+    .space-y-6 {
+      gap: 0.75rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .ngo-form-section {
+    .px-6, .px-8, .px-12 {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+    
+    .py-12, .py-16 {
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    
+    .text-5xl {
+      font-size: 1.5rem;
+    }
+    
+    .text-4xl {
+      font-size: 1.25rem;
+    }
+    
+    .text-3xl {
+      font-size: 1.125rem;
+    }
+    
+    .text-2xl {
+      font-size: 1rem;
+    }
+    
+    .grid {
+      gap: 0.5rem;
+    }
+    
+    .form-group {
+      margin-bottom: 0.75rem;
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+// Focus states enhancement
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+}

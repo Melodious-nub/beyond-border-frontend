@@ -1,2 +1,443 @@
 <!-- Dynamic Breadcrumb Component -->
 <app-breadcrumb pageTitle="consultant"></app-breadcrumb>
+
+<!-- NGO Partnership & Funding Request Form Section -->
+<section class="ngo-form-section">
+    <div class="form-container">
+        <!-- Form Card -->
+        <div class="form-card">
+            <!-- Form Header -->
+            <div class="form-header">
+                <div class="header-content">
+                    <h1 class="form-title">NGO Partnership & Funding Request Form</h1>
+                    <p class="form-subtitle">
+                        Please fill out the following details to help us understand your organization and its needs.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="form-content">
+                <!-- Form -->
+                <form (ngSubmit)="onSubmit()" #ngoForm="ngForm" class="form-wrapper">
+                    
+                    <!-- Section A: NGO Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <div class="section-number">
+                                    <span class="number-text">A</span>
+                                </div>
+                                <div class="section-title-content">
+                                    <h2 class="section-title">NGO Information</h2>
+                                    <p class="section-description">Basic details about your organization</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">NGO Name *</label>
+                                <input 
+                                    type="text" 
+                                    name="ngoName"
+                                    [(ngModel)]="formData.ngoName"
+                                    required
+                                    #ngoNameField="ngModel"
+                                    [class.error-border]="ngoNameField.touched && ngoNameField.invalid"
+                                    class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">NGO Registration Number *</label>
+                                <input 
+                                    type="text" 
+                                    name="ngoRegistrationNumber"
+                                    [(ngModel)]="formData.ngoRegistrationNumber"
+                                    required
+                                    #registrationField="ngModel"
+                                    [class.error-border]="registrationField.touched && registrationField.invalid"
+                                    class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Chairman/President Name *</label>
+                                <input 
+                                    type="text" 
+                                    name="chairmanPresidentName"
+                                    [(ngModel)]="formData.chairmanPresidentName"
+                                    required
+                                    #chairmanField="ngModel"
+                                    [class.error-border]="chairmanField.touched && chairmanField.invalid"
+                                    class="form-input">
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label class="form-label">Specialized Areas of Operation *</label>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <label *ngFor="let area of specializedAreaOptions" class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                        <input 
+                                            type="checkbox" 
+                                            [value]="area"
+                                            [checked]="formData.specializedAreas.includes(area)"
+                                            (change)="toggleSpecializedArea(area, $event)"
+                                            class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                        <span class="text-gray-800 font-medium text-sm">{{area}}</span>
+                                    </label>
+                                </div>
+                                
+                                <!-- Other specialized areas input -->
+                                <div *ngIf="formData.specializedAreas.includes('Others')" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                    <label class="block text-sm font-semibold text-gray-800 mb-3">Please specify other specialized areas:</label>
+                                    <div class="flex gap-3">
+                                        <input 
+                                            type="text" 
+                                            [(ngModel)]="otherSpecializedArea"
+                                            name="otherSpecializedArea"
+                                            placeholder="Enter specialized area"
+                                            class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 text-sm">
+                                        <button 
+                                            type="button" 
+                                            (click)="addOtherSpecializedArea()"
+                                            class="px-6 py-3 bg-red-600 text-dark rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold text-sm">
+                                            Add
+                                        </button>
+                                    </div>
+                                    <div *ngIf="customSpecializedAreas.length > 0" class="mt-4">
+                                        <div class="flex flex-wrap gap-2">
+                                            <span *ngFor="let item of customSpecializedAreas" class="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 text-xs rounded-full font-medium border border-red-200">
+                                                {{item}}
+                                                <button 
+                                                    type="button" 
+                                                    (click)="removeCustomSpecializedArea(item)"
+                                                    class="ml-2 text-red-600 hover:text-red-800 font-bold">
+                                                    ×
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section B: Expansion Plans -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <div class="section-number">
+                                    <span class="number-text">B</span>
+                                </div>
+                                <div class="section-title-content">
+                                    <h2 class="section-title">Expansion Plans</h2>
+                                    <p class="section-description">Tell us about your future expansion plans</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">5. Are you planning to expand your operations? *</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="planningToExpand"
+                                        [value]="true"
+                                        [(ngModel)]="formData.planningToExpand"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="planningToExpand"
+                                        [value]="false"
+                                        [(ngModel)]="formData.planningToExpand"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="formData.planningToExpand" class="form-group">
+                            <label class="form-label">If yes, please specify regions:</label>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label *ngFor="let region of regionOptions" class="flex items-center space-x-3 cursor-pointer hover:bg-red-50 p-3 rounded-lg transition-all duration-200 border border-gray-200 hover:border-red-300">
+                                    <input 
+                                        type="checkbox" 
+                                        [value]="region.value"
+                                        [checked]="formData.expansionRegions.includes(region.value)"
+                                        (change)="toggleExpansionRegion(region.value, $event)"
+                                        class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
+                                    <span class="text-gray-800 font-medium text-sm">{{region.label}}</span>
+                                </label>
+                            </div>
+                            
+                            <!-- Other regions input -->
+                            <div *ngIf="formData.expansionRegions.includes('Other')" class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                                <label class="block text-sm font-semibold text-gray-800 mb-3">Please specify other regions:</label>
+                                <div class="flex gap-3">
+                                    <input 
+                                        type="text" 
+                                        [(ngModel)]="otherRegion"
+                                        name="otherRegion"
+                                        placeholder="Enter region name"
+                                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 text-sm">
+                                    <button 
+                                        type="button" 
+                                        (click)="addOtherRegion()"
+                                        class="px-6 py-3 bg-red-600 text-dark rounded-lg hover:bg-red-700 transition-all duration-200 font-semibold text-sm">
+                                        Add
+                                    </button>
+                                </div>
+                                <div *ngIf="customRegions.length > 0" class="mt-4">
+                                    <div class="flex flex-wrap gap-2">
+                                        <span *ngFor="let item of customRegions" class="inline-flex items-center px-3 py-1 bg-red-100 text-red-800 text-xs rounded-full font-medium border border-red-200">
+                                            {{item}}
+                                            <button 
+                                                type="button" 
+                                                (click)="removeCustomRegion(item)"
+                                                class="ml-2 text-red-600 hover:text-red-800 font-bold">
+                                                ×
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section C: Funding Requirements -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <div class="section-number">
+                                    <span class="number-text">C</span>
+                                </div>
+                                <div class="section-title-content">
+                                    <h2 class="section-title">Funding Requirements</h2>
+                                    <p class="section-description">Share your funding needs and preferences</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">6. Do you need funding support? *</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="needFundingSupport"
+                                        [value]="true"
+                                        [(ngModel)]="formData.needFundingSupport"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="needFundingSupport"
+                                        [value]="false"
+                                        [(ngModel)]="formData.needFundingSupport"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="formData.needFundingSupport" class="form-group">
+                            <label class="form-label">Total Fund Required (USD) *</label>
+                            <input 
+                                type="number" 
+                                name="totalFundRequired"
+                                [(ngModel)]="formData.totalFundRequired"
+                                min="1"
+                                placeholder="Enter amount in USD"
+                                class="form-input">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Are you looking for a Fund Manager?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="lookingForFundManager"
+                                        [value]="true"
+                                        [(ngModel)]="formData.lookingForFundManager"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="lookingForFundManager"
+                                        [value]="false"
+                                        [(ngModel)]="formData.lookingForFundManager"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Are you open to splitting the investment with multiple partners?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="openToSplittingInvestment"
+                                        [value]="true"
+                                        [(ngModel)]="formData.openToSplittingInvestment"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="openToSplittingInvestment"
+                                        [value]="false"
+                                        [(ngModel)]="formData.openToSplittingInvestment"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section D: Project Proposal Support -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <div class="section-number">
+                                    <span class="number-text">D</span>
+                                </div>
+                                <div class="section-title-content">
+                                    <h2 class="section-title">Project Proposal Support</h2>
+                                    <p class="section-description">Tell us about your proposal preparation capacity</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">10. Do you have a specialized person/team to prepare your project proposal?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="hasSpecializedTeam"
+                                        [value]="true"
+                                        [(ngModel)]="formData.hasSpecializedTeam"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="hasSpecializedTeam"
+                                        [value]="false"
+                                        [(ngModel)]="formData.hasSpecializedTeam"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="!formData.hasSpecializedTeam" class="form-group">
+                            <label class="form-label">If no, do you need assistance?</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="needAssistance"
+                                        [value]="true"
+                                        [(ngModel)]="formData.needAssistance"
+                                        class="radio-input">
+                                    <span class="radio-label">Yes</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input 
+                                        type="radio" 
+                                        name="needAssistance"
+                                        [value]="false"
+                                        [(ngModel)]="formData.needAssistance"
+                                        class="radio-input">
+                                    <span class="radio-label">No</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section E: Contact Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <div class="section-title-wrapper">
+                                <div class="section-number">
+                                    <span class="number-text">E</span>
+                                </div>
+                                <div class="section-title-content">
+                                    <h2 class="section-title">Contact Information</h2>
+                                    <p class="section-description">How can we reach you?</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="form-label">11. Email Address *</label>
+                                <input 
+                                    type="email" 
+                                    name="emailAddress"
+                                    [(ngModel)]="formData.emailAddress"
+                                    required
+                                    #emailField="ngModel"
+                                    [class.error-border]="emailField.touched && emailField.invalid"
+                                    class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Website Address</label>
+                                <input 
+                                    type="url" 
+                                    name="websiteAddress"
+                                    [(ngModel)]="formData.websiteAddress"
+                                    placeholder="https://www.yourwebsite.org"
+                                    class="form-input">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Phone Number *</label>
+                                <input 
+                                    type="tel" 
+                                    name="phoneNumber"
+                                    [(ngModel)]="formData.phoneNumber"
+                                    required
+                                    #phoneField="ngModel"
+                                    [class.error-border]="phoneField.touched && phoneField.invalid"
+                                    class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-center pt-8">
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary btn-large px-8 py-4 text-sm font-semibold"
+                            [disabled]="isSubmitting">
+                            {{ isSubmitting ? 'SUBMITTING...' : 'SUBMIT REQUEST' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2 class="section-title">Need more information?</h2>
+        <p class="section-description">Contact us for any questions about our partnership and funding programs.</p>
+        <a type="button" routerLink="/contact" class="btn btn-primary btn-large">CONTACT US</a>
+    </div>
+</section>

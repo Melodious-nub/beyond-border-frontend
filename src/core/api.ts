@@ -89,5 +89,10 @@ export class ApiService {
   createCommunity(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/consultant-community/submit`, data);
   }
+
+  // consultants request management
+  createConsultantsRequest(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/consultants`, data);
+  }
   
 }
