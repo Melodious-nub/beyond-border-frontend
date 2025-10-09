@@ -73,7 +73,6 @@ export class ContactResponses implements OnInit {
         error: (error) => {
           this.error = 'Failed to load contact responses. Please try again.';
           this.loading = false;
-          console.error('Error loading contacts:', error);
         }
       });
   }

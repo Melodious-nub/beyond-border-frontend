@@ -164,7 +164,6 @@ export class Team implements OnInit, OnDestroy {
               this.departments = [];
             }
           } catch (error) {
-            console.error('Error processing team members response:', error);
             this.teamMembers.set([]);
             this.pagination = { page: 1, pageSize: 20, total: 0, pages: 0 };
             this.departments = [];
@@ -175,7 +174,6 @@ export class Team implements OnInit, OnDestroy {
           this.teamMembers.set([]);
           this.pagination = { page: 1, pageSize: 20, total: 0, pages: 0 };
           this.departments = [];
-          console.error('Error loading team members:', error);
         }
       });
   }
@@ -208,7 +206,6 @@ export class Team implements OnInit, OnDestroy {
 
   // Modal methods
   openAddTeamModal(): void {
-    console.log('Opening add team modal');
     // Close any open modals first
     this.isViewModalOpen.set(false);
     
@@ -220,11 +217,9 @@ export class Team implements OnInit, OnDestroy {
     });
     this.avatarPreview.set(null);
     this.isModalOpen.set(true);
-    console.log('Add modal state:', this.isModalOpen());
   }
 
   openEditModal(member: TeamMember): void {
-    console.log('Opening edit modal for member:', member);
     // Close any open modals first
     this.isViewModalOpen.set(false);
     
@@ -247,7 +242,6 @@ export class Team implements OnInit, OnDestroy {
     });
     this.avatarPreview.set(member.avatar || null);
     this.isModalOpen.set(true);
-    console.log('Edit modal state:', this.isModalOpen());
   }
 
   closeModal(): void {
@@ -260,7 +254,6 @@ export class Team implements OnInit, OnDestroy {
 
   // View modal methods
   openViewModal(member: TeamMember): void {
-    console.log('Opening view modal for member:', member);
     // Close any open modals first
     this.isModalOpen.set(false);
     this.isViewModalOpen.set(false);
@@ -268,7 +261,6 @@ export class Team implements OnInit, OnDestroy {
     // Set the selected member and open view modal
     this.selectedMember.set(member);
     this.isViewModalOpen.set(true);
-    console.log('View modal state:', this.isViewModalOpen());
   }
 
   closeViewModal(): void {
@@ -357,7 +349,6 @@ export class Team implements OnInit, OnDestroy {
           },
           error: (error) => {
             this.showError('Error', 'Failed to save team member. Please try again.');
-            console.error('Error saving team member:', error);
           }
         });
     } else {
@@ -395,7 +386,6 @@ export class Team implements OnInit, OnDestroy {
             },
             error: (error) => {
               this.showError('Error', 'Failed to delete team member. Please try again.');
-              console.error('Error deleting team member:', error);
             }
           });
       }
