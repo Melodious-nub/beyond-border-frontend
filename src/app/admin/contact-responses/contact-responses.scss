@@ -6,6 +6,30 @@
   overflow: hidden;
 }
 
+// Prevent horizontal scrolling
+.contact-responses {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+// Table responsive fixes
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  table {
+    min-width: 100%;
+    table-layout: fixed;
+  }
+  
+  // Ensure table cells don't cause overflow
+  th, td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
 // Smooth transitions for interactive elements
 .transition-all {
   transition: all 0.15s ease-in-out;
@@ -178,6 +202,38 @@
   .contact-actions {
     flex-direction: column;
     gap: 0.5rem;
+  }
+}
+
+// Laptop/Desktop responsive fixes (1024px to 1366px)
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .table-responsive {
+    table {
+      font-size: 0.875rem;
+    }
+    
+    th, td {
+      padding: 0.5rem 0.75rem;
+    }
+    
+    // Reduce button sizes for better fit
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Medium laptop screens (1367px to 1440px)
+@media (min-width: 1367px) and (max-width: 1440px) {
+  .table-responsive {
+    table {
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      padding: 0.75rem 1rem;
+    }
   }
 }
 
