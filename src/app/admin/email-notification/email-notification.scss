@@ -205,6 +205,52 @@
       grid-template-columns: 1fr;
       gap: 1rem;
     }
+    
+    // Mobile-specific button adjustments
+    .btn-mobile {
+      width: 100%;
+      justify-content: center;
+    }
+    
+    // Mobile form adjustments
+    .form-mobile {
+      padding: 1rem;
+    }
+    
+    // Mobile text adjustments
+    .text-mobile {
+      font-size: 0.875rem;
+    }
+  }
+
+  // Extra small screens (320px and up)
+  @media (min-width: 320px) and (max-width: 480px) {
+    .email-notification {
+      padding: 0.5rem;
+    }
+    
+    .stats-card {
+      padding: 0.75rem;
+    }
+    
+    .email-item {
+      padding: 0.75rem;
+    }
+  }
+
+  // Small screens (481px to 640px)
+  @media (min-width: 481px) and (max-width: 640px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  // Medium screens (641px to 768px)
+  @media (min-width: 641px) and (max-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   // Dark mode support (if needed in future)
