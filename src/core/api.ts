@@ -49,4 +49,40 @@ export class ApiService {
   testEmailNotification(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/notifications/send`, data);
   }
+
+  // team management
+  createTeamMember(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/teams`, data);
+  }
+
+  updateTeamMember(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/teams/${id}`, data);
+  }
+
+  deleteTeamMember(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/teams/${id}`);
+  }
+
+  getTeamMembers(params?: any): Observable<any> {
+    let url = `${this.baseUrl}/teams`;
+    if (params) {
+      const queryParams = new URLSearchParams();
+      Object.keys(params).forEach(key => {
+        if (params[key] !== null && params[key] !== undefined && params[key] !== '') {
+          queryParams.append(key, params[key]);
+        }
+      });
+      const queryString = queryParams.toString();
+      if (queryString) {
+        url += `?${queryString}`;
+      }
+    }
+    return this.http.get(url);
+  }
+
+  // public endpoints
+  getPublicTeamMembers(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/teams/public/active`);
+  }
+  
 }
