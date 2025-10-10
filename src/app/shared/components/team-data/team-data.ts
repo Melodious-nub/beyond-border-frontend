@@ -55,6 +55,7 @@ export class TeamData implements OnInit, OnDestroy {
   @Input() maxItems: number = 20;
   @Input() showFilters: boolean = true;
   @Input() parentFilters: TeamDataFilters = { search: '', department: '', designation: '' };
+  @Input() isManagement: boolean | undefined = undefined;
 
   // Output events
   @Output() filtersChanged = new EventEmitter<TeamDataFilters>();
@@ -185,6 +186,11 @@ export class TeamData implements OnInit, OnDestroy {
     // Apply designation filter
     if (this.filters.designation) {
       filtered = filtered.filter(member => member.designation === this.filters.designation);
+    }
+
+    // Apply management filter (simple boolean)
+    if (this.isManagement !== undefined) {
+      filtered = filtered.filter(member => member.isManagement === this.isManagement);
     }
 
     this.filteredMembers.set(filtered);
