@@ -94,5 +94,14 @@ export class ApiService {
   createConsultantsRequest(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/consultants`, data);
   }
+
+  // Admin endpoints for community and consultant requests
+  getAllCommunityMembers(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/consultant-community/admin?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getAllConsultantRequests(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/consultants?page=${page}&pageSize=${pageSize}`);
+  }
   
 }

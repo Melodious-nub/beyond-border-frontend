@@ -151,4 +151,30 @@ export class CacheService {
       this.clearExpired();
     });
   }
+
+  /**
+   * Cache team members with specific TTL
+   */
+  cacheTeamMembers(teamMembers: any[], ttl: number = 10 * 60 * 1000): void {
+    this.set('team_members', teamMembers, ttl);
+  }
+
+  /**
+   * Get cached team members
+   */
+  getCachedTeamMembers(): any[] | null {
+    return this.get<any[]>('team_members');
+  }
+
+  /**
+   * Cache with automatic refresh for team data
+   */
+  cacheTeamDataWithRefresh<T>(
+    key: string,
+    observable: Observable<T>,
+    ttl: number = 10 * 60 * 1000,
+    refreshThreshold: number = 0.7
+  ): Observable<T> {
+    return this.cacheWithRefresh(key, observable, ttl, refreshThreshold);
+  }
 }

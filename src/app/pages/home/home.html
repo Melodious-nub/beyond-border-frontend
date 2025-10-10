@@ -201,107 +201,11 @@
           <h2 class="section-title">Our expert consultants: proven experience across development sectors</h2>
           <p class="section-description">Meet our multidisciplinary team of specialists with decades of combined experience</p>
           
-          <div class="consultants-grid">
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&h=300&fit=crop" alt="Camila Fernandez" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Dr. Sarah Ahmed</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Microfinance Strategy Lead</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&h=300&fit=crop" alt="Alistair Hodgett" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Mohammad Rahman</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Banking & Finance Advisory</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop" alt="Frank Dichoza" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Dr. Fatima Hassan</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Agricultural Sciences PhD</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop" alt="Zahra Abdullah" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Eng. Karim Ali</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Civil Engineering & Infrastructure</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop" alt="Lars Linnekogel" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Rashida Khan</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Legal & Compliance Advisory</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&h=300&fit=crop" alt="Anna EngstrÃ¶mer" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Ahmed Hossain</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">IT & Digital Transformation</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&h=300&fit=crop" alt="Nadia Gountcheva" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Dr. Nasreen Sultana</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Development Project Advisory</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&h=300&fit=crop" alt="Ozan Ozaskinli" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Md. Tariq Islam</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Strategic Planning & Execution</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop" alt="Evgeny Glinik" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Sultana Begum</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Health Systems Strengthening</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=300&h=300&fit=crop" alt="Afua Branoah Banful" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Dr. Mizanur Rahman</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Animal Nutrition & Feed Technology</p>
-                  </div>
-              </div>
-              
-              <div class="consultant-card">
-                  <img src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?w=300&h=300&fit=crop" alt="Jose Aseguinolaza" class="consultant-image">
-                  <div class="consultant-info">
-                      <h4>Farah Chowdhury</h4>
-                      <p class="location">Dhaka, Bangladesh</p>
-                      <p class="firm">Corporate Legal & Compliance</p>
-                  </div>
-              </div>
-          </div>
-
+          <app-team-data 
+            [showLoadMore]="false" 
+            [maxItems]="6" 
+            [showFilters]="false">
+          </app-team-data>
           <div class="consultants-cta">
               <a routerLink="/team" class="btn btn-outline btn-large">MEET OUR TEAM</a>
           </div>

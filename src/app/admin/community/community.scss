@@ -1,0 +1,298 @@
+// Custom styles for community component
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+// Prevent horizontal scrolling
+.community-requests {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+// Table responsive fixes
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  table {
+    min-width: 100%;
+    table-layout: fixed;
+  }
+  
+  // Ensure table cells don't cause overflow
+  th, td {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+}
+
+// Smooth transitions for interactive elements
+.transition-all {
+  transition: all 0.15s ease-in-out;
+}
+
+// Custom scrollbar for table
+.overflow-x-auto::-webkit-scrollbar {
+  height: 6px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+// Enhanced focus states
+.focus\:ring-blue-500:focus {
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+}
+
+// Custom animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+// Status badge animations
+.status-badge {
+  transition: all 0.2s ease-in-out;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+// Table row hover effects
+.table-row {
+  transition: background-color 0.15s ease-in-out;
+  
+  &:hover {
+    background-color: #f8fafc;
+  }
+}
+
+// Button hover effects
+.btn-primary {
+  transition: all 0.15s ease-in-out;
+  
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Loading spinner animation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+// Modal animations
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.95);
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes backdropFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// Modal entrance animation
+.modal-enter {
+  animation: modalSlideIn 0.3s ease-out;
+}
+
+.modal-exit {
+  animation: modalSlideOut 0.3s ease-in;
+}
+
+// Backdrop animations
+.backdrop-enter {
+  animation: backdropFadeIn 0.3s ease-out;
+}
+
+.backdrop-exit {
+  animation: backdropFadeOut 0.3s ease-in;
+}
+
+// Responsive design enhancements
+@media (max-width: 640px) {
+  .mobile-card {
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  }
+  
+  // Mobile-specific adjustments
+  .community-item {
+    padding: 0.75rem;
+  }
+  
+  .community-avatar {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .community-info {
+    font-size: 0.875rem;
+  }
+  
+  .community-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+// Laptop/Desktop responsive fixes (1024px to 1366px)
+@media (min-width: 1024px) and (max-width: 1366px) {
+  .table-responsive {
+    table {
+      font-size: 0.875rem;
+    }
+    
+    th, td {
+      padding: 0.5rem 0.75rem;
+    }
+    
+    // Reduce button sizes for better fit
+    .btn-sm {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+}
+
+// Medium laptop screens (1367px to 1440px)
+@media (min-width: 1367px) and (max-width: 1440px) {
+  .table-responsive {
+    table {
+      font-size: 0.9rem;
+    }
+    
+    th, td {
+      padding: 0.75rem 1rem;
+    }
+  }
+}
+
+// Extra small screens (320px and up)
+@media (min-width: 320px) and (max-width: 480px) {
+  .community {
+    padding: 0.5rem;
+  }
+  
+  .community-item {
+    padding: 0.5rem;
+  }
+  
+  .community-avatar {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+  
+  .community-info {
+    font-size: 0.75rem;
+  }
+}
+
+// Small screens (481px to 640px)
+@media (min-width: 481px) and (max-width: 640px) {
+  .community-item {
+    padding: 1rem;
+  }
+  
+  .community-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+}
+
+// Medium screens (641px to 768px)
+@media (min-width: 641px) and (max-width: 768px) {
+  .community-item {
+    padding: 1.25rem;
+  }
+}
+
+// Dark mode support (if needed in future)
+@media (prefers-color-scheme: dark) {
+  .dark-mode {
+    .bg-white {
+      background-color: #1f2937;
+    }
+    
+    .text-gray-900 {
+      color: #f9fafb;
+    }
+    
+    .text-gray-600 {
+      color: #d1d5db;
+    }
+    
+    .border-gray-200 {
+      border-color: #374151;
+    }
+  }
+}

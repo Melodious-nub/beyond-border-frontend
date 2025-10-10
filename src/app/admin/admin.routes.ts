@@ -41,5 +41,15 @@ export const adminRoutes: Routes = [
     path: 'about',
     loadComponent: () => import('./about/about').then(m => m.About),
     data: { title: 'Admin - About Us' }
+  },
+  {
+    path: 'community',
+    loadComponent: () => import('./community/community').then(m => m.Community),
+    data: { title: 'Admin - Community' }
+  },
+  {
+    path: 'consultant-requests',
+    loadComponent: () => import('./consultant-requests/consultant-requests').then(m => m.ConsultantRequests),
+    data: { title: 'Admin - Consultant Requests' }
   }
 ];

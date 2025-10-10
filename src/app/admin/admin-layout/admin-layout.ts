@@ -26,7 +26,9 @@ export class AdminLayoutComponent {
     '/admin/email-notification': 'Email Management',
     '/admin/contact-responses': 'Contact Responses',
     '/admin/about': 'About Management',
-    '/admin/blog': 'Blog Management'
+    '/admin/blog': 'Blog Management',
+    '/admin/community': 'Community Management',
+    '/admin/consultant-requests': 'Consultant Requests'
   };
 
   constructor() {
