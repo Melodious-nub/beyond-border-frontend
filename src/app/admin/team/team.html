@@ -215,8 +215,6 @@
                   [alt]="member.name"
                   class="h-full w-full object-cover rounded-full"
                   (error)="onImageError($event)"
-                  crossorigin="anonymous"
-                  referrerpolicy="no-referrer"
                 />
                 <span *ngIf="!member.avatar" class="text-lg sm:text-xl font-medium text-blue-600">
                   {{ member.name.charAt(0).toUpperCase() }}
@@ -543,8 +541,6 @@
                             alt="Avatar preview"
                             class="h-full w-full object-cover rounded-full"
                             (error)="onImageError($event)"
-                            crossorigin="anonymous"
-                            referrerpolicy="no-referrer"
                           />
                           <svg *ngIf="!avatarPreview()" class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
@@ -696,8 +692,6 @@
                   [alt]="selectedMember()?.name"
                   class="h-full w-full object-cover rounded-full"
                   (error)="onImageError($event)"
-                  crossorigin="anonymous"
-                  referrerpolicy="no-referrer"
                 />
                 <span *ngIf="!selectedMember()?.avatar" class="text-2xl font-bold text-white">
                   {{ selectedMember()?.name?.charAt(0)?.toUpperCase() }}

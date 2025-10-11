@@ -85,8 +85,6 @@
           [alt]="member.name"
           class="avatar-image"
           (error)="onImageError($event)"
-          crossorigin="anonymous"
-          referrerpolicy="no-referrer"
         />
         <div *ngIf="!member.avatar" class="avatar-placeholder">
           {{ member.name.charAt(0).toUpperCase() }}

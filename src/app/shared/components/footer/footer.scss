@@ -66,11 +66,44 @@
 
     .logo-icon {
       margin-right: 0.75rem;
+      padding: 0.5rem;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
 
-      img {
-        width: 40px;
-        height: 40px;
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      .logo-img {
+        width: 60px;
+        height: 60px;
         object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+
+      &:hover .logo-img {
+        transform: scale(1.05);
+      }
+
+      @media (max-width: 768px) {
+        padding: 0.4rem;
+        
+        .logo-img {
+          width: 50px;
+          height: 50px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        padding: 0.3rem;
+        
+        .logo-img {
+          width: 45px;
+          height: 45px;
+        }
       }
     }
 
@@ -79,6 +112,10 @@
       font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: 1px;
+
+      @media (max-width: 480px) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -124,10 +161,35 @@
 
       .logo-icon {
         margin-right: 0.5rem;
+        padding: 0.4rem;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
 
-        img {
-          width: 32px;
-          height: 32px;
+        &:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo-img {
+          width: 50px;
+          height: 50px;
+          object-fit: contain;
+          transition: transform 0.3s ease;
+        }
+
+        &:hover .logo-img {
+          transform: scale(1.05);
+        }
+
+        @media (max-width: 480px) {
+          padding: 0.3rem;
+          
+          .logo-img {
+            width: 40px;
+            height: 40px;
+          }
         }
       }
 
@@ -135,6 +197,10 @@
         color: #3498db;
         font-size: 1rem;
         font-weight: 600;
+
+        @media (max-width: 480px) {
+          font-size: 0.9rem;
+        }
       }
     }
 
