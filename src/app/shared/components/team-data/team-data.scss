@@ -326,11 +326,31 @@
     line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    cursor: help;
+    cursor: pointer;
     transition: all 0.2s ease-in-out;
+    position: relative;
     
     &:hover {
       color: #1E3A8A;
+    }
+    
+    // Add click hint styling
+    &::after {
+      content: 'Click for details';
+      position: absolute;
+      bottom: -1.5rem;
+      left: 0;
+      right: 0;
+      font-size: 0.75rem;
+      color: #9ca3af;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+      pointer-events: none;
+    }
+    
+    &:hover::after {
+      opacity: 1;
     }
   }
   
@@ -343,9 +363,17 @@
     z-index: 999999;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
     pointer-events: none;
     margin-top: 8px;
+    
+    // Visible state for click-based tooltips
+    &.tooltip-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
   }
   
   // Professional Tooltip Content
@@ -376,10 +404,6 @@
     }
   }
   
-  // Tooltip visibility controlled by JavaScript
-  .tooltip-container {
-    transform: translateX(-50%) translateY(4px);
-  }
 }
 
 // Social Links

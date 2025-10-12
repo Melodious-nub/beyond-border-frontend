@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, signal, inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, signal, inject, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject, takeUntil, finalize, debounceTime, distinctUntilChanged } from 'rxjs';
@@ -266,24 +266,38 @@ export class TeamData implements OnInit, OnDestroy {
     return element.scrollHeight > element.clientHeight;
   }
 
-  // Handle tooltip visibility based on text truncation
-  onDescriptionMouseEnter(event: MouseEvent): void {
-    const textElement = event.currentTarget as HTMLElement;
-    const tooltip = textElement.parentElement?.querySelector('.tooltip-container') as HTMLElement;
+  // Click-based tooltip system
+  private visibleTooltips = new Set<number>();
+
+  toggleTooltip(event: MouseEvent, memberId: number): void {
+    event.stopPropagation();
     
-    if (tooltip && this.isTextTruncated(textElement)) {
-      tooltip.style.opacity = '1';
-      tooltip.style.visibility = 'visible';
+    if (this.visibleTooltips.has(memberId)) {
+      // Hide tooltip if already visible
+      this.visibleTooltips.delete(memberId);
+    } else {
+      // Show tooltip and hide others
+      this.visibleTooltips.clear();
+      this.visibleTooltips.add(memberId);
     }
   }
 
-  onDescriptionMouseLeave(event: MouseEvent): void {
-    const textElement = event.currentTarget as HTMLElement;
-    const tooltip = textElement.parentElement?.querySelector('.tooltip-container') as HTMLElement;
+  isTooltipVisible(memberId: number): boolean {
+    return this.visibleTooltips.has(memberId);
+  }
+
+  hideAllTooltips(): void {
+    this.visibleTooltips.clear();
+  }
+
+  // Handle outside clicks to close tooltips
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
     
-    if (tooltip) {
-      tooltip.style.opacity = '0';
-      tooltip.style.visibility = 'hidden';
+    // Check if click is outside any tooltip container
+    if (!target.closest('.member-description')) {
+      this.hideAllTooltips();
     }
   }
 }

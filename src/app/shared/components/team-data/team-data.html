@@ -109,10 +109,10 @@
       <!-- Member Description -->
       <div *ngIf="member.description" class="member-description group relative">
         <p class="description-text" 
-           (mouseenter)="onDescriptionMouseEnter($event)"
-           (mouseleave)="onDescriptionMouseLeave($event)">{{ member.description }}</p>
+           (click)="toggleTooltip($event, member.id)">{{ member.description }}</p>
         <!-- Professional Tooltip -->
-        <div class="tooltip-container">
+        <div class="tooltip-container" 
+             [class.tooltip-visible]="isTooltipVisible(member.id)">
           <div class="tooltip-content">
             {{ member.description }}
                 </div>
