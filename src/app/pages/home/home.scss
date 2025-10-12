@@ -1,3 +1,13 @@
+// Main hero title styling
+.main-hero-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: #003B5C;
+  margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
 // World map image responsive styling only
 .world-map-image {
   width: 100%;

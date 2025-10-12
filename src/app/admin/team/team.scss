@@ -315,8 +315,24 @@
       gap: 1rem;
     }
     
-    @media (min-width: 641px) and (max-width: 1024px) {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    @media (min-width: 641px) and (max-width: 768px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 1025px) and (max-width: 1280px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @media (min-width: 1281px) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
     }
   }
 
@@ -457,15 +473,22 @@
     }
   }
 
-  // Large screens (769px to 1024px)
+  // Large screens (769px to 1024px) - 14-inch laptops
   @media (min-width: 769px) and (max-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  // Extra large screens (1025px to 1280px)
+  @media (min-width: 1025px) and (max-width: 1280px) {
     .team-grid {
       grid-template-columns: repeat(3, 1fr);
     }
   }
 
-  // Extra large screens (1025px and up)
-  @media (min-width: 1025px) {
+  // 2XL screens (1281px and up)
+  @media (min-width: 1281px) {
     .team-grid {
       grid-template-columns: repeat(4, 1fr);
     }

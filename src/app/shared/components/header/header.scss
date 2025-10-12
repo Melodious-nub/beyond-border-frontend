@@ -436,13 +436,13 @@
   }
 }
 
-/* Header Logo Styles */
+/* Header Logo Styles - Responsive */
 .nav-logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0.25rem;
-  border-radius: 12px;
+  padding: 0.15rem;
+  border-radius: 8px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border: 2px solid #dee2e6;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -455,9 +455,9 @@
   }
   
   .logo-img {
-    width: 52px;
+    width: 100px;
     height: 52px;
-    object-fit: contain;
+    object-fit: cover;
     transition: transform 0.3s ease;
   }
   
@@ -465,12 +465,51 @@
     transform: scale(1.05);
   }
   
-  @media (max-width: 790px) {
+  // Responsive breakpoints for logo sizing
+  @media (min-width: 1025px) {
+    .logo-img {
+      width: 100px;
+      height: 52px;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .logo-img {
+      width: 90px;
+      height: 48px;
+    }
+  }
+  
+  @media (min-width: 577px) and (max-width: 768px) {
+    .logo-img {
+      width: 80px;
+      height: 44px;
+    }
+  }
+  
+  // Fix for 791px to 850px viewport range
+  @media (min-width: 791px) and (max-width: 850px) {
+    margin-right: 0;
+    
+    .logo-img {
+      width: 85px;
+      height: 46px;
+    }
+  }
+  
+  @media (max-width: 576px) {
     padding: 0.2rem;
     
     .logo-img {
-      width: 48px;
-      height: 48px;
+      width: 70px;
+      height: 40px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-img {
+      width: 60px;
+      height: 35px;
     }
   }
 }

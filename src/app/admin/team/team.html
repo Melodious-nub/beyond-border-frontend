@@ -202,7 +202,7 @@
     </div>
 
     <!-- Team Members Grid -->
-    <div *ngIf="!isLoading() && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 min-w-0">
+    <div *ngIf="!isLoading() && !error" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 sm:gap-6 min-w-0">
       <div *ngFor="let member of filteredMembers" class="team-member-card bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
         <!-- Member Avatar and Basic Info -->
         <div class="p-4 sm:p-6">
