@@ -68,7 +68,7 @@
       margin-right: 0.75rem;
       padding: 0.5rem;
       border-radius: 8px;
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      background: linear-gradient(135deg, #8bbdf0 0%, #e9ecef 100%);
       border: 2px solid #dee2e6;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
@@ -79,8 +79,8 @@
       }
 
       .logo-img {
-        width: 100px;
-        height: 52px;
+        width: 180px;
+        height: 80px;
         object-fit: cover;
         transition: transform 0.3s ease;
       }
@@ -89,51 +89,93 @@
         transform: scale(1.05);
       }
 
-      // Responsive breakpoints for footer logo sizing
-      @media (min-width: 1025px) {
+      /* Extra Large Screens (1440px and above) */
+      @media (min-width: 1440px) {
         .logo-img {
-          width: 100px;
-          height: 52px;
+          width: 200px;
+          height: 90px;
         }
       }
 
-      @media (min-width: 769px) and (max-width: 1024px) {
+      /* Large Desktop (1200px - 1439px) */
+      @media (min-width: 1200px) and (max-width: 1439px) {
         .logo-img {
-          width: 90px;
-          height: 48px;
+          width: 180px;
+          height: 80px;
         }
       }
 
-      @media (min-width: 577px) and (max-width: 768px) {
+      /* Desktop (1024px - 1199px) */
+      @media (min-width: 1024px) and (max-width: 1199px) {
         .logo-img {
-          width: 80px;
-          height: 44px;
+          width: 160px;
+          height: 70px;
         }
       }
 
-      // Fix for 791px to 850px viewport range
-      @media (min-width: 791px) and (max-width: 850px) {
+      /* Large Tablet (992px - 1023px) */
+      @media (min-width: 992px) and (max-width: 1023px) {
         .logo-img {
-          width: 85px;
-          height: 46px;
+          width: 140px;
+          height: 60px;
         }
       }
 
-      @media (max-width: 576px) {
-        padding: 0.4rem;
+      /* Tablet (768px - 991px) */
+      @media (min-width: 768px) and (max-width: 991px) {
+        .logo-img {
+          width: 120px;
+          height: 50px;
+        }
+      }
+
+      /* Small Tablet (576px - 767px) */
+      @media (min-width: 576px) and (max-width: 767px) {
+        padding: 0.1rem;
         
         .logo-img {
-          width: 70px;
+          width: 100px;
+          height: 45px;
+        }
+      }
+
+      /* Large Mobile (480px - 575px) */
+      @media (min-width: 480px) and (max-width: 575px) {
+        padding: 0.1rem;
+        
+        .logo-img {
+          width: 85px;
           height: 40px;
         }
       }
 
-      @media (max-width: 480px) {
-        padding: 0.3rem;
+      /* Mobile (360px - 479px) */
+      @media (min-width: 360px) and (max-width: 479px) {
+        padding: 0.1rem;
         
         .logo-img {
-          width: 60px;
+          width: 75px;
           height: 35px;
+        }
+      }
+
+      /* Small Mobile (320px - 359px) */
+      @media (min-width: 320px) and (max-width: 359px) {
+        padding: 0.05rem;
+        
+        .logo-img {
+          width: 65px;
+          height: 30px;
+        }
+      }
+
+      /* Extra Small Screens (below 320px) */
+      @media (max-width: 319px) {
+        padding: 0.05rem;
+        
+        .logo-img {
+          width: 55px;
+          height: 25px;
         }
       }
     }
@@ -194,7 +236,7 @@
         margin-right: 0.5rem;
         padding: 0.4rem;
         border-radius: 8px;
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        background: linear-gradient(135deg, #8bbdf0 0%, #e9ecef 100%);
         border: 2px solid #dee2e6;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         transition: all 0.3s ease;
@@ -205,8 +247,8 @@
         }
 
         .logo-img {
-          width: 100px;
-          height: 52px;
+          width: 180px;
+          height: 80px;
           object-fit: cover;
           transition: transform 0.3s ease;
         }
@@ -215,49 +257,83 @@
           transform: scale(1.05);
         }
 
-        // Responsive breakpoints for footer bottom logo sizing
-        @media (min-width: 1025px) {
+        /* Extra Large Screens (1440px and above) */
+        @media (min-width: 1440px) {
+          .logo-img {
+            width: 200px;
+            height: 90px;
+          }
+        }
+
+        /* Large Desktop (1200px - 1439px) */
+        @media (min-width: 1200px) and (max-width: 1439px) {
+          .logo-img {
+            width: 180px;
+            height: 80px;
+          }
+        }
+
+        /* Desktop (1024px - 1199px) */
+        @media (min-width: 1024px) and (max-width: 1199px) {
+          .logo-img {
+            width: 160px;
+            height: 70px;
+          }
+        }
+
+        /* Large Tablet (992px - 1023px) */
+        @media (min-width: 992px) and (max-width: 1023px) {
+          .logo-img {
+            width: 140px;
+            height: 60px;
+          }
+        }
+
+        /* Tablet (768px - 991px) */
+        @media (min-width: 768px) and (max-width: 991px) {
+          .logo-img {
+            width: 120px;
+            height: 50px;
+          }
+        }
+
+        /* Small Tablet (576px - 767px) */
+        @media (min-width: 576px) and (max-width: 767px) {
           .logo-img {
             width: 100px;
-            height: 52px;
+            height: 45px;
           }
         }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
-          .logo-img {
-            width: 90px;
-            height: 48px;
-          }
-        }
-
-        @media (min-width: 577px) and (max-width: 768px) {
-          .logo-img {
-            width: 80px;
-            height: 44px;
-          }
-        }
-
-        // Fix for 791px to 850px viewport range
-        @media (min-width: 791px) and (max-width: 850px) {
+        /* Large Mobile (480px - 575px) */
+        @media (min-width: 480px) and (max-width: 575px) {
           .logo-img {
             width: 85px;
-            height: 46px;
-          }
-        }
-
-        @media (max-width: 576px) {
-          .logo-img {
-            width: 70px;
             height: 40px;
           }
         }
 
-        @media (max-width: 480px) {
-          padding: 0.3rem;
-          
+        /* Mobile (360px - 479px) */
+        @media (min-width: 360px) and (max-width: 479px) {
           .logo-img {
-            width: 60px;
+            width: 75px;
             height: 35px;
+          }
+        }
+
+        /* Small Mobile (320px - 359px) */
+        @media (min-width: 320px) and (max-width: 359px) {
+          .logo-img {
+            width: 65px;
+            height: 30px;
+          }
+        }
+
+        /* Extra Small Screens (below 320px) */
+        @media (max-width: 319px) {
+          .logo-img {
+            width: 55px;
+            height: 25px;
           }
         }
       }
