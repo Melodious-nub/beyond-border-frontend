@@ -459,6 +459,17 @@
     height: 80px;
     object-fit: cover;
     transition: transform 0.3s ease;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    /* Firefox-specific fixes */
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    /* Ensure proper rendering in Firefox */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
   }
   
   &:hover .logo-img {
