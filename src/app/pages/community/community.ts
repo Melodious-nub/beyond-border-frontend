@@ -215,6 +215,61 @@ export class Community {
       }
     }
 
+    // Validate LinkedIn profile URL if provided
+    if (this.formData.linkedInProfile && this.formData.linkedInProfile.trim() !== '') {
+      const linkedinUrl = this.formData.linkedInProfile.trim();
+      const urlPattern = /^https?:\/\/.+/;
+      if (!urlPattern.test(linkedinUrl)) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Invalid LinkedIn Profile',
+          text: 'LinkedIn profile must be a valid URL (starting with http:// or https://)',
+          confirmButtonColor: '#A50034'
+        });
+        return false;
+      }
+    }
+
+    // Validate character length for whyJoinCommunity (10-1000 characters)
+    if (this.formData.whyJoinCommunity.trim().length < 10) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Response Too Short',
+        text: 'Please provide a more detailed response for "Why do you want to join our community?" (minimum 10 characters)',
+        confirmButtonColor: '#A50034'
+      });
+      return false;
+    }
+    if (this.formData.whyJoinCommunity.trim().length > 1000) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Response Too Long',
+        text: 'Your response for "Why do you want to join our community?" is too long (maximum 1000 characters)',
+        confirmButtonColor: '#A50034'
+      });
+      return false;
+    }
+
+    // Validate character length for howCanContribute (10-1000 characters)
+    if (this.formData.howCanContribute.trim().length < 10) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Response Too Short',
+        text: 'Please provide a more detailed response for "How can you contribute to the community?" (minimum 10 characters)',
+        confirmButtonColor: '#A50034'
+      });
+      return false;
+    }
+    if (this.formData.howCanContribute.trim().length > 1000) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Response Too Long',
+        text: 'Your response for "How can you contribute to the community?" is too long (maximum 1000 characters)',
+        confirmButtonColor: '#A50034'
+      });
+      return false;
+    }
+
     if (this.formData.areasOfExpertise.length === 0) {
       Swal.fire({
         icon: 'warning',

@@ -80,6 +80,9 @@
                                 [(ngModel)]="formData.linkedInProfile"
                                 placeholder="https://linkedin.com/in/yourprofile"
                                 class="form-input">
+                            <div class="mt-1">
+                                <span class="text-xs text-gray-500">Must be a valid URL (optional)</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -212,8 +215,15 @@
                                 #whyJoinField="ngModel"
                                 [class.border-red-500]="whyJoinField.touched && whyJoinField.invalid"
                                 rows="4"
+                                maxlength="1000"
                                 placeholder="Share your motivation for joining our consultant community..."
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none text-sm"></textarea>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="text-xs text-gray-500">Minimum 10 characters</span>
+                                <span class="text-xs" [class.text-red-500]="formData.whyJoinCommunity.length > 1000" [class.text-gray-500]="formData.whyJoinCommunity.length <= 1000">
+                                    {{formData.whyJoinCommunity.length}}/1000
+                                </span>
+                            </div>
                         </div>
                         
                         <div class="form-group">
@@ -225,8 +235,15 @@
                                 #contributeField="ngModel"
                                 [class.border-red-500]="contributeField.touched && contributeField.invalid"
                                 rows="4"
+                                maxlength="1000"
                                 placeholder="Describe how you can add value to our community..."
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none text-sm"></textarea>
+                            <div class="flex justify-between items-center mt-1">
+                                <span class="text-xs text-gray-500">Minimum 10 characters</span>
+                                <span class="text-xs" [class.text-red-500]="formData.howCanContribute.length > 1000" [class.text-gray-500]="formData.howCanContribute.length <= 1000">
+                                    {{formData.howCanContribute.length}}/1000
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
