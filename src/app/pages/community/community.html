@@ -323,7 +323,14 @@
                                 #agreementField="ngModel"
                                 class="w-4 h-4 text-red-600 border-2 border-gray-300 rounded focus:ring-red-500 focus:ring-2">
                             <span class="terms-text">
-                                I have read and agree to the terms and conditions, and I understand that my membership is subject to approval by the community administrators.
+                                I have read and agree to the 
+                                <button 
+                                    type="button" 
+                                    (click)="openTermsModal()" 
+                                    class="terms-link">
+                                    terms and conditions
+                                </button>
+                                , and I understand that my membership is subject to approval by the community administrators.
                             </span>
                         </label>
                     </div>

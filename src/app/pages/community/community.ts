@@ -2,7 +2,9 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { BreadcrumbComponent } from "../../shared/components/breadcrumb/breadcrumb";
+import { TermsAndConditionModal } from "../../shared/components/terms-and-condition-modal/terms-and-condition-modal";
 import { ApiService } from '../../../core/api';
 import Swal from 'sweetalert2';
 
@@ -37,6 +39,7 @@ export interface ExpertiseOption {
 })
 export class Community {
   private apiService = inject(ApiService);
+  private dialog = inject(MatDialog);
 
   formData: CommunityFormData = {
     name: '',
@@ -102,6 +105,17 @@ export class Community {
 
   removeCustomExpertise(expertise: string) {
     this.customExpertise = this.customExpertise.filter(item => item !== expertise);
+  }
+
+  openTermsModal() {
+    this.dialog.open(TermsAndConditionModal, {
+      width: '90vw',
+      maxWidth: '1200px',
+      maxHeight: '90vh',
+      disableClose: false,
+      autoFocus: false,
+      panelClass: 'terms-modal-dialog'
+    });
   }
 
   onSubmit() {

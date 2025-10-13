@@ -228,6 +228,31 @@
       color: #374151;
       line-height: 1.4;
       word-wrap: break-word;
+      
+      .terms-link {
+        background: none;
+        border: none;
+        color: #dc2626;
+        text-decoration: underline;
+        cursor: pointer;
+        font-size: inherit;
+        font-weight: inherit;
+        padding: 0;
+        margin: 0;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          color: #b91c1c;
+          text-decoration: none;
+          transform: translateY(-1px);
+        }
+        
+        &:focus {
+          outline: 2px solid #dc2626;
+          outline-offset: 2px;
+          border-radius: 2px;
+        }
+      }
     }
   }
   
@@ -520,4 +545,19 @@ select:focus,
 textarea:focus {
   outline: none;
   box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+}
+
+// Terms modal dialog styling
+::ng-deep .terms-modal-dialog {
+  .mat-mdc-dialog-container {
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mat-mdc-dialog-surface {
+    border-radius: 12px;
+    overflow: hidden;
+  }
 }
