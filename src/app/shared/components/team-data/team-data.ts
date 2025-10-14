@@ -55,7 +55,8 @@ export class TeamData implements OnInit, OnDestroy {
   @Input() maxItems: number = 20;
   @Input() showFilters: boolean = true;
   @Input() parentFilters: TeamDataFilters = { search: '', department: '', designation: '' };
-  @Input() isManagement: boolean | undefined = undefined;
+  @Input() isManagement: boolean | any = undefined;
+  @Input() reverseData: boolean = true;
 
   // Output events
   @Output() filtersChanged = new EventEmitter<TeamDataFilters>();
@@ -193,6 +194,11 @@ export class TeamData implements OnInit, OnDestroy {
       filtered = filtered.filter(member => member.isManagement === this.isManagement);
     }
 
+    // Reverse data if reverseData input is true
+    if (this.reverseData) {
+      filtered = filtered.reverse();
+    }
+    
     this.filteredMembers.set(filtered);
     this.displayedCount = Math.min(this.maxItems, filtered.length);
     this.hasMoreData.set(filtered.length > this.displayedCount);

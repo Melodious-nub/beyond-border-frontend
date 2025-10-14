@@ -90,6 +90,10 @@ export class EmailNotification implements OnInit, OnDestroy {
       });
   }
 
+  refreshEmails(): void {
+    this.loadEmails();
+  }
+
   openAddEmailModal(): void {
     this.emailForm.reset();
     this.isModalOpen.set(true);
