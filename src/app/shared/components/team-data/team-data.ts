@@ -56,7 +56,7 @@ export class TeamData implements OnInit, OnDestroy {
   @Input() showFilters: boolean = true;
   @Input() parentFilters: TeamDataFilters = { search: '', department: '', designation: '' };
   @Input() isManagement: boolean | any = undefined;
-  @Input() reverseData: boolean = true;
+  @Input() reverseData: boolean = false;
 
   // Output events
   @Output() filtersChanged = new EventEmitter<TeamDataFilters>();
