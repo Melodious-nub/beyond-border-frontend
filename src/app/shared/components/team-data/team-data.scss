@@ -183,15 +183,15 @@
   gap: 1.5rem;
   
   @media (min-width: 640px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   
   @media (min-width: 1280px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -205,6 +205,8 @@
   transition: all 0.3s ease-in-out;
   position: relative;
   overflow: visible;
+  width: 100%;
+  min-width: 0;
   
   &:hover {
     // transform: translateY(-2px);
@@ -238,8 +240,8 @@
 }
 
 .avatar-image {
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #e5e7eb;
@@ -247,15 +249,15 @@
 }
 
 .avatar-placeholder {
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   border-radius: 50%;
   background: linear-gradient(135deg, #1E3A8A, #3B82F6);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 600;
   border: 3px solid #e5e7eb;
   transition: all 0.3s ease-in-out;
@@ -560,8 +562,8 @@
   
   .avatar-image,
   .avatar-placeholder {
-    width: 7rem;
-    height: 7rem;
+    width: 8rem;
+    height: 8rem;
   }
   
   .member-name {
