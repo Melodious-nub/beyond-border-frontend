@@ -138,4 +138,25 @@ export class ApiService {
     return this.http.get(`${this.baseUrl}/why-choose-us/public/all`);
   }
 
+  // testimonials management
+  createTestimonial(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/testimonials`, data);
+  }
+
+  updateTestimonial(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/testimonials/${id}`, data);
+  }
+
+  deleteTestimonial(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/testimonials/${id}`);
+  }
+
+  getAllTestimonials(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/testimonials?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getPublicTestimonials(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/testimonials/public/all`);
+  }
+
 }

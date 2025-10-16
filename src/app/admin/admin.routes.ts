@@ -56,5 +56,10 @@ export const adminRoutes: Routes = [
     path: 'why-choose-us',
     loadComponent: () => import('./why-choose-us/why-choose-us').then(m => m.WhyChooseUs),
     data: { title: 'Admin - Why Choose Us' }
+  },
+  {
+    path: 'testimonial',
+    loadComponent: () => import('./testimonial/testimonial').then(m => m.Testimonial),
+    data: { title: 'Admin - Testimonials' }
   }
 ];
