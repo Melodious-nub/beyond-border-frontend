@@ -28,7 +28,8 @@ export class AdminLayoutComponent {
     '/admin/about': 'About Management',
     '/admin/blog': 'Blog Management',
     '/admin/community': 'Community Management',
-    '/admin/consultant-requests': 'Consultant Requests'
+    '/admin/consultant-requests': 'Consultant Requests',
+    '/admin/why-choose-us': 'Why Choose Us Management'
   };
 
   constructor() {

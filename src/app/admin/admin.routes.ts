@@ -51,5 +51,10 @@ export const adminRoutes: Routes = [
     path: 'consultant-requests',
     loadComponent: () => import('./consultant-requests/consultant-requests').then(m => m.ConsultantRequests),
     data: { title: 'Admin - Consultant Requests' }
+  },
+  {
+    path: 'why-choose-us',
+    loadComponent: () => import('./why-choose-us/why-choose-us').then(m => m.WhyChooseUs),
+    data: { title: 'Admin - Why Choose Us' }
   }
 ];

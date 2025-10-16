@@ -103,5 +103,39 @@ export class ApiService {
   getAllConsultantRequests(page: number = 1, pageSize: number = 20): Observable<any> {
     return this.http.get(`${this.baseUrl}/consultants?page=${page}&pageSize=${pageSize}`);
   }
-  
+
+  // about us management
+  getAboutUs(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/about-us`);
+  }
+
+  postAboutUs(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/about-us`, data);
+  }
+
+  getPublicAboutUs(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/about-us/public`);
+  }
+
+  // why choose us management
+  createWhyChooseUs(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/why-choose-us`, data);
+  }
+
+  updateWhyChooseUs(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/why-choose-us/${id}`, data);
+  }
+
+  deleteWhyChooseUs(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/why-choose-us/${id}`);
+  }
+
+  getAllWhyChooseUs(page: number = 1, pageSize: number = 20): Observable<any> {
+    return this.http.get(`${this.baseUrl}/why-choose-us?page=${page}&pageSize=${pageSize}`);
+  }
+
+  getPublicWhyChooseUs(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/why-choose-us/public/all`);
+  }
+
 }

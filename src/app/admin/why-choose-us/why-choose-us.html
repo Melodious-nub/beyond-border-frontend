@@ -1,0 +1,420 @@
+<div class="why-choose-us-management min-h-screen bg-gray-50 pb-8">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header Section -->
+    <div class="mb-6 sm:mb-8">
+      <div class="flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 truncate">Why Choose Us Management</h1>
+          <p class="mt-1 sm:mt-2 text-sm text-gray-600">
+            Manage the "Why Choose Us" content and images for your website
+          </p>
+        </div>
+        <div class="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-4">
+          <div class="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-2 text-xs sm:text-sm text-gray-500">
+            <span>Total: {{ pagination().total }} items</span>
+            <span class="hidden sm:inline text-gray-300">•</span>
+            <span>Page {{ pagination().page }} of {{ pagination().pages }}</span>
+          </div>
+          <button
+            (click)="openAddModal()"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150"
+          >
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Add New Item
+          </button>
+          <button
+            (click)="refreshData()"
+            [disabled]="isLoading()"
+            class="w-full sm:w-auto inline-flex items-center justify-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+          >
+            <svg 
+              class="w-4 h-4 mr-1.5 flex-shrink-0" 
+              [class.animate-spin]="isLoading()"
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+            </svg>
+            <span class="hidden xs:inline">{{ isLoading() ? 'Refreshing...' : 'Refresh' }}</span>
+            <span class="xs:hidden">{{ isLoading() ? '...' : 'Refresh' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="error()" class="mb-6 bg-red-50 border border-red-200 rounded-md p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm text-red-800">{{ error() }}</p>
+        </div>
+        <div class="ml-auto pl-3">
+          <button (click)="clearMessages()" class="text-red-400 hover:text-red-600">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div *ngIf="success()" class="mb-6 bg-green-50 border border-green-200 rounded-md p-4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm text-green-800">{{ success() }}</p>
+        </div>
+        <div class="ml-auto pl-3">
+          <button (click)="clearMessages()" class="text-green-400 hover:text-green-600">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading()" class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sm:p-8">
+      <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0">
+        <div class="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-blue-600"></div>
+        <span class="ml-0 sm:ml-3 text-sm sm:text-base text-gray-600">Loading why choose us items...</span>
+      </div>
+    </div>
+
+    <!-- Items Grid -->
+    <div *ngIf="!isLoading()" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let item of items()" class="bg-white shadow-sm rounded-lg border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+        <!-- Item Image -->
+        <div *ngIf="item.image" class="aspect-w-16 aspect-h-9 bg-gray-200">
+          <img 
+            [src]="item.image" 
+            [alt]="item.title"
+            class="w-full h-48 object-cover"
+          >
+        </div>
+        <div *ngIf="!item.image" class="aspect-w-16 aspect-h-9 bg-gray-100 flex items-center justify-center">
+          <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+
+        <!-- Item Content -->
+        <div class="p-6">
+          <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ item.title }}</h3>
+          <p class="text-sm text-gray-600 mb-4 line-clamp-3">{{ item.details }}</p>
+          
+          <!-- Item Meta -->
+          <div class="text-xs text-gray-500 mb-4">
+            <span>Created: {{ formatDate(item.createdAt) }}</span>
+          </div>
+
+          <!-- Item Actions -->
+          <div class="flex space-x-2">
+            <button
+              (click)="openEditModal(item)"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150"
+            >
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+              </svg>
+              Edit
+            </button>
+            <button
+              (click)="deleteItem(item)"
+              [disabled]="isDeleting() === item.id"
+              class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150"
+            >
+              <svg *ngIf="isDeleting() !== item.id" class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              <svg *ngIf="isDeleting() === item.id" class="animate-spin w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              {{ isDeleting() === item.id ? 'Deleting...' : 'Delete' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isLoading() && items().length === 0" class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No why choose us items</h3>
+      <p class="mt-1 text-sm text-gray-500">Get started by creating a new why choose us item.</p>
+      <div class="mt-6">
+        <button
+          (click)="openAddModal()"
+          class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Add New Item
+        </button>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="!isLoading() && pagination().pages > 1" class="mt-8 flex items-center justify-between">
+      <div class="flex-1 flex justify-between sm:hidden">
+        <button
+          (click)="onPageChange(pagination().page - 1)"
+          [disabled]="pagination().page <= 1"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Previous
+        </button>
+        <button
+          (click)="onPageChange(pagination().page + 1)"
+          [disabled]="pagination().page >= pagination().pages"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Next
+        </button>
+      </div>
+      <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm text-gray-700">
+            Showing
+            <span class="font-medium">{{ getPaginationRange().start }}</span>
+            to
+            <span class="font-medium">{{ getPaginationRange().end }}</span>
+            of
+            <span class="font-medium">{{ pagination().total }}</span>
+            results
+          </p>
+        </div>
+        <div>
+          <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            <!-- Previous Button -->
+            <button
+              (click)="onPageChange(pagination().page - 1)"
+              [disabled]="pagination().page <= 1"
+              class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span class="sr-only">Previous</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+
+            <!-- Page Numbers -->
+            <button
+              *ngFor="let page of pageNumbers"
+              (click)="onPageChange(page)"
+              [class]="page === pagination().page 
+                ? 'z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium'
+                : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'"
+            >
+              {{ page }}
+            </button>
+
+            <!-- Next Button -->
+            <button
+              (click)="onPageChange(pagination().page + 1)"
+              [disabled]="pagination().page >= pagination().pages"
+              class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span class="sr-only">Next</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add/Edit Modal -->
+  <div *ngIf="isModalOpen()" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <!-- Background overlay -->
+      <div 
+        class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-300 ease-in-out" 
+        aria-hidden="true"
+        (click)="closeModal()"
+      ></div>
+
+      <!-- Modal panel -->
+      <div 
+        class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all duration-300 ease-in-out sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full mx-4 sm:mx-0"
+        (click)="$event.stopPropagation()"
+      >
+        <form [formGroup]="itemForm" (ngSubmit)="saveItem()">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 sm:mx-0 sm:h-10 sm:w-10">
+                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+              </div>
+              <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                  {{ isEditMode() ? 'Edit Why Choose Us Item' : 'Add New Why Choose Us Item' }}
+                </h3>
+                <div class="mt-4 space-y-4">
+                  <!-- Title Field -->
+                  <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
+                      Title <span class="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      id="title"
+                      formControlName="title"
+                      placeholder="Enter item title..."
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      [class.border-red-300]="isFieldInvalid('title')"
+                      [class.focus:ring-red-500]="isFieldInvalid('title')"
+                      [class.focus:border-red-500]="isFieldInvalid('title')"
+                    >
+                    <p *ngIf="isFieldInvalid('title')" class="mt-1 text-sm text-red-600">
+                      {{ getFieldError('title') }}
+                    </p>
+                  </div>
+
+                  <!-- Details Field -->
+                  <div>
+                    <label for="details" class="block text-sm font-medium text-gray-700 mb-2">
+                      Details <span class="text-red-500">*</span>
+                    </label>
+                    <textarea
+                      id="details"
+                      formControlName="details"
+                      rows="4"
+                      placeholder="Enter item details..."
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 text-sm"
+                      [class.border-red-300]="isFieldInvalid('details')"
+                      [class.focus:ring-red-500]="isFieldInvalid('details')"
+                      [class.focus:border-red-500]="isFieldInvalid('details')"
+                    ></textarea>
+                    <p *ngIf="isFieldInvalid('details')" class="mt-1 text-sm text-red-600">
+                      {{ getFieldError('details') }}
+                    </p>
+                  </div>
+
+                  <!-- Image Upload Section -->
+                  <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                      Image (Optional)
+                    </label>
+                    
+                    <!-- Current Image Display -->
+                    <div *ngIf="selectedItem()?.image && !imagePreview()" class="mb-4">
+                      <div class="relative inline-block">
+                        <img 
+                          [src]="selectedItem()?.image" 
+                          alt="Current image"
+                          class="h-32 w-32 object-cover rounded-lg border border-gray-200"
+                        >
+                        <div class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 rounded-lg transition-all duration-200 flex items-center justify-center">
+                          <span class="text-white text-xs font-medium opacity-0 hover:opacity-100 transition-opacity duration-200">
+                            Current Image
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Image Preview -->
+                    <div *ngIf="imagePreview()" class="mb-4">
+                      <div class="relative inline-block">
+                        <img 
+                          [src]="imagePreview()" 
+                          alt="Image preview"
+                          class="h-32 w-32 object-cover rounded-lg border border-gray-200"
+                        >
+                        <button
+                          type="button"
+                          (click)="removeImage()"
+                          class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition-colors duration-200"
+                        >
+                          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- File Input -->
+                    <div class="flex items-center space-x-4">
+                      <label for="image" class="cursor-pointer">
+                        <div class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-150">
+                          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                          </svg>
+                          Choose Image
+                        </div>
+                        <input
+                          id="image"
+                          type="file"
+                          accept="image/*"
+                          (change)="onImageChange($event)"
+                          class="hidden"
+                        >
+                      </label>
+                      
+                      <button
+                        *ngIf="imagePreview()"
+                        type="button"
+                        (click)="removeImage()"
+                        class="inline-flex items-center px-3 py-2 border border-red-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-150"
+                      >
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        Remove
+                      </button>
+                    </div>
+                    
+                    <p class="mt-1 text-xs text-gray-500">
+                      Upload an image for this item. Supported formats: JPG, PNG, GIF. Max size: 5MB.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              type="submit"
+              [disabled]="itemForm.invalid || isSaving()"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 text-sm sm:text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <svg *ngIf="isSaving()" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              {{ isSaving() ? 'Saving...' : (isEditMode() ? 'Update Item' : 'Create Item') }}
+            </button>
+            <button
+              type="button"
+              (click)="closeModal()"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm sm:text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto transition-colors duration-150"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
