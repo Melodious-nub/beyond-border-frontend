@@ -1,0 +1,41 @@
+<section class="why-Beyond Border Consultants" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="container">
+        <h2 class="section-title">Why Beyond Border Consultants?</h2>
+        
+        <!-- Two Column Layout -->
+        <div class="intro-section">
+            <div class="intro-content">
+                <p class="section-description">
+                    Beyond Border Consultants is a multidisciplinary advisory firm dedicated to empowering NGOs, development agencies, and public-private partnerships through strategic consultancy services. With over 100 years of collective experience across microfinance, banking, infrastructure, legal compliance, agriculture, and technology, our team brings deep domain expertise and global insights to every engagement.
+                </p>
+            </div>
+            <div class="designer-image-container">
+                <img src="assets/images/Designer.png" alt="Designer" class="designer-image">
+            </div>
+        </div>
+        
+        <!-- Why Choose Us Items Grid -->
+        <div class="why-choose-us-grid" *ngIf="!isLoading()">
+            <div class="why-choose-us-card" *ngFor="let item of whyChooseUsItems()">
+                <div class="card-image" *ngIf="item.image">
+                    <img [src]="item.image" [alt]="item.title" class="item-image">
+                </div>
+                <div class="card-content text-content">
+                    <h3 class="card-title">{{ item.title }}</h3>
+                    <p class="card-details long-content">{{ item.details }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading State -->
+        <div class="loading-container" *ngIf="isLoading()">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading why choose us items...</p>
+        </div>
+        
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="!isLoading() && whyChooseUsItems().length === 0">
+            <p>No why choose us items available at the moment.</p>
+        </div>
+    </div>
+</section>

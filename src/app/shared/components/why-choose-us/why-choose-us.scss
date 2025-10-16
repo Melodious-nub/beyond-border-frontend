@@ -1,0 +1,473 @@
+// Why Choose Us Component Styles
+
+// Two Column Intro Section
+.intro-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin: 2rem 0 3rem 0;
+  min-height: 300px; // Ensure minimum height for better visual balance
+  
+  @media (max-width: 1200px) {
+    gap: 2.75rem;
+  }
+  
+  @media (max-width: 1024px) {
+    gap: 2.5rem;
+    min-height: 280px;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+    min-height: auto;
+  }
+  
+  @media (max-width: 640px) {
+    gap: 1.5rem;
+    margin: 1.5rem 0 2rem 0;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 1.25rem;
+    margin: 1rem 0 1.5rem 0;
+  }
+}
+
+// Intro Content
+.intro-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 1rem; // Add some padding for better text spacing
+  
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+  
+  .section-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4b5563;
+    margin: 0;
+    text-align: left;
+    font-weight: 400;
+    letter-spacing: 0.01em; // Slight letter spacing for better readability
+    
+    @media (max-width: 1024px) {
+      font-size: 0.96875rem;
+    }
+    
+    @media (max-width: 768px) {
+      text-align: center;
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+    
+    @media (max-width: 640px) {
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 0.8125rem;
+      line-height: 1.55;
+    }
+  }
+}
+
+// Designer Image Container
+.designer-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+  .designer-image {
+    max-width: 85%; // Make image smaller
+    width: 85%;
+    height: auto;
+    border-radius: 16px;
+    border: 3px solid #ffffff;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 8px 16px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    
+    // Add a subtle gradient overlay for depth
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+      border-radius: 13px;
+      z-index: -1;
+    }
+    
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 
+        0 32px 64px rgba(0, 0, 0, 0.15),
+        0 16px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: #f8fafc;
+    }
+    
+    @media (max-width: 1024px) {
+      max-width: 80%;
+      width: 80%;
+    }
+    
+    @media (max-width: 768px) {
+      max-width: 280px;
+      width: 280px;
+    }
+    
+    @media (max-width: 640px) {
+      max-width: 220px;
+      width: 220px;
+    }
+    
+    @media (max-width: 480px) {
+      max-width: 180px;
+      width: 180px;
+    }
+  }
+  
+  // Add a subtle background decoration
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Why Choose Us Grid
+.why-choose-us-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: start; // Align cards to top for varying heights
+  
+  @media (max-width: 1200px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    gap: 1.25rem;
+  }
+}
+
+// Why Choose Us Card
+.why-choose-us-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  height: 100%; // Ensure cards take full height
+  container-type: inline-size; // Enable container queries for future-proofing
+  
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    border-color: #3b82f6;
+  }
+  
+  // Container query for very small cards
+  @container (max-width: 300px) {
+    .card-content {
+      padding: 1rem;
+      
+      .card-title {
+        font-size: 1rem;
+      }
+      
+      .card-details {
+        font-size: 0.75rem;
+      }
+    }
+    
+    .card-image {
+      height: 120px;
+    }
+  }
+}
+
+// Card Image
+.card-image {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  height: 200px;
+  
+  .item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  &:hover .item-image {
+    transform: scale(1.05);
+  }
+}
+
+// Card Content
+.card-content {
+  padding: 1.5rem;
+  flex: 1; // Allow content to grow and fill available space
+  display: flex;
+  flex-direction: column;
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto; // Enable automatic hyphenation for long words
+  }
+  
+  .card-details {
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto; // Enable automatic hyphenation for long words
+    flex: 1; // Allow details to expand and fill remaining space
+  }
+}
+
+// Loading State
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  .loading-text {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .why-choose-us-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-choose-us-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .card-content {
+    padding: 1.25rem;
+    
+    .card-title {
+      font-size: 1.125rem;
+    }
+    
+    .card-details {
+      font-size: 0.8125rem;
+    }
+  }
+  
+  .card-image {
+    height: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .why-choose-us-grid {
+    gap: 1rem;
+  }
+  
+  .card-content {
+    padding: 1rem;
+    
+    .card-title {
+      font-size: 1rem;
+    }
+    
+    .card-details {
+      font-size: 0.75rem;
+    }
+  }
+  
+  .card-image {
+    height: 160px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-content {
+    padding: 0.875rem;
+    
+    .card-title {
+      font-size: 0.9375rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .card-details {
+      font-size: 0.6875rem;
+      line-height: 1.5;
+    }
+  }
+  
+  .card-image {
+    height: 140px;
+  }
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .why-choose-us-card,
+  .designer-image,
+  .item-image,
+  .loading-spinner {
+    transition: none;
+    animation: none;
+  }
+  
+  .why-choose-us-card:hover {
+    transform: none;
+  }
+  
+  .designer-image:hover {
+    transform: none;
+  }
+  
+  .designer-image-container::after {
+    transition: none;
+  }
+}
+
+// Focus states for keyboard navigation
+.why-choose-us-card:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .why-choose-us-card {
+    border-width: 2px;
+  }
+}
+
+// Additional utility classes for content handling
+.text-content {
+  // Ensure proper text rendering and readability
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  // Better text selection
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+// Long content handling
+.long-content {
+  // For very long content, ensure it doesn't break layout
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+// Print styles
+@media print {
+  .why-choose-us-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+    
+    &:hover {
+      transform: none;
+    }
+  }
+  
+  .designer-image {
+    max-width: 120px;
+    border: 1px solid #000;
+    box-shadow: none;
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  .designer-image-container::after {
+    display: none;
+  }
+}

@@ -1,0 +1,43 @@
+<section class="story-section">
+    <div class="container">
+        <h2 class="section-title">Our Story</h2>
+        
+        <!-- Error Message -->
+        @if (error()) {
+        <div class="error-message">
+            <p>{{ error() }}</p>
+        </div>
+        }
+        
+        <!-- Loading State -->
+        @if (isLoading()) {
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading our story...</p>
+        </div>
+        }
+        
+        <!-- About Us Content -->
+        @if (!isLoading() && aboutUs()) {
+        <div class="about-content">
+            <div class="about-text" style="padding-top: 30px;">
+                <div class="story-text">
+                    <p [innerHTML]="formatDescription(aboutUs()?.description)"></p>
+                </div>
+            </div>
+            @if (aboutUs()?.image) {
+            <div class="about-image">
+                <img [src]="aboutUs()?.image" [alt]="'About Beyond Border Consultants'" class="story-image">
+            </div>
+            }
+        </div>
+        }
+        
+        <!-- Empty State -->
+        @if (!isLoading() && !aboutUs()) {
+        <div class="empty-state">
+            <p>Our story information is not available at the moment.</p>
+        </div>
+        }
+    </div>
+</section>

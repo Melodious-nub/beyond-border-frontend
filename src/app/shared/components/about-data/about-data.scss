@@ -1,0 +1,262 @@
+// About Data Component Styles
+
+// Story Section
+.story-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  
+  @media (max-width: 768px) {
+    padding: 3rem 0;
+  }
+  
+  @media (max-width: 640px) {
+    padding: 2rem 0;
+  }
+}
+
+// Section Title
+.section-title {
+  text-align: center;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    border-radius: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 640px) {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+// About Content - Two Column Layout
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  @media (max-width: 1024px) {
+    gap: 3rem;
+  }
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  @media (max-width: 640px) {
+    gap: 1.5rem;
+  }
+}
+
+// About Text
+.about-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+// About Image
+.about-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  
+  .story-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    border: 3px solid #ffffff;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 8px 16px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    
+    // Add a subtle gradient overlay for depth
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.05) 100%);
+      border-radius: 13px;
+      z-index: -1;
+    }
+    
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 
+        0 32px 64px rgba(0, 0, 0, 0.15),
+        0 16px 32px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: #f8fafc;
+    }
+    
+    @media (max-width: 1024px) {
+      max-width: 90%;
+      width: 90%;
+    }
+    
+    @media (max-width: 768px) {
+      max-width: 400px;
+      width: 400px;
+    }
+    
+    @media (max-width: 640px) {
+      max-width: 300px;
+      width: 300px;
+    }
+    
+    @media (max-width: 480px) {
+      max-width: 250px;
+      width: 250px;
+    }
+  }
+  
+  // Add a subtle background decoration
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Error Message
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+  
+  p {
+    color: #dc2626;
+    margin: 0;
+    font-size: 0.875rem;
+  }
+}
+
+// Loading State
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f4f6;
+    border-top: 4px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  .loading-text {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 0;
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+// Animations
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+  .story-image,
+  .loading-spinner {
+    transition: none;
+    animation: none;
+  }
+  
+  .story-image:hover {
+    transform: none;
+  }
+  
+  .about-image::after {
+    transition: none;
+  }
+}
+
+// Focus states for keyboard navigation
+.about-image:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .story-image {
+    border-width: 2px;
+  }
+}
+
+// Print styles
+@media print {
+  .story-image {
+    max-width: 200px;
+    border: 1px solid #000;
+    box-shadow: none;
+    
+    &::before {
+      display: none;
+    }
+  }
+  
+  .about-image::after {
+    display: none;
+  }
+}

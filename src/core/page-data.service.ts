@@ -20,7 +20,7 @@ export class PageDataService {
     {
       page: 'team',
       pageTitle: 'Our Team',
-      pageDescription: 'Access top-tier independent management consultants from McKinsey, Bain, and BCG. Browse our community of experienced professionals with a combined experience of over 100 years.'
+      pageDescription: 'Browse our community of experienced professionals with a combined experience of over 100 years.'
     },
     {
       page: 'contact',

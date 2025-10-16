@@ -1,0 +1,29 @@
+<section class="testimonials">
+    <div class="container">
+        <h2 class="section-title">What our clients say about Beyond Border Consultants:</h2>
+        
+        <!-- Error Message -->
+        <div *ngIf="error()" class="error-message">
+            <p>{{ error() }}</p>
+        </div>
+        
+        <!-- Loading State -->
+        <div *ngIf="isLoading()" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Loading testimonials...</p>
+        </div>
+        
+        <!-- Testimonials Grid -->
+        <div class="testimonials-grid" *ngIf="!isLoading()">
+            <div class="testimonial-card" *ngFor="let testimonial of testimonials()">
+                <p class="testimonial-quote">"{{ testimonial.description }}"</p>
+                <p class="testimonial-author">— {{ testimonial.designation }}, {{ testimonial.department }}</p>
+            </div>
+        </div>
+        
+        <!-- Empty State -->
+        <div *ngIf="!isLoading() && testimonials().length === 0" class="empty-state">
+            <p>No testimonials available at the moment.</p>
+        </div>
+    </div>
+</section>

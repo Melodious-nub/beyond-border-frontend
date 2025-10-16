@@ -72,6 +72,10 @@ export class TeamData implements OnInit, OnDestroy {
   allTeamMembers: TeamMember[] = [];
   displayedCount = 0;
   error: string | null = null;
+  
+  // Retry mechanism
+  private retryCount = 0;
+  private readonly maxRetries = 3;
 
   // Filters
   filters: TeamDataFilters = {
@@ -127,7 +131,12 @@ export class TeamData implements OnInit, OnDestroy {
 
     this.isLoading.set(true);
     this.error = null;
+    this.retryCount = 0; // Reset retry count for new load
 
+    this.makeApiCall();
+  }
+
+  private makeApiCall(): void {
     this.apiService.getPublicTeamMembers()
       .pipe(
         takeUntil(this.destroy$),
@@ -140,16 +149,31 @@ export class TeamData implements OnInit, OnDestroy {
             this.cacheService.cacheTeamMembers(this.allTeamMembers);
             this.extractFilterOptions();
             this.applyFilters();
+            this.retryCount = 0; // Reset retry count on success
           } else {
-            this.error = 'Failed to load team members';
-            this.allTeamMembers = [];
+            this.handleError('Failed to load team members');
           }
         },
         error: (error) => {
-          this.error = 'Failed to load team members. Please try again.';
-          this.allTeamMembers = [];
+          this.handleError('Failed to load team members. Please try again.');
         }
       });
+  }
+
+  private handleError(errorMessage: string): void {
+    this.retryCount++;
+    
+    if (this.retryCount < this.maxRetries) {
+      // Retry after a short delay
+      setTimeout(() => {
+        this.makeApiCall();
+      }, 1000 * this.retryCount); // Exponential backoff: 1s, 2s, 3s
+    } else {
+      // Max retries reached, show error
+      this.error = errorMessage;
+      this.allTeamMembers = [];
+      this.retryCount = 0; // Reset for future attempts
+    }
   }
 
   private extractFilterOptions(): void {
