@@ -14,12 +14,24 @@
                 [(ngModel)]="formData.email"
                 required>
         </div>
-        <textarea 
-            placeholder="Brief project description" 
-            rows="4" 
-            name="description"
-            [(ngModel)]="formData.description"
-            required></textarea>
+        <div class="textarea-container">
+            <textarea 
+                placeholder="Brief project description" 
+                rows="4" 
+                name="description"
+                [(ngModel)]="formData.description"
+                #descriptionField="ngModel"
+                required
+                minlength="10"
+                maxlength="2000"
+                [class.touched-invalid]="shouldShowValidation()"></textarea>
+            <div class="character-count" [class.invalid]="shouldShowValidation()">
+                <span>{{ getDescriptionLength() }}/2000</span>
+                <span *ngIf="shouldShowValidation() && getDescriptionLength() < 10" class="validation-hint">
+                    Min 10 chars
+                </span>
+            </div>
+        </div>
         <button 
             type="submit" 
             class="btn btn-primary btn-large"

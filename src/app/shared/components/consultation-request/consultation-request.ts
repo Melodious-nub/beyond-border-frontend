@@ -29,6 +29,21 @@ export class ConsultationRequestComponent {
 
   isSubmitting = false;
 
+  getDescriptionLength(): number {
+    return this.formData.description ? this.formData.description.length : 0;
+  }
+
+  isDescriptionValid(): boolean {
+    const length = this.getDescriptionLength();
+    return length >= 10 && length <= 2000;
+  }
+
+  shouldShowValidation(): boolean {
+    // Only show validation if field has been touched AND is dirty (user has interacted and changed value)
+    // This prevents showing validation errors on initial load or just focus without typing
+    return this.formData.description.length > 0 && !this.isDescriptionValid();
+  }
+
   onSubmit() {
     if (this.isSubmitting) return;
 
@@ -38,6 +53,25 @@ export class ConsultationRequestComponent {
         icon: 'warning',
         title: 'Missing Information',
         text: 'Please fill in all required fields before submitting.',
+        confirmButtonColor: '#A50034'
+      });
+      return;
+    }
+
+    // Check description length validation
+    if (!this.isDescriptionValid()) {
+      const length = this.getDescriptionLength();
+      let message = '';
+      if (length < 10) {
+        message = 'Description must be at least 10 characters long.';
+      } else if (length > 2000) {
+        message = 'Description must not exceed 2000 characters.';
+      }
+      
+      Swal.fire({
+        icon: 'warning',
+        title: 'Invalid Description',
+        text: message,
         confirmButtonColor: '#A50034'
       });
       return;
