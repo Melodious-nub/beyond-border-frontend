@@ -109,6 +109,15 @@ export class EmailNotification implements OnInit, OnDestroy {
       this.isLoading.set(true);
       const emailData = { email: this.emailForm.value.email };
 
+      // Optimistic add
+      const newEmail: NotificationEmail = {
+        id: Date.now(), // Temporary ID
+        email: this.emailForm.value.email,
+        createdAt: new Date().toISOString()
+      };
+
+      this.emails.update(emails => [...emails, newEmail]);
+
       this.apiService.addEmailForNotification(emailData)
         .pipe(
           takeUntil(this.destroy$),
@@ -119,13 +128,20 @@ export class EmailNotification implements OnInit, OnDestroy {
             if (response.success) {
               this.showSuccess('Success', response.message);
               this.closeAddEmailModal();
-              this.loadEmails(); // Reload the list
+              
+              // Update with actual data from server
+              this.emails.update(emails => 
+                emails.map(email => email.id === newEmail.id ? response.data?.notificationEmails?.[0] || newEmail : email)
+              );
             } else {
+              // Revert optimistic add on validation error
+              this.emails.update(emails => emails.filter(email => email.id !== newEmail.id));
               this.showFormErrors(response.errors || []);
             }
           },
           error: (error) => {
-            // Error adding email - handled by user notification
+            // Revert optimistic add on error
+            this.emails.update(emails => emails.filter(email => email.id !== newEmail.id));
             this.showError('Error', 'Failed to add email notification');
           }
         });
@@ -147,6 +163,11 @@ export class EmailNotification implements OnInit, OnDestroy {
     }).then((result) => {
       if (result.isConfirmed) {
         this.isDeleting.set(email);
+        
+        // Optimistic delete
+        const originalEmails = [...this.emails()];
+        this.emails.update(emails => emails.filter(e => e.email !== email));
+
         this.apiService.deleteEmailForNotification(email)
           .pipe(
             takeUntil(this.destroy$),
@@ -156,13 +177,15 @@ export class EmailNotification implements OnInit, OnDestroy {
             next: (response: ApiResponse) => {
               if (response.success) {
                 this.showSuccess('Deleted', response.message);
-                this.loadEmails(); // Reload the list
               } else {
+                // Revert optimistic delete on error
+                this.emails.set(originalEmails);
                 this.showError('Error', response.message);
               }
             },
             error: (error) => {
-              // Error deleting email - handled by user notification
+              // Revert optimistic delete on error
+              this.emails.set(originalEmails);
               this.showError('Error', 'Failed to delete email notification');
             }
           });

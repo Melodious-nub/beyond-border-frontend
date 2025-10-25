@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ApiService } from '../../../core/api';
+import Swal from 'sweetalert2';
 
 // Interfaces
 interface WhyChooseUsItem {
@@ -58,8 +59,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
   isDeleting = signal<number | null>(null);
   imagePreview = signal<string | null>(null);
   selectedItem = signal<WhyChooseUsItem | null>(null);
-  error = signal<string | null>(null);
-  success = signal<string | null>(null);
 
   // Form
   itemForm: FormGroup;
@@ -83,7 +82,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
 
   loadItems(): void {
     this.isLoading.set(true);
-    this.error.set(null);
 
     this.apiService.getAllWhyChooseUs(this.pagination().page, this.pagination().pageSize)
       .pipe(takeUntil(this.destroy$))
@@ -94,8 +92,8 @@ export class WhyChooseUs implements OnInit, OnDestroy {
           this.isLoading.set(false);
         },
         error: (error) => {
-          this.error.set('Failed to load why choose us items. Please try again.');
           this.isLoading.set(false);
+          // Error handled silently for loading - optimistic updates handle user actions
         }
       });
   }
@@ -118,7 +116,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     this.itemForm.reset();
     this.imagePreview.set(null);
     this.isModalOpen.set(true);
-    this.clearMessages();
   }
 
   openEditModal(item: WhyChooseUsItem): void {
@@ -130,7 +127,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     });
     this.imagePreview.set(null);
     this.isModalOpen.set(true);
-    this.clearMessages();
   }
 
   closeModal(): void {
@@ -139,7 +135,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     this.selectedItem.set(null);
     this.itemForm.reset();
     this.imagePreview.set(null);
-    this.clearMessages();
   }
 
   onImageChange(event: Event): void {
@@ -149,13 +144,23 @@ export class WhyChooseUs implements OnInit, OnDestroy {
       
       // Validate file type
       if (!file.type.startsWith('image/')) {
-        this.error.set('Please select a valid image file.');
+        Swal.fire({
+          title: 'Invalid File',
+          text: 'Please select a valid image file.',
+          icon: 'error',
+          confirmButtonColor: '#ef4444'
+        });
         return;
       }
 
       // Validate file size (5MB limit)
       if (file.size > 5 * 1024 * 1024) {
-        this.error.set('Image size should not exceed 5MB.');
+        Swal.fire({
+          title: 'File Too Large',
+          text: 'Image size should not exceed 5MB.',
+          icon: 'error',
+          confirmButtonColor: '#ef4444'
+        });
         return;
       }
 
@@ -182,8 +187,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     }
 
     this.isSaving.set(true);
-    this.error.set(null);
-    this.success.set(null);
 
     const formData = new FormData();
     formData.append('title', this.itemForm.value.title);
@@ -191,6 +194,27 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     
     if (this.itemForm.value.image) {
       formData.append('image', this.itemForm.value.image);
+    }
+
+    // Optimistic update
+    const newItem: WhyChooseUsItem = {
+      id: this.isEditMode() ? this.selectedItem()!.id : Date.now(), // Temporary ID for new items
+      title: this.itemForm.value.title,
+      details: this.itemForm.value.details,
+      image: this.imagePreview() || this.selectedItem()?.image || undefined,
+      createdAt: this.isEditMode() ? this.selectedItem()!.createdAt : new Date().toISOString(),
+      updatedAt: new Date().toISOString()
+    };
+
+    if (this.isEditMode()) {
+      // Optimistic update for edit
+      this.items.update(items => 
+        items.map(item => item.id === this.selectedItem()!.id ? newItem : item)
+      );
+    } else {
+      // Optimistic add for create
+      this.items.update(items => [newItem, ...items]);
+      this.pagination.update(p => ({ ...p, total: p.total + 1 }));
     }
 
     const apiCall = this.isEditMode() 
@@ -201,39 +225,107 @@ export class WhyChooseUs implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (response) => {
-          this.success.set(`Item ${this.isEditMode() ? 'updated' : 'created'} successfully!`);
-          this.loadItems();
-          this.closeModal();
           this.isSaving.set(false);
+          this.closeModal();
+          
+          // Show success message with SweetAlert2
+          Swal.fire({
+            title: 'Success!',
+            text: `Item ${this.isEditMode() ? 'updated' : 'created'} successfully!`,
+            icon: 'success',
+            confirmButtonColor: '#10b981',
+            timer: 3000,
+            timerProgressBar: true
+          });
+
+          // Update with actual data from server
+          if (this.isEditMode()) {
+            this.items.update(items => 
+              items.map(item => item.id === this.selectedItem()!.id ? response.data.whyChooseUs : item)
+            );
+          } else {
+            this.items.update(items => 
+              items.map(item => item.id === newItem.id ? response.data.whyChooseUs : item)
+            );
+          }
         },
         error: (error) => {
-          this.error.set(`Failed to ${this.isEditMode() ? 'update' : 'create'} item. Please try again.`);
           this.isSaving.set(false);
+          
+          // Revert optimistic update on error
+          if (this.isEditMode()) {
+            this.items.update(items => 
+              items.map(item => item.id === this.selectedItem()!.id ? this.selectedItem()! : item)
+            );
+          } else {
+            this.items.update(items => items.filter(item => item.id !== newItem.id));
+            this.pagination.update(p => ({ ...p, total: p.total - 1 }));
+          }
+
+          // Show error message with SweetAlert2
+          Swal.fire({
+            title: 'Error!',
+            text: `Failed to ${this.isEditMode() ? 'update' : 'create'} item. Please try again.`,
+            icon: 'error',
+            confirmButtonColor: '#ef4444'
+          });
         }
       });
   }
 
   deleteItem(item: WhyChooseUsItem): void {
-    if (!confirm(`Are you sure you want to delete "${item.title}"?`)) {
-      return;
-    }
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to delete "${item.title}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.isDeleting.set(item.id);
 
-    this.isDeleting.set(item.id);
-    this.error.set(null);
+        // Optimistic delete
+        const originalItems = [...this.items()];
+        this.items.update(items => items.filter(i => i.id !== item.id));
+        this.pagination.update(p => ({ ...p, total: p.total - 1 }));
 
-    this.apiService.deleteWhyChooseUs(item.id.toString())
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (response) => {
-          this.success.set('Item deleted successfully!');
-          this.loadItems();
-          this.isDeleting.set(null);
-        },
-        error: (error) => {
-          this.error.set('Failed to delete item. Please try again.');
-          this.isDeleting.set(null);
-        }
-      });
+        this.apiService.deleteWhyChooseUs(item.id.toString())
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: (response) => {
+              this.isDeleting.set(null);
+              
+              // Show success message with SweetAlert2
+              Swal.fire({
+                title: 'Deleted!',
+                text: 'Item deleted successfully!',
+                icon: 'success',
+                confirmButtonColor: '#10b981',
+                timer: 3000,
+                timerProgressBar: true
+              });
+            },
+            error: (error) => {
+              this.isDeleting.set(null);
+              
+              // Revert optimistic delete on error
+              this.items.set(originalItems);
+              this.pagination.update(p => ({ ...p, total: p.total + 1 }));
+
+              // Show error message with SweetAlert2
+              Swal.fire({
+                title: 'Error!',
+                text: 'Failed to delete item. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#ef4444'
+              });
+            }
+          });
+      }
+    });
   }
 
   refreshData(): void {
@@ -265,10 +357,6 @@ export class WhyChooseUs implements OnInit, OnDestroy {
     return '';
   }
 
-  clearMessages(): void {
-    this.error.set(null);
-    this.success.set(null);
-  }
 
   formatDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString('en-US', {
