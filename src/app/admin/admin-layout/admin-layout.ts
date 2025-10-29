@@ -1,19 +1,22 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { ClickOutsideDirective } from '../../shared/directives/click-outside.directive';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../../core/auth.service';
+import { NotificationService } from '../../../core/notification.service';
+import { NotificationsComponent } from '../notifications/notifications.component';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [CommonModule, RouterModule, RouterOutlet, ClickOutsideDirective],
+  imports: [CommonModule, RouterModule, RouterOutlet, ClickOutsideDirective, NotificationsComponent],
   templateUrl: './admin-layout.html',
   styleUrls: ['./admin-layout.scss', '../../../styles-admin.scss']
 })
-export class AdminLayoutComponent {
+export class AdminLayoutComponent implements OnInit, OnDestroy {
   private router = inject(Router);
   private authService = inject(AuthService);
+  private notificationService = inject(NotificationService);
   isMobileSidebarOpen = signal(false);
   isUserMenuOpen = signal(false);
   currentPageTitle = signal('Dashboard');
@@ -41,6 +44,24 @@ export class AdminLayoutComponent {
         const title = this.pageTitles[event.url] || 'Admin Panel';
         this.currentPageTitle.set(title);
       });
+  }
+
+  ngOnInit(): void {
+    this.connectToNotifications();
+  }
+
+  ngOnDestroy(): void {
+    this.notificationService.closeConnection();
+  }
+
+  /**
+   * Connect to notification SSE stream
+   */
+  private connectToNotifications(): void {
+    const token = this.authService.getToken();
+    if (token) {
+      this.notificationService.connectToSSE(token);
+    }
   }
 
   getCurrentPageTitle(): string {

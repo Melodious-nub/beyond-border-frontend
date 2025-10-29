@@ -251,7 +251,10 @@
           </div>
 
           <!-- Right side -->
-          <div class="ml-4 flex items-center">
+          <div class="ml-4 flex items-center space-x-4">
+            
+            <!-- Notifications -->
+            <app-notifications></app-notifications>
 
             <!-- User dropdown -->
             <div class="relative" #userMenu clickOutside (clickOutside)="closeUserMenu()">
