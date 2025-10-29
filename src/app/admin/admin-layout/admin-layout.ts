@@ -47,20 +47,23 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.connectToNotifications();
+    this.startNotificationPolling();
   }
 
   ngOnDestroy(): void {
-    this.notificationService.closeConnection();
+    this.notificationService.stopPolling();
   }
 
   /**
-   * Connect to notification SSE stream
+   * Start notification polling
    */
-  private connectToNotifications(): void {
+  private startNotificationPolling(): void {
     const token = this.authService.getToken();
     if (token) {
-      this.notificationService.connectToSSE(token);
+      console.log('🚀 Initializing notification polling...');
+      this.notificationService.startPolling(token);
+    } else {
+      console.warn('⚠️ No auth token found, polling not started');
     }
   }
 

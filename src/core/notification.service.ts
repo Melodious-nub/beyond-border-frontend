@@ -44,161 +44,170 @@ export class NotificationService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/notifications`;
   
-  // SSE connection
-  private reader: ReadableStreamDefaultReader<Uint8Array> | null = null;
-  private abortController: AbortController | null = null;
-  private reconnectAttempts = 0;
-  private maxReconnectAttempts = 5;
-  private reconnectDelay = 3000;
-  private reconnectTimer: any = null;
+  // Polling configuration
+  private pollingInterval: any = null;
+  private pollingFrequency = 30000; // 30 seconds
+  private previousUnreadCount = 0;
+  private isPolling = false;
+  private errorCount = 0;
+  private maxErrors = 5;
 
   // Reactive state
   public notifications$ = new BehaviorSubject<Notification[]>([]);
   public unreadCount$ = new BehaviorSubject<number>(0);
   public newNotification$ = new Subject<Notification>();
-  public connectionStatus$ = new BehaviorSubject<'connected' | 'disconnected' | 'connecting'>('disconnected');
+  public connectionStatus$ = new BehaviorSubject<'connected' | 'disconnected' | 'polling'>('disconnected');
 
   /**
-   * Connect to SSE using fetch API for better header control
+   * Start polling for notifications
    */
-  async connectToSSE(token: string): Promise<void> {
-    if (this.reader) {
+  startPolling(token: string): void {
+    if (this.isPolling) {
+      console.log('📊 Polling already active');
       return;
     }
 
-    this.connectionStatus$.next('connecting');
+    console.log(`📊 Starting notification polling (interval: ${this.pollingFrequency / 1000}s)`);
+    this.isPolling = true;
+    this.connectionStatus$.next('polling');
+    this.errorCount = 0;
 
-    try {
-      this.abortController = new AbortController();
+    // Initial check immediately
+    this.checkForNewNotifications();
 
-      const response = await fetch(`${this.apiUrl}/stream`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'text/event-stream'
-        },
-        signal: this.abortController.signal
-      });
+    // Setup polling interval
+    this.pollingInterval = setInterval(() => {
+      this.checkForNewNotifications();
+    }, this.pollingFrequency);
 
-      if (!response.ok) {
-        throw new Error(`Failed to connect to SSE stream: ${response.status}`);
-      }
-
-      const reader = response.body?.getReader();
-      if (!reader) {
-        throw new Error('No reader available');
-      }
-
-      this.reader = reader;
-      this.connectionStatus$.next('connected');
-      this.reconnectAttempts = 0;
-
-      this.readStream(reader);
-    } catch (error: any) {
-      if (error.name !== 'AbortError') {
-        this.handleDisconnect(token);
-      }
-    }
+    // Setup visibility change handler to pause/resume polling
+    this.setupVisibilityHandler();
   }
 
   /**
-   * Read SSE stream
+   * Stop polling for notifications
    */
-  private async readStream(reader: ReadableStreamDefaultReader<Uint8Array>): Promise<void> {
-    const decoder = new TextDecoder();
-    let buffer = '';
+  stopPolling(): void {
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+      this.pollingInterval = null;
+    }
+    this.isPolling = false;
+    this.connectionStatus$.next('disconnected');
+    console.log('📊 Polling stopped');
+  }
 
-    try {
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n\n');
-        buffer = lines.pop() || '';
-
-        for (const line of lines) {
-          if (line.startsWith('data: ')) {
-            const data = line.substring(6);
-            try {
-              const event = JSON.parse(data);
-              this.handleSSEEvent(event);
-            } catch (e) {
-              // Ignore parsing errors
-            }
+  /**
+   * Check for new notifications
+   */
+  private checkForNewNotifications(): void {
+    this.getUnreadCount().subscribe({
+      next: (response) => {
+        if (response.success) {
+          const currentCount = response.data.count;
+          
+          // Update unread count
+          this.unreadCount$.next(currentCount);
+          
+          // Check if there are new notifications
+          if (currentCount > this.previousUnreadCount) {
+            const newCount = currentCount - this.previousUnreadCount;
+            console.log(`🔔 New notifications detected: ${newCount}`);
+            
+            // Fetch the latest notifications
+            this.fetchLatestNotifications();
+          }
+          
+          this.previousUnreadCount = currentCount;
+          this.errorCount = 0; // Reset error count on success
+          
+          if (this.connectionStatus$.value !== 'polling') {
+            this.connectionStatus$.next('polling');
           }
         }
-      }
-    } catch (error: any) {
-      if (error.name !== 'AbortError') {
-        this.handleDisconnect(localStorage.getItem('token') || '');
-      }
-    }
-  }
-
-  /**
-   * Handle SSE events
-   */
-  private handleSSEEvent(event: any): void {
-    switch (event.type) {
-      case 'connected':
-        break;
-
-      case 'notification':
-        const notification = event.data as Notification;
-        this.newNotification$.next(notification);
-        this.incrementUnreadCount();
-        break;
-
-      case 'unread_count':
-        this.unreadCount$.next(event.data.count);
-        break;
-
-      case 'heartbeat':
-        break;
-
-      default:
-        break;
-    }
-  }
-
-  /**
-   * Handle disconnect and attempt reconnection
-   */
-  private handleDisconnect(token: string): void {
-    this.connectionStatus$.next('disconnected');
-    this.closeConnection();
-
-    if (this.reconnectAttempts < this.maxReconnectAttempts) {
-      this.reconnectAttempts++;
-      
-      this.reconnectTimer = setTimeout(() => {
-        if (token) {
-          this.connectToSSE(token);
+      },
+      error: (error) => {
+        this.errorCount++;
+        console.error(`❌ Polling error (${this.errorCount}/${this.maxErrors}):`, error.message);
+        
+        // If too many errors, increase polling interval
+        if (this.errorCount >= this.maxErrors) {
+          console.warn('⚠️ Too many polling errors, slowing down polling...');
+          this.adjustPollingFrequency(60000); // Slow down to 1 minute
         }
-      }, this.reconnectDelay * this.reconnectAttempts);
-    }
+      }
+    });
   }
 
   /**
-   * Close SSE connection
+   * Fetch latest notifications when count increases
    */
-  closeConnection(): void {
-    if (this.abortController) {
-      this.abortController.abort();
-      this.abortController = null;
-    }
+  private fetchLatestNotifications(): void {
+    this.getNotifications(1, 5).subscribe({
+      next: (response) => {
+        if (response.success) {
+          const latestNotifications = response.data.notifications;
+          
+          // Find truly new notifications (not in current list)
+          const currentIds = this.notifications$.value.map(n => n.id);
+          const newNotifications = latestNotifications.filter(n => !currentIds.includes(n.id));
+          
+          // Emit each new notification
+          newNotifications.forEach(notification => {
+            this.newNotification$.next(notification);
+          });
+          
+          // Update notifications list
+          this.notifications$.next(latestNotifications);
+        }
+      },
+      error: (error) => {
+        console.error('❌ Error fetching latest notifications:', error);
+      }
+    });
+  }
 
-    if (this.reader) {
-      this.reader.cancel();
-      this.reader = null;
-    }
+  /**
+   * Setup visibility change handler to pause/resume polling
+   */
+  private setupVisibilityHandler(): void {
+    if (typeof document === 'undefined') return;
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        // Tab is hidden - slow down polling to 2 minutes
+        console.log('👁️ Tab hidden, slowing polling to 2 minutes');
+        this.adjustPollingFrequency(120000);
+      } else {
+        // Tab is visible - restore normal polling
+        console.log('👁️ Tab visible, restoring normal polling');
+        this.adjustPollingFrequency(30000);
+        // Check immediately when tab becomes visible
+        this.checkForNewNotifications();
+      }
+    });
+  }
+
+  /**
+   * Adjust polling frequency
+   */
+  private adjustPollingFrequency(newFrequency: number): void {
+    if (this.pollingFrequency === newFrequency) return;
     
-    if (this.reconnectTimer) {
-      clearTimeout(this.reconnectTimer);
-      this.reconnectTimer = null;
+    this.pollingFrequency = newFrequency;
+    
+    // Restart polling with new frequency
+    if (this.isPolling) {
+      if (this.pollingInterval) {
+        clearInterval(this.pollingInterval);
+      }
+      
+      this.pollingInterval = setInterval(() => {
+        this.checkForNewNotifications();
+      }, this.pollingFrequency);
+      
+      console.log(`⚙️ Polling frequency adjusted to ${this.pollingFrequency / 1000}s`);
     }
-
-    this.connectionStatus$.next('disconnected');
   }
 
   /**
@@ -254,6 +263,7 @@ export class NotificationService {
     const current = this.unreadCount$.value;
     if (current > 0) {
       this.unreadCount$.next(current - 1);
+      this.previousUnreadCount = Math.max(0, this.previousUnreadCount - 1);
     }
   }
 
@@ -262,6 +272,7 @@ export class NotificationService {
    */
   resetUnreadCount(): void {
     this.unreadCount$.next(0);
+    this.previousUnreadCount = 0;
   }
 
   /**
@@ -271,10 +282,30 @@ export class NotificationService {
     this.getUnreadCount().subscribe({
       next: (response) => {
         if (response.success) {
-          this.unreadCount$.next(response.data.count);
+          const count = response.data.count;
+          this.unreadCount$.next(count);
+          this.previousUnreadCount = count;
+          console.log(`📊 Initial unread count: ${count}`);
         }
+      },
+      error: (error) => {
+        console.error('❌ Error loading unread count:', error);
       }
     });
+  }
+
+  /**
+   * Get current polling status
+   */
+  isPollingActive(): boolean {
+    return this.isPolling;
+  }
+
+  /**
+   * Get current polling frequency (for debugging)
+   */
+  getPollingFrequency(): number {
+    return this.pollingFrequency;
   }
 }
 
