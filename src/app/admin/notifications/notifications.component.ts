@@ -45,10 +45,20 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Setup real-time notification listener
+   * Setup notification listeners - sync with service state
    */
   private setupNotificationListener(): void {
-    // Listen for new notifications
+    // Subscribe to notification list updates from service (central source of truth)
+    this.notificationService.notifications$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((notifications) => {
+        // Only update if we're showing the first page or dropdown is closed
+        if (this.currentPage === 1 || !this.isDropdownOpen()) {
+          this.notifications.set(notifications);
+        }
+      });
+
+    // Listen for NEW notifications (for sound/push notification only)
     this.notificationService.newNotification$
       .pipe(takeUntil(this.destroy$))
       .subscribe((notification) => {
@@ -64,17 +74,14 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Handle new notification
+   * Handle new notification - play sound and show push notification
+   * DON'T manually update list - service handles that
    */
   private handleNewNotification(notification: Notification): void {
-    // Add to notifications list at the beginning
-    const currentNotifications = this.notifications();
-    this.notifications.set([notification, ...currentNotifications]);
-
     // Play sound
     this.soundService.playNotificationSound();
 
-    // Show browser push notification if not focused
+    // Show browser push notification if window not focused
     if (!document.hasFocus()) {
       this.pushNotificationService.showNotification(notification);
     }
@@ -97,13 +104,15 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Toggle dropdown
+   * Toggle dropdown - always refresh when opening
    */
   toggleDropdown(): void {
     const isOpen = !this.isDropdownOpen();
     this.isDropdownOpen.set(isOpen);
 
-    if (isOpen && this.notifications().length === 0) {
+    if (isOpen) {
+      // Always refresh when opening to get latest notifications in proper order
+      this.currentPage = 1;
       this.loadNotifications();
     }
   }
@@ -128,11 +137,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.success) {
             const newNotifications = response.data.notifications;
-            const currentNotifications = this.currentPage === 1 
-              ? newNotifications 
-              : [...this.notifications(), ...newNotifications];
             
-            this.notifications.set(currentNotifications);
+            if (this.currentPage === 1) {
+              // First page - replace all notifications
+              this.notifications.set(newNotifications);
+            } else {
+              // Subsequent pages - append to existing list
+              const currentNotifications = this.notifications();
+              this.notifications.set([...currentNotifications, ...newNotifications]);
+            }
+            
             this.totalPages = response.data.pagination.pages;
             this.hasMore.set(this.currentPage < this.totalPages);
           }
@@ -255,4 +269,3 @@ export class NotificationsComponent implements OnInit, OnDestroy {
     }
   }
 }
-

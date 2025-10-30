@@ -44,121 +44,213 @@ export class NotificationService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/notifications`;
   
-  // Polling configuration
-  private pollingInterval: any = null;
-  private pollingFrequency = 30000; // 30 seconds
+  // Web Worker for polling (NOT throttled by browser!)
+  private worker: Worker | null = null;
   private previousUnreadCount = 0;
   private isPolling = false;
-  private errorCount = 0;
-  private maxErrors = 5;
+  private lastNotificationCheck = 0;
+  
+  // Fallback polling for non-Web Worker browsers
+  private fallbackInterval: any = null;
 
-  // Reactive state
+  // Reactive state - central source of truth
   public notifications$ = new BehaviorSubject<Notification[]>([]);
   public unreadCount$ = new BehaviorSubject<number>(0);
   public newNotification$ = new Subject<Notification>();
   public connectionStatus$ = new BehaviorSubject<'connected' | 'disconnected' | 'polling'>('disconnected');
 
   /**
-   * Start polling for notifications
+   * Start polling using Web Worker (NOT throttled in background!)
    */
   startPolling(token: string): void {
     if (this.isPolling) {
-      console.log('📊 Polling already active');
       return;
     }
 
-    console.log(`📊 Starting notification polling (interval: ${this.pollingFrequency / 1000}s)`);
+    if (typeof Worker !== 'undefined') {
+      try {
+        // Create Web Worker from public folder
+        this.worker = new Worker('/notification-worker.js');
+        
+        // Listen for messages from worker
+        this.worker.onmessage = (event) => {
+          this.handleWorkerMessage(event.data);
+        };
+
+        this.worker.onerror = (error) => {
+          console.error('❌ Web Worker error:', error);
+          this.fallbackToRegularPolling(token);
+        };
+
+        // Start worker with API URL and token
+        this.worker.postMessage({
+          type: 'start',
+          data: {
+            apiUrl: environment.apiUrl,
+            token: token
+          }
+        });
+
+        this.isPolling = true;
+
+        // Setup visibility handler for immediate checks
+        this.setupVisibilityHandler();
+
+      } catch (error) {
+        console.error('❌ Failed to create Web Worker:', error);
+        this.fallbackToRegularPolling(token);
+      }
+    } else {
+      // Browser doesn't support Web Workers
+      console.warn('⚠️ Web Workers not supported, using fallback polling');
+      this.fallbackToRegularPolling(token);
+    }
+  }
+
+  /**
+   * Handle messages from Web Worker
+   */
+  private handleWorkerMessage(message: any): void {
+    const { type, data, error, errorCount } = message;
+    
+    switch (type) {
+      case 'started':
+        this.connectionStatus$.next('polling');
+        break;
+        
+      case 'stopped':
+        this.connectionStatus$.next('disconnected');
+        break;
+        
+      case 'unreadCount':
+        this.handleUnreadCount(data);
+        break;
+        
+      case 'error':
+        if (errorCount >= 3) {
+          console.error('❌ Worker polling error:', error);
+        }
+        break;
+        
+      case 'slowdown':
+        console.warn('⚠️ Polling slowed down due to errors');
+        break;
+        
+      case 'workerError':
+        console.error('❌ Worker fatal error:', error);
+        break;
+    }
+  }
+
+  /**
+   * Fallback to regular polling if Web Worker fails
+   */
+  private fallbackToRegularPolling(token: string): void {
+    if (this.isPolling) return;
+    
     this.isPolling = true;
     this.connectionStatus$.next('polling');
-    this.errorCount = 0;
-
-    // Initial check immediately
-    this.checkForNewNotifications();
-
-    // Setup polling interval
-    this.pollingInterval = setInterval(() => {
+    
+    const poll = () => {
       this.checkForNewNotifications();
-    }, this.pollingFrequency);
-
-    // Setup visibility change handler to pause/resume polling
+    };
+    
+    // Initial check
+    poll();
+    
+    // Poll every 30 seconds (will be throttled in background but better than nothing)
+    this.fallbackInterval = setInterval(poll, 30000);
+    
+    // Setup visibility handler for immediate checks
     this.setupVisibilityHandler();
   }
 
   /**
-   * Stop polling for notifications
+   * Stop polling
    */
   stopPolling(): void {
-    if (this.pollingInterval) {
-      clearInterval(this.pollingInterval);
-      this.pollingInterval = null;
+    if (this.worker) {
+      this.worker.postMessage({ type: 'stop' });
+      this.worker.terminate();
+      this.worker = null;
     }
+    
+    if (this.fallbackInterval) {
+      clearInterval(this.fallbackInterval);
+      this.fallbackInterval = null;
+    }
+    
     this.isPolling = false;
     this.connectionStatus$.next('disconnected');
-    console.log('📊 Polling stopped');
   }
 
   /**
-   * Check for new notifications
+   * Handle unread count update from worker or fallback polling
+   */
+  private handleUnreadCount(currentCount: number): void {
+    // Update unread count
+    this.unreadCount$.next(currentCount);
+    
+    // Check if there are NEW notifications (count increased)
+    if (currentCount > this.previousUnreadCount) {
+      const newCount = currentCount - this.previousUnreadCount;
+      
+      // Fetch latest notifications to update the list and emit new ones
+      this.fetchLatestNotifications();
+    }
+    
+    this.previousUnreadCount = currentCount;
+    
+    if (this.connectionStatus$.value !== 'polling') {
+      this.connectionStatus$.next('polling');
+    }
+  }
+
+  /**
+   * Check for new notifications (used by fallback polling and visibility handler)
    */
   private checkForNewNotifications(): void {
     this.getUnreadCount().subscribe({
       next: (response) => {
         if (response.success) {
-          const currentCount = response.data.count;
-          
-          // Update unread count
-          this.unreadCount$.next(currentCount);
-          
-          // Check if there are new notifications
-          if (currentCount > this.previousUnreadCount) {
-            const newCount = currentCount - this.previousUnreadCount;
-            console.log(`🔔 New notifications detected: ${newCount}`);
-            
-            // Fetch the latest notifications
-            this.fetchLatestNotifications();
-          }
-          
-          this.previousUnreadCount = currentCount;
-          this.errorCount = 0; // Reset error count on success
-          
-          if (this.connectionStatus$.value !== 'polling') {
-            this.connectionStatus$.next('polling');
-          }
+          this.handleUnreadCount(response.data.count);
         }
       },
       error: (error) => {
-        this.errorCount++;
-        console.error(`❌ Polling error (${this.errorCount}/${this.maxErrors}):`, error.message);
-        
-        // If too many errors, increase polling interval
-        if (this.errorCount >= this.maxErrors) {
-          console.warn('⚠️ Too many polling errors, slowing down polling...');
-          this.adjustPollingFrequency(60000); // Slow down to 1 minute
-        }
+        // Silent fail to avoid console spam
       }
     });
   }
 
   /**
    * Fetch latest notifications when count increases
+   * CRITICAL: This maintains proper ordering and emits new notifications
    */
   private fetchLatestNotifications(): void {
-    this.getNotifications(1, 5).subscribe({
+    // Get top 10 most recent notifications
+    this.getNotifications(1, 10).subscribe({
       next: (response) => {
         if (response.success) {
           const latestNotifications = response.data.notifications;
           
-          // Find truly new notifications (not in current list)
+          // Get current notification IDs to find truly new ones
           const currentIds = this.notifications$.value.map(n => n.id);
-          const newNotifications = latestNotifications.filter(n => !currentIds.includes(n.id));
           
-          // Emit each new notification
+          // Replace entire list with latest to ensure proper ordering
+          this.notifications$.next(latestNotifications);
+          
+          // Find notifications that are truly new (not in previous list AND recent)
+          const newNotifications = latestNotifications.filter(n => {
+            const isNew = !currentIds.includes(n.id);
+            const isRecent = new Date(n.createdAt).getTime() > (Date.now() - 60000); // Last minute
+            const isUnread = !n.isRead;
+            return isNew && isRecent && isUnread;
+          });
+          
+          // Emit each new notification for sound/push notification
           newNotifications.forEach(notification => {
             this.newNotification$.next(notification);
           });
-          
-          // Update notifications list
-          this.notifications$.next(latestNotifications);
         }
       },
       error: (error) => {
@@ -168,46 +260,30 @@ export class NotificationService {
   }
 
   /**
-   * Setup visibility change handler to pause/resume polling
+   * Setup visibility handler - check immediately when tab becomes visible
    */
   private setupVisibilityHandler(): void {
     if (typeof document === 'undefined') return;
 
+    // Check when tab becomes visible
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        // Tab is hidden - slow down polling to 2 minutes
-        console.log('👁️ Tab hidden, slowing polling to 2 minutes');
-        this.adjustPollingFrequency(120000);
-      } else {
-        // Tab is visible - restore normal polling
-        console.log('👁️ Tab visible, restoring normal polling');
-        this.adjustPollingFrequency(30000);
-        // Check immediately when tab becomes visible
+      if (!document.hidden) {
+        // Tab just became visible - check immediately for missed notifications
         this.checkForNewNotifications();
       }
     });
-  }
-
-  /**
-   * Adjust polling frequency
-   */
-  private adjustPollingFrequency(newFrequency: number): void {
-    if (this.pollingFrequency === newFrequency) return;
     
-    this.pollingFrequency = newFrequency;
-    
-    // Restart polling with new frequency
-    if (this.isPolling) {
-      if (this.pollingInterval) {
-        clearInterval(this.pollingInterval);
-      }
-      
-      this.pollingInterval = setInterval(() => {
+    // Also check on window focus
+    window.addEventListener('focus', () => {
+      if (!document.hidden) {
         this.checkForNewNotifications();
-      }, this.pollingFrequency);
-      
-      console.log(`⚙️ Polling frequency adjusted to ${this.pollingFrequency / 1000}s`);
-    }
+      }
+    });
+    
+    // Check when connection is restored
+    window.addEventListener('online', () => {
+      this.checkForNewNotifications();
+    });
   }
 
   /**
@@ -250,13 +326,6 @@ export class NotificationService {
   }
 
   /**
-   * Increment unread count locally
-   */
-  private incrementUnreadCount(): void {
-    this.unreadCount$.next(this.unreadCount$.value + 1);
-  }
-
-  /**
    * Decrement unread count locally
    */
   decrementUnreadCount(): void {
@@ -285,7 +354,6 @@ export class NotificationService {
           const count = response.data.count;
           this.unreadCount$.next(count);
           this.previousUnreadCount = count;
-          console.log(`📊 Initial unread count: ${count}`);
         }
       },
       error: (error) => {
@@ -300,12 +368,4 @@ export class NotificationService {
   isPollingActive(): boolean {
     return this.isPolling;
   }
-
-  /**
-   * Get current polling frequency (for debugging)
-   */
-  getPollingFrequency(): number {
-    return this.pollingFrequency;
-  }
 }
-
